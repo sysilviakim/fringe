@@ -19,5 +19,6 @@ install.packages("lubridate")
 install.packages("assertthat")
 install.packages("fst")
 install.packages("styler")
+install.packages("jsonlite")
 
 renv::snapshot()
