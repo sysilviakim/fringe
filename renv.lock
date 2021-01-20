@@ -365,6 +365,13 @@
       "Repository": "CRAN",
       "Hash": "221d0ad75dfa03ebf17b1a4cc5c31dfc"
     },
+    "here": {
+      "Package": "here",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "24b224366f9c2e7534d2344d10d59211"
+    },
     "highr": {
       "Package": "highr",
       "Version": "0.8",
@@ -399,6 +406,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "53647fb507373700028b2ce6cd30751a"
+    },
+    "janitor": {
+      "Package": "janitor",
+      "Version": "2.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "6de84a8c67fb247e721166049c84695f"
     },
     "jsonlite": {
       "Package": "jsonlite",
@@ -686,6 +700,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "767de4760297e70995edb7b30fbda816"
+    },
+    "snakecase": {
+      "Package": "snakecase",
+      "Version": "0.11.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4079070fc210c7901c0832a3aeab894f"
     },
     "stringi": {
       "Package": "stringi",

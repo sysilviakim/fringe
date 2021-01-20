@@ -21,5 +21,6 @@ install.packages("assertthat")
 install.packages("fst")
 install.packages("styler")
 install.packages("jsonlite")
+install.packages("janitor")
 
 renv::snapshot()
