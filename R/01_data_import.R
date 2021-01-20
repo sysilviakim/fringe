@@ -1,10 +1,10 @@
-source("R/utilities.R")
+source(here::here("R", "utilities.R"))
 
 # Import data ==================================================================
 # Manually copied/renamed from solicitR data collection repository
 # Seventeen .Rda files; no cleaning; altogether 400mb+
 
-if (!file.exists("data/tidy/president_2020.fst")) {
+if (!file.exists(here("data/tidy/president_2020.fst"))) {
   categories <- c(
     "president", "senate", "house", "actblue", "rightus", "winred"
   )
@@ -23,13 +23,13 @@ if (!file.exists("data/tidy/president_2020.fst")) {
   
   categories %>%
     map(
-      ~ write_fst(df_ls[[.x]], paste0("data/tidy/", .x, "_2020.fst"))
+      ~ write_fst(df_ls[[.x]], here(paste0("data/tidy/", .x, "_2020.fst")))
     )
 } else {
   # Allow specifying categories outside this script
   df_ls <- categories %>%
     set_names(., .) %>%
     map(
-      ~ read_fst(paste0("data/tidy/", .x, "_2020.fst"))
+      ~ read_fst(here(paste0("data/tidy/", .x, "_2020.fst")))
     )
 }

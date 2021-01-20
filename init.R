@@ -14,6 +14,7 @@ Kmisc::proj_skeleton()
 install.packages("plyr")
 install.packages("tidyverse")
 install.packages("lubridate")
+install.packages("here")
 
 # CRAN non-tidyverse
 install.packages("assertthat")
