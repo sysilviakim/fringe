@@ -9,6 +9,7 @@ library(fst)
 library(assertthat)
 library(jsonlite)
 library(janitor)
+library(data.table)
 
 library(Kmisc)
 

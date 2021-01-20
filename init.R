@@ -22,5 +22,6 @@ install.packages("fst")
 install.packages("styler")
 install.packages("jsonlite")
 install.packages("janitor")
+install.packages("data.table")
 
 renv::snapshot()
