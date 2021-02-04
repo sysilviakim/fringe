@@ -13,23 +13,29 @@ if (!file.exists(here("data/tidy/president_2020.fst"))) {
     map(
       ~ list.files(
         "data/raw",
-        pattern = .x, full.names = TRUE
+        pattern = .x, 
+        full.names = TRUE
       ) %>%
+        keep(~ grepl("amount", .x)) %>%
         map(loadRData) %>%
         bind_rows() %>%
         as_tibble() %>%
         dedup()
     )
-  
+
   categories %>%
     map(
       ~ write_fst(df_ls[[.x]], here(paste0("data/tidy/", .x, "_2020.fst")))
     )
 } else {
   # Allow specifying categories outside this script
-  df_ls <- categories %>%
-    set_names(., .) %>%
-    map(
-      ~ read_fst(here(paste0("data/tidy/", .x, "_2020.fst")))
-    )
+  if (length(categories) > 1) {
+    df_ls <- categories %>%
+      set_names(., .) %>%
+      map(
+        ~ read_fst(here(paste0("data/tidy/", .x, "_2020.fst")))
+      )
+  } else if (length(categories) == 1) {
+    df_raw <- read_fst(here(paste0("data/tidy/", categories, "_2020.fst")))
+  }
 }
