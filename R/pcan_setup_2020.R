@@ -1,8 +1,4 @@
-suppressMessages({
-  # devtools::install_github("sysilviakim/Kmisc")
-  setwd(file.path(dirname(Kmisc:::this_file())))
-  source("../../solicitR_fxns.R")
-})
+source(here::here("R", "utilities.R"))
 
 # Setup the Republican candidates' information =================================
 cand_rep_2020 <- list(
@@ -1480,28 +1476,3 @@ temp <- wayback_front %>%
       (campaign_website != "https://www.donaldjtrump.com" & year >= 2019)
   ) %>%
   left_join(., temp %>% select(-year))
-
-assert_that(sum(is.na(temp$first_name)) == 0)
-
-# Check WayBack Machine snapshots: front page daily, source ====================
-for (i in seq(nrow(temp))) {
-  url <- temp$link[i]
-  con <- tryCatch(read_html(url), error = function(e) print(e))
-  
-  if (sum(class(con) == "error") < 1) {
-    write_xml(
-      con,
-      file = file.path(
-        "wayback", "front", "html", 
-        paste0(
-          tolower(temp$last_name[i]), "_",  format(temp$dt[i], "%Y%m%d%H%M%S"), 
-          "_front", ".html"
-        )
-      )
-    )
-  }
-  message(
-    paste0(i, "-th row (", temp$last_name[i], ", ", temp$dt[i], ") completed.")
-  )
-  Sys.sleep(30)
-}
