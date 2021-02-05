@@ -1,7 +1,7 @@
 categories <- "actblue"
 source(here::here("R", "01_data_import.R"))
 
-assert_that(all(!is.na(df_ls$actblue$url)))
+assert_that(all(!is.na(df_raw$url)))
 
 temp <- df_raw %>%
   rename(name = fundraiser) %>%
