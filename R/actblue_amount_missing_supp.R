@@ -31,6 +31,7 @@ temp <- full_join(
 amount_missing <- temp %>%
   filter(is.na(amount))
 
+# Supplementary data for missing amounts =======================================
 js_supp <- amount_supp <- vector("list", nrow(amount_missing))
 for (i in seq(nrow(amount_missing))) {
   tryCatch(
@@ -65,6 +66,7 @@ js_supp %>%
   View()
 # 45 unavailable due to 404 error
 
+# List to dataframe, save ======================================================
 amount_supp <- seq(nrow(amount_missing)) %>%
   map_dfr(
     ~ {
@@ -82,5 +84,6 @@ amount_supp <- seq(nrow(amount_missing)) %>%
   )
 
 save(
-  amount_supp, file = here("data/raw/actblue_amount_scraped_2020_supp.Rda")
+  amount_supp,
+  file = here("data/raw/actblue_amount_scraped_2020_supp.Rda")
 )
