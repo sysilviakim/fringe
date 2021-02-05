@@ -2,7 +2,7 @@ categories <- "winred"
 source(here::here("R", "01_data_import.R"))
 
 # Wrote function: portfolio_summ ===============================================
-temp <- df_ls[[categories]] %>%
+temp <- df_raw %>%
   # To kick out duplicates
   mutate(url = gsub("\\?sc=winred-directory", "", url)) %>%
   mutate(name = gsub(" for Congress", "", name)) %>%
@@ -60,7 +60,7 @@ pdf_default(p)
 dev.off()
 
 # Save Output (Check for No-Prompt Referrals) ==================================
-entities <- df_ls[[categories]] %>%
+entities <- df_raw %>%
   select(!!c("name", "race")) %>%
   mutate(name = gsub(" for Congress", "", name)) %>%
   mutate(

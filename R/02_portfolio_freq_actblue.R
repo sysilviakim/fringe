@@ -3,7 +3,7 @@ source(here::here("R", "01_data_import.R"))
 
 assert_that(all(!is.na(df_ls$actblue$url)))
 
-temp <- df_ls[[categories]] %>%
+temp <- df_raw %>%
   rename(name = fundraiser) %>%
   portfolio_summ(., exclude_cols = c("name", "year", "url"))
 
@@ -37,7 +37,7 @@ pdf_default(p)
 dev.off()
 
 # Save Output (Check for No-Prompt Referrals) ==================================
-entities <- df_ls[[categories]] %>%
+entities <- df_raw %>%
   rename(name = fundraiser) %>%
   select(!!c("name", "year")) %>%
   dedup()
