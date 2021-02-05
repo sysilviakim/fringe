@@ -105,5 +105,87 @@ portfolio_summ <- function(df,
   )
 }
 
+fundraising_actblue <- function(x) {
+  out <- read_html(x) %>%
+    html_nodes(xpath = ".//script[contains(., 'preloadedState')]") %>%
+    html_text() %>%
+    as.character() %>%
+    str_match_all(., '(?<="amounts":\\[)(\\d+,?)+') %>%
+    .[[1]] %>%
+    .[, 1] %>%
+    str_split(",") %>%
+    unlist() %>%
+    as.numeric() %>%
+    (function(x) x / 100)
+  return(out)
+}
+
+actblue_js <- function(url) {
+  x <- read_html(url) %>%
+    html_nodes(xpath = '//*[@type="text/javascript"]') %>%
+    html_text()
+  
+  temp <- x %>%
+    map(
+      ~ {
+        temp <- str_match_all(.x, "window.indigoListResponse = (\\{.*\\})")
+        if (!is.null(temp)) {
+          temp[[1]][,2]
+        }
+      }
+    ) %>%
+    unlist() %>%
+    fromJSON()
+  
+  # temp$entities
+  # temp three types: vector, dataframe, value
+  temp_df <- temp %>%
+    map(is.data.frame) %>%
+    unlist() %>%
+    which() %>%
+    names()
+  
+  temp_vc <- temp %>%
+    map(~ length(.x) > 1 & !is.data.frame(.x)) %>%
+    unlist() %>%
+    which() %>%
+    names()
+  
+  json_rest <- names(temp) %>% 
+    map(
+      ~ {
+        if (
+          !is.null(temp[[.x]]) &
+          !(
+            .x %in% c(
+              # "entities", "post_donation_upsells", "brandings",
+              temp_df,
+              # "relevant_surrogate_keys", "share_content", "radio_amounts",
+              # "eligibility_values", "eligibility_values_es",
+              # "list_disclaimer_policy", "acceptable_card_types",
+              # "managing_entity", "fundraising_video", "custom_fields"
+              temp_vc
+            )
+          )
+        ) {
+          tibble(!!as.name(.x) := temp[[.x]])
+        } else {
+          NULL
+        }
+      }
+    ) %>%
+    keep(~ !is.null(.x)) %>% 
+    keep(~ nrow(.x) > 0) %>% 
+    bind_cols()
+  
+  out <- tibble(url = url, js_rest = json_rest)
+  for (i in c(temp_df, temp_vc)) {
+    out[[i]] <- list(temp[[i]])
+  }
+  assert_that(nrow(out) == 1)
+  
+  return(out)
+}
+
 # Other options ================================================================
 options(scipen = 999)
