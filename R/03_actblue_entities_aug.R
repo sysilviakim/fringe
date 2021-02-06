@@ -1,11 +1,8 @@
-categories <- "actblue"
 source(here::here("R", "utilities.R"))
 
 # Load data + sanity checks ====================================================
 entities <- loadRData(here("data/raw/actblue_entities_2020.Rda"))
 fundraisers <- loadRData(here("data/raw/actblue_fundraisers_2020.Rda"))
-# actblue <- read_fst(here("data/tidy/actblue_2020.fst"))
-# js_out <- loadRData(here("data/raw/actblue_js_scraped_2020.Rda"))
 
 assert_that(all(fundraisers$fund_title == fundraisers$fund_title_hidden))
 assert_that(all(grepl("/donate/", fundraisers$fund_url)))
@@ -75,6 +72,6 @@ assert_that(
 )
 
 # Eventually, I would need to slice or summarize by fund_url
-assert_that(any(duplicated(fundraiser_full$fund_url)))
+assert_that(any(duplicated(fundraisers_full$fund_url)))
 
 write_fst(fundraisers_full, here("data/tidy/actblue_fundraisers_full.fst"))
