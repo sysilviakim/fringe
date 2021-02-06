@@ -1,20 +1,39 @@
 source(here::here("R", "utilities.R"))
 
-# Load data + sanity checks ====================================================
+# Load data ====================================================================
 entities <- loadRData(here("data/raw/actblue_entities_2020.Rda"))
 fundraisers <- loadRData(here("data/raw/actblue_fundraisers_2020.Rda"))
+pagedf <- loadRData(here("data/raw/actblue_pagedf_fundraisers_2020.Rda")) %>%
+  filter(url != "https://secure.actblue.comNA")
 
-assert_that(all(fundraisers$fund_title == fundraisers$fund_title_hidden))
-assert_that(all(grepl("/donate/", fundraisers$fund_url)))
+# entities is a directory-entity html read
+# fundraisers are ones listed under each entity
+# pagedf, in theory, should match fundraisers, but not quite the same
 
+# Sanity checks ================================================================
 # No duplicates
 # URLs ---> some duplicates due to year differences or missing year/race
 assert_that(any(duplicated(entities$url)))
 assert_that(any(duplicated(fundraisers$fund_title)))
 assert_that(nrow(entities[duplicated(entities), ]) == 0)
 assert_that(nrow(fundraisers[duplicated(fundraisers), ]) == 0)
+assert_that(all(fundraisers$fund_title == fundraisers$fund_title_hidden))
+assert_that(all(grepl("/donate/", fundraisers$fund_url)))
 
-# Duplicates in fund_title because there are multi-entity fundraisers e.g., 
+setdiff(
+  gsub("https://secure.actblue.com", "", pagedf$url),
+  fundraisers$fund_url
+)
+# [1] "/entity/fundraisers/8319"
+# [2] "/donate/committee-to-elect-rebecca-chamberlain-creanga-1" --> 404 error
+
+setdiff(
+  fundraisers$fund_url,
+  gsub("https://secure.actblue.com", "", pagedf$url)
+)
+# nothing
+
+# Duplicates in fund_title because there are multi-entity fundraisers e.g.,
 # "11 Swing District Democrats in Texas that need your help!"
 # Because for 2020 I had not properly scraped the js output, (am doing for 2022)
 # there is no way to see which one of them appeared first in a single
