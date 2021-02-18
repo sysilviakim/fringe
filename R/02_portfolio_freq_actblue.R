@@ -17,12 +17,15 @@ p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
   bind_rows() %>%
   mutate(
     label = gsub("-", "\n", label),
+    # So that length would match with WinRed/Right.us
+    label = paste0(label, "\n"),
     label = factor(
       label,
       levels = gsub(
         "-", "\n",
         names(prop(temp, "amount", sort = TRUE, head = 5, print = FALSE))
-      )
+      ) %>%
+        paste0(., "\n")
     )
   ) %>%
   ggplot(aes(x = label, y = freq)) +
@@ -32,7 +35,7 @@ p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
   ylab("Percentage (%)") + 
   scale_y_continuous(limits = c(0, 50))
 
-pdf(here("fig/portfolio_freq_top_5_actblue.pdf"), width = 3.5, height = 3.5)
+pdf(here("fig/portfolio_freq_top_5_actblue.pdf"), width = 3, height = 3)
 print(pdf_default(p))
 dev.off()
 
@@ -46,5 +49,6 @@ View(anti_join(entities, temp))
 nrow(full_join(temp, entities))
 
 write_fst(
-  full_join(temp, entities), here("data/tidy/portfolio_summ_actblue.fst")
+  full_join(temp, entities), 
+  here("data/tidy/portfolio_summ_actblue_incomplete.fst")
 )

@@ -20,7 +20,9 @@ cand_names <- list(
   mutate(across(contains("name"), tolower)) %>%
   bind_rows(
     .,
-    {.} %>%
+    {
+      .
+    } %>%
       filter(name_full == "joseph biden") %>%
       mutate(name_full = "joe biden")
   )
@@ -44,8 +46,9 @@ actblue_entities <- read_fst(
   slice(n())
 
 # Read amount summary for ActBlue ==============================================
-# actblue <- read_fst(here(paste0("data/tidy/actblue_2020.fst")))
-actblue_summ <- read_fst(here("data/tidy/portfolio_summ_actblue.fst"))
+actblue_summ <- read_fst(
+  here("data/tidy/portfolio_summ_actblue_incomplete.fst")
+)
 
 # Join just on URLs
 # Too risky to pool by name
@@ -57,3 +60,36 @@ actblue_all <- full_join(
   dedup() %>%
   mutate(name = trimws(tolower(name))) %>%
   arrange(name, url)
+
+# Use candidate dataframes to check for candidates =============================
+temp <- actblue_all %>%
+  filter(is.na(class_mode)) %>%
+  rowwise() %>%
+  mutate(
+    class_mode = ifelse(
+      is.na(class_mode) &
+        grepl(cand_names$name_full %>% paste(collapse = "|"), name),
+      cand_names$name_full %>%
+        map(~ grepl(.x, name)) %>%
+        unlist() %>%
+        which() %>%
+        cand_names[., ] %>%
+        .$class,
+      class_mode
+    )
+  )
+
+actblue <- bind_rows(
+  actblue_all %>%
+    filter(!is.na(class_mode)),
+  temp %>% ungroup()
+) %>%
+  group_by(across(names(actblue_summ))) %>%
+  mutate(
+    multi_entity = ifelse(n() > 1, TRUE, FALSE),
+    multi_entity = sum(multi_entity)
+  ) %>%
+  slice(1) %>%
+  filter(!is.na(year))
+
+write_fst(actblue, path = here("data/tidy/portfolio_summ_actblue.fst"))
