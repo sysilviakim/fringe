@@ -43,7 +43,7 @@ p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
   ylab("Percentage (%)") +
   scale_y_continuous(limits = c(0, 50))
 
-pdf(here("fig/portfolio_freq_top_5_rightus.pdf"), width = 3.5, height = 3.5)
+pdf(here("fig/portfolio_freq_top_5_rightus.pdf"), width = 3, height = 3)
 print(pdf_default(p))
 dev.off()
 
