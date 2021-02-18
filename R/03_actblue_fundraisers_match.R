@@ -90,6 +90,7 @@ actblue <- bind_rows(
     multi_entity = sum(multi_entity)
   ) %>%
   slice(1) %>%
-  filter(!is.na(year))
+  filter(!is.na(year)) %>%
+  rename(class = class_mode)
 
 write_fst(actblue, path = here("data/tidy/portfolio_summ_actblue.fst"))
