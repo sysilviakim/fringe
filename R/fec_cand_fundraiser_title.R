@@ -20,7 +20,7 @@ cand_names <- list(
   mutate(across(contains("names"), tolower)) %>%
   bind_rows(
     .,
-    . %>%
+    {.} %>%
       filter(name_full == "joseph biden") %>%
       mutate(name_full = "joe biden")
   )
