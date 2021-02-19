@@ -10,6 +10,7 @@ library(assertthat)
 library(jsonlite)
 library(janitor)
 library(data.table)
+library(xtable)
 
 library(Kmisc)
 
@@ -191,6 +192,17 @@ amount_split <- function(amount) {
   str_split(amount, pattern = "-") %>%
     unlist() %>%
     as.numeric()
+}
+
+platform_names <- function(df, var = "Platform") {
+  df %>%
+    mutate(
+      !!as.name(var) := case_when(
+        !!as.name(var) == "winred" ~ "WinRed",
+        !!as.name(var) == "rightus" ~ "Right.us",
+        !!as.name(var) == "actblue" ~ "ActBlue"
+      )
+    )
 }
 
 # Other options ================================================================

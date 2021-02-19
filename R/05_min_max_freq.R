@@ -1,71 +1,52 @@
 source(here::here("R", "utilities.R"))
+if (!dir.exists(here("tab", "number"))) {
+  dir.create(here("tab", "number"), recursive = TRUE)
+}
 
 # No need to import raw data ===================================================
-categories <- c("winred", "rightus", "actblue")
 load(here("data/tidy/portfolio_summ_platforms.Rda"))
+dl <- dl %>% map(~ .x %>% filter(!is.na(amount) & !is.na(url) & url != ""))
 
-# No-prompt links ==============================================================
-categories %>%
-  set_names(., .) %>%
-  map(
-    ~ nrow(dl[[.x]] %>% filter(is.na(amount) & !is.na(url) & url != "")) /
-      nrow(dl[[.x]] %>% filter(!is.na(url) & url != "")) * 100
-  ) %>%
-  unlist()
-# winred rightus actblue 
-#      0       0       0
+# No-prompt/single prompt links ================================================
+temp <- list(
+  `No Suggestions` = dl %>% 
+    imap_dfr(
+      ~ tibble(Platform = .y, perc = sum(.x$choices == 0) / nrow(.x) * 100)
+    ),
+  `One Suggestion` = dl %>%
+    imap_dfr(
+      ~ tibble(Platform = .y, perc = sum(.x$choices == 1) / nrow(.x) * 100)
+    ),
+  `One, Federal` = dl %>%
+    map(~ .x %>% filter(grepl("us |pres", class))) %>%
+    imap_dfr(
+      ~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x) * 100)
+    ),
+  `One, Others` = dl %>%
+    map(~ .x %>% filter(!grepl("us |pres", class))) %>%
+    imap_dfr(
+      ~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x) * 100)
+    ),
+  `One, Single-entity` = dl["actblue"] %>%
+    map(~ .x %>% filter(multi_entity == 0)) %>%
+    imap_dfr(
+      ~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x) * 100)
+    ),
+  `One, Multi-entity` = dl["actblue"] %>%
+    map(~ .x %>% filter(multi_entity == 1)) %>%
+    imap_dfr(
+      ~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x) * 100)
+    )
+) %>%
+  bind_rows(.id = "type") %>%
+  platform_names() %>%
+  pivot_wider(id_cols = "Platform", names_from = "type", values_from = "perc")
 
-# Single-prompt links ==========================================================
-categories %>%
-  set_names(., .) %>%
-  map(
-    ~ nrow(
-      dl[[.x]] %>%
-        filter(!is.na(amount) & !grepl("-", amount) & !is.na(url) & url != "")
-    ) /
-      nrow(dl[[.x]] %>% filter(!is.na(url) & url != "")) * 100
-  ) %>%
-  unlist()
-#    winred   rightus   actblue
-# 0.2070393 0.0000000 0.8990713
-
-# Restricted to federal elections
-categories %>%
-  set_names(., .) %>%
-  map(
-    ~ nrow(
-      dl[[.x]] %>%
-        filter(
-          !is.na(amount) & !grepl("-", amount) &
-            !is.na(url) & url != "" & grepl("us |pres", class)
-        )
-    ) /
-      nrow(
-	    dl[[.x]] %>% filter(!is.na(url) & url != "" & grepl("us |pres", class))
-	  ) * 100
-  ) %>%
-  unlist()
-#    winred   rightus   actblue
-# 0.0000000 0.0000000 0.3996427
-
-# Others
-categories %>%
-  set_names(., .) %>%
-  map(
-    ~ nrow(
-      dl[[.x]] %>%
-        filter(
-          !is.na(amount) & !grepl("-", amount) &
-            !is.na(url) & url != "" & !grepl("us |pres", class)
-        )
-    ) /
-      nrow(
-	    dl[[.x]] %>% filter(!is.na(url) & url != "" & !grepl("us |pres", class))
-	  ) * 100
-  ) %>%
-  unlist()
-#   winred  rightus  actblue
-# 2.631579 0.000000 1.059102
+# Export to xtable =============================================================
+print(
+  xtable(temp), file = here("tab", "no_single_prompts.tex"),
+  booktabs = TRUE, include.rownames = FALSE, floating = FALSE
+)
 
 # Multi-entity cases for ActBlue? 0.927305 vs. 0.3641329 so about 2.5 more time
 # for single-entity fundraisers, but very little anyway
