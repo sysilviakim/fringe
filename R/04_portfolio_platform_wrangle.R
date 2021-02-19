@@ -19,7 +19,8 @@ dl <- categories %>%
         mean = amount_split(amount) %>% mean(),
         median = amount_split(amount) %>% median(),
         q1 = amount_split(amount) %>% summary() %>% .[["1st Qu."]],
-        q3 = amount_split(amount) %>% summary() %>% .[["3rd Qu."]]
+        q3 = amount_split(amount) %>% summary() %>% .[["3rd Qu."]],
+        choices = amount_split(amount) %>% length()
       )
   )
 
@@ -45,7 +46,7 @@ dl$rightus <- dl$rightus %>%
       grepl("US Senate", race) ~ "us senate",
       grepl("State House", race) ~ "state house",
       grepl("State Senate", race) ~ "state senate",
-      grepl("President", race) ~ "president",
+      grepl("President", race) ~ "pres",
       grepl("National Republican|Party", race) ~ "party",
       grepl("Governor", race) ~ "governor",
       TRUE ~ "misc"
