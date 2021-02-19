@@ -187,5 +187,11 @@ actblue_js <- function(url) {
   return(out)
 }
 
+amount_split <- function(amount) {
+  str_split(amount, pattern = "-") %>%
+    unlist() %>%
+    as.numeric()
+}
+
 # Other options ================================================================
 options(scipen = 999)
