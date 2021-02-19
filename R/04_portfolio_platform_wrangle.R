@@ -12,32 +12,19 @@ dl <- categories %>%
       rename(min_date = min, max_date = max) %>%
       rowwise() %>%
       mutate(
-        first = case_when(
-          grepl("-", amount) ~ str_match_all(amount, "^([0-9]+)")[[1]][1, 2],
-          TRUE ~ amount
-        ),
-        last = case_when(
-          grepl("-", amount) ~ str_match_all(amount, "([0-9]+)$")[[1]][1, 2],
-          TRUE ~ amount
-        ),
-        min = str_match_all(amount, "-([0-9]+)-") %>%
-          map(function(x) x[, 2]) %>%
-          unlist() %>%
-          as.numeric() %>%
-          min(),
-        max = str_match_all(amount, "-([0-9]+)-") %>%
-          map(function(x) x[, 2]) %>%
-          unlist() %>%
-          as.numeric() %>%
-          max(),
-        first = as.numeric(first),
-        last = as.numeric(last),
-        min = min(min, first, last, na.rm = TRUE),
-        max = max(max, first, last, na.rm = TRUE)
+        first = amount_split(amount) %>% .[1],
+        last = amount_split(amount) %>% .[length(.)],
+        min = amount_split(amount) %>% min(),
+        max = amount_split(amount) %>% max(),
+        mean = amount_split(amount) %>% mean(),
+        median = amount_split(amount) %>% median(),
+        q1 = amount_split(amount) %>% summary() %>% .[["1st Qu."]],
+        q3 = amount_split(amount) %>% summary() %>% .[["3rd Qu."]]
       )
   )
 
 # Augment "class" variables (WinRed/Right.us) ==================================
+# ActBlue's added in previous scripts
 dl$winred <- dl$winred %>%
   mutate(
     class = case_when(
