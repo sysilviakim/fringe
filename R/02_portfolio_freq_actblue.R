@@ -5,9 +5,19 @@ assert_that(all(!is.na(df_raw$url)))
 
 temp <- df_raw %>%
   rename(name = fundraiser) %>%
-  portfolio_summ(., exclude_cols = c("name", "year", "url"))
+  group_split(url, .keep = TRUE) %>%
+  map_dfr(
+    ~ portfolio_summ(.x, exclude_cols = c("name", "year", "url"))
+  )
 
 head(sort(table(temp$amount), decreasing = TRUE), 10)
+
+# Check for within-URL changes =================================================
+temp %>%
+  group_by(url) %>%
+  filter(n() > 1) %>%
+  arrange(desc(url)) %>%
+  View()
 
 # Top 5 Most Frequent Distributions ============================================
 p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%

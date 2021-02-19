@@ -23,6 +23,7 @@ portfolio_summ <- function(df,
   
   # Pivot from long to wide, create date-columns
   df <- df %>%
+    mutate(across(everything(), trimws)) %>%
     pivot_wider(
       names_from = !!as.name(names_from),
       values_from = !!as.name(values_from),
