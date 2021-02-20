@@ -6,18 +6,23 @@ assert_that(all(!is.na(df_raw$url)))
 temp <- df_raw %>%
   rename(name = fundraiser) %>%
   group_split(url, .keep = TRUE) %>%
-  map_dfr(
-    ~ portfolio_summ(.x, exclude_cols = c("name", "year", "url"))
-  )
-
-head(sort(table(temp$amount), decreasing = TRUE), 10)
+  map_dfr(~ portfolio_summ(.x, exclude_cols = c("name", "year", "url")))
+write_fst(temp, here("data/tidy/actblue_portfolio_temp_names_included.fst"))
 
 # Check for within-URL changes =================================================
 temp %>%
-  group_by(url) %>%
+  group_by(url, seq, amount) %>%
   filter(n() > 1) %>%
-  arrange(desc(url)) %>%
+  arrange(url, seq) %>%
   View()
+
+temp <- df_raw %>%
+  select(-fundraiser) %>%
+  group_split(url, .keep = TRUE) %>%
+  map_dfr(~ portfolio_summ(.x, exclude_cols = c("year", "url")))
+write_fst(temp, here("data/tidy/actblue_portfolio_temp_only_url.fst"))
+
+head(sort(table(temp$amount), decreasing = TRUE), 10)
 
 # Top 5 Most Frequent Distributions ============================================
 p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
@@ -41,8 +46,8 @@ p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
   ggplot(aes(x = label, y = freq)) +
   geom_bar(stat = "identity") +
   # xlab("\nSolicitation Amounts, Top 5, ActBlue Directory") +
-  xlab(NULL) + 
-  ylab("Percentage (%)") + 
+  xlab(NULL) +
+  ylab("Percentage (%)") +
   scale_y_continuous(limits = c(0, 50))
 
 pdf(here("fig/portfolio_freq_top_5_actblue.pdf"), width = 3, height = 3)
@@ -50,15 +55,24 @@ print(pdf_default(p))
 dev.off()
 
 # Save Output (Check for No-Prompt Referrals) ==================================
+temp <- left_join(
+  read_fst(here("data/tidy/actblue_portfolio_temp_only_url.fst")),
+  read_fst(here("data/tidy/actblue_portfolio_temp_names_included.fst")) %>%
+    group_by(url, amount) %>%
+    slice(n())
+) %>%
+  mutate(year = as.numeric(year))
+
 entities <- df_raw %>%
   rename(name = fundraiser) %>%
   select(!!c("name", "year")) %>%
   dedup()
+write_fst(entities, here("data/tidy/actblue_entities.fst"))
 
 View(anti_join(entities, temp))
 nrow(full_join(temp, entities))
 
 write_fst(
-  full_join(temp, entities), 
+  full_join(temp, entities),
   here("data/tidy/portfolio_summ_actblue_incomplete.fst")
 )
