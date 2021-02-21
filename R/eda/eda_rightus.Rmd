@@ -26,11 +26,11 @@ source(here::here("R", "01_data_import.R"))
 # Any empty URLs?
 
 ```{r}
-df_ls$rightus %>% filter(is.na(url)) %>% nrow()
+df_raw %>% filter(is.na(url)) %>% nrow()
 ```
 
 ```{r}
-df_ls$rightus %>% filter(url == "") %>% nrow()
+df_raw %>% filter(url == "") %>% nrow()
 ```
 
 # Anedot vs. non-Anedot links?
@@ -39,28 +39,28 @@ The peculiar thing about Right.us data is that it contains non-Anedot links
 as well (even WinRed/revv in some cases!)
 
 ```{r}
-df_ls$rightus <- df_ls$rightus %>%
+df_raw <- df_raw %>%
   mutate(anedot = grepl("anedot", url))
 
-prop(df_ls$rightus, "anedot")
+prop(df_raw, "anedot")
 ```
 
 What about by entity? 
 
 ```{r}
-prop(df_ls$rightus %>% group_by(name, race, anedot) %>% slice(1), "anedot")
+prop(df_raw %>% group_by(name, race, anedot) %>% slice(1), "anedot")
 ```
 
-For consistency with comparison to other platforms, use only Anedot fundraisers.
+For consistency with comparison to other platforms, use only Anedot fundraisers. But check for flags in the entire data!
 
 ```{r}
-rightus <- df_ls$rightus %>% filter(grepl("anedot", url))
+rightus <- df_raw %>% filter(grepl("anedot", url))
 ```
 
 # Does Right.us directory contain changing URLs or are they static?
 
 ```{r}
-temp <- rightus %>%
+temp <- df_raw %>%
   group_by(name, race, url) %>%
   slice(1) %>%
   ungroup() %>%
@@ -76,7 +76,7 @@ temp
 Note that it is *not* a simple addition of "/rightus/" in the middle of the URL. For example, McMorris (US House 2020 (Incumbent), Washington District 5):
 
 ```{r}
-rightus %>%
+df_raw %>%
   filter(name == "Cathy McMorris Rodgers") %>%
   group_by(portfolio, url) %>%
   slice(1) %>%
@@ -89,7 +89,7 @@ So this is not like the WinRed case where the only difference was the addition o
 # Does any Right.us entity have multiple URLs in the same day?
 
 ```{r}
-rightus %>%
+df_raw %>%
   group_by(name, race, url, date) %>%
   slice(1) %>%
   ungroup() %>%
@@ -97,12 +97,13 @@ rightus %>%
   filter(n() > 1) %>%
   nrow()
 ```
+
 # Any entities across multiple races?
 
 Change of races or candidate status (e.g., primary ---> general)
 
 ```{r}
-temp <- rightus %>%
+temp <- df_raw %>%
   group_by(name, race) %>%
   slice(1) %>%
   ungroup() %>%
@@ -111,10 +112,11 @@ temp <- rightus %>%
 nrow(temp)
 temp
 ```
+
 What if we exclude that?
 
 ```{r}
-rightus <- rightus %>%
+df_raw <- df_raw %>%
   mutate(
     race_orig = race,
     race = str_remove_all(
@@ -122,11 +124,11 @@ rightus <- rightus %>%
     ),
     race = trimws(str_replace_all(race, "\\s{2,}", " "))
   )
-rightus %>% sample_n(10)
+df_raw %>% sample_n(10)
 ```
 
 ```{r}
-temp <- rightus %>%
+temp <- df_raw %>%
   group_by(name, race) %>%
   slice(1) %>%
   ungroup() %>%
@@ -141,56 +143,81 @@ temp
 
 * [Art Robinson](https://ballotpedia.org/Art_Robinson) changed from OR-04 to State Senate 2 (O)
 * [Ben Bullock](https://ballotpedia.org/Ben_Bullock) (O)
+* [Bill Reineke](https://ballotpedia.org/Bill_Reineke) (O)
+* [Brandon Beach](https://ballotpedia.org/Brandon_Beach) (O)
+* [Brenda Dietrich](https://ballotpedia.org/Brenda_Dietrich) (O)
 * [Brett Kokinadis](https://ballotpedia.org/Brett_Kokinadis) no record of having ran for US House New Mexico District 3 (X): "US House New Mexico District 3" ---> "US House New Mexico District 1"
 * [Butch Miller](https://ballotpedia.org/Butch_Miller) no record of having ran for State Senate Georgia District 50 (X): "State Senate Georgia District 50" ---> "State Senate Georgia District 49"
 * [Chris Gildon](https://ballotpedia.org/Chris_Gildon) (O)
 * [Dan Hemmert](https://ballotpedia.org/Daniel_Hemmert) (O)
 * [Danny Malouf](https://ballotpedia.org/Danny_Malouf) (O) but not the 17th district but the 14th; so fix that (X) so "US House Illinois District 17" ---> "US House Illinois District 14"
+* [Darren Bailey](https://ballotpedia.org/Darren_Bailey) (O)
 * [David Richter](https://ballotpedia.org/David_Richter_(New_Jersey)) (O)
 * [Doug Collins](https://ballotpedia.org/Doug_Collins) (O)
+* [Doug Smith](https://ballotpedia.org/Doug_Smith_(New_York)) at New York and [Doug Smith](https://ballotpedia.org/Doug_Smith_(West_Virginia)) at West Virginia (O)
 * [Dr. Roger Marshall](https://ballotpedia.org/Roger_Marshall) (O)
 * [Dusty Johnson](https://ballotpedia.org/Dusty_Johnson) is an at-large district mistake case (X) so "US House South Dakota District 1" ---> "US House South Dakota District AL"
-* [Eric Nelson](https://ballotpedia.org/Eric_Nelson_(West_Virginia)) (O)
-* George Phillips: there is a [George Phillips](https://ballotpedia.org/George_Phillips_(Ohio)) for Ohio and a [George Phillips](https://ballotpedia.org/George_Phillips_(New_York)) for New York. Both legit. (O)
+* [Eric Nelson](https://ballotpedia.org/Eric_Nelson_(West_Virginia)) (O) Also, there is a Pennsylvania Eric Nelson, a separate entity.
+* [George Phillips](https://ballotpedia.org/George_Phillips_(Ohio)) for Ohio and a [George Phillips](https://ballotpedia.org/George_Phillips_(New_York)) for New York. Both legit. (O)
 * [J.R. Claeys](https://ballotpedia.org/J.R._Claeys) (O)
+* [James Burchett](https://ballotpedia.org/James_Burchett) no record of having run for 178 (X)  so "State House Georgia District 178" ---> "State House Georgia District 176"
 * [James P. Bradley](https://ballotpedia.org/James_P._Bradley_(California)) no record of having run for 28 (X) "US House California District 28" ---. "US House California District 33"
+* [Jerry Carter](https://ballotpedia.org/Jerry_Carter_(North_Carolina)) at North Carolina and [Jerry Carter](https://ballotpedia.org/Jerry_Carter_(South_Carolina)) at South Carolina (O)
+* [Jim Butler](https://ballotpedia.org/Jim_Butler_(West_Virginia)) at West Virginia and [Jim Butler](https://ballotpedia.org/James_Butler_(Ohio)) at Ohio (O)
 * [Jim Marter](https://ballotpedia.org/James_Marter) no record of having run for 17 (X) so "US House Illinois District 17" ---> "US House Illinois District 14"
 * [Joe Profit](https://ballotpedia.org/Joe_Profit) no record of having run for 7 (X): so "US House Georgia District 7" ---> "US House Georgia District 6"
+* [John Clark](https://ballotpedia.org/John_Clark_(Tennessee)) at Tennessee and [John Clark](https://ballotpedia.org/John_Clark_(New_Mexico)) at New Mexico (O) 
+* [John Kennedy](https://ballotpedia.org/John_Neely_Kennedy) in Senate and [John Kennedy](https://ballotpedia.org/John_F._Kennedy_(Georgia)) in Georgia (O)
 * [John LaHood](https://ballotpedia.org/John_LaHood) no record of having run for 172 (X): so "State House Georgia District 172" ---> "State House Georgia District 175"
+* [John Wilkinson](https://ballotpedia.org/John_Wilkinson) (X) Yes, ran for House 9th, but not State Senate 49th but 50th. So "State Senate Georgia District 49" ---> "State Senate Georgia District 50" (X)
 * [Jon Burns](https://ballotpedia.org/Jon_G._Burns) no record of having run for 158 (X): so "State House Georgia District 158" ---> "State House Georgia District 159"
+* [Justine Wadsack](https://ballotpedia.org/Justine_Wadsack) (O)
 * [Kathie Hess Crouse](https://ballotpedia.org/Kathie_Hess_Crouse) did run for district 13 but this was in 2016; rather, a mistake (X): so "State Senate West Virginia District 13" ---> "State Senate West Virginia District 8"
+* [Kelly Townsend](https://ballotpedia.org/Kelly_Townsend) (O)
 * [Kim Thatcher](https://ballotpedia.org/Kim_Thatcher) (O)
 * [Lance Harris](https://ballotpedia.org/Lance_Harris) (O)
 * [Larry Liston](https://ballotpedia.org/Larry_Liston) (O)
 * [Lee Murphy](https://ballotpedia.org/Lee_Murphy_(Delaware)) is an at-large district mistake case (X) so "US House Delaware District 1" ---> "US House Delaware District At-Large"
+* [Lisa Barnes](https://ballotpedia.org/Lisa_Barnes) (O)
+* [Louis Blessing](https://ballotpedia.org/Louis_W._Blessing,_III) (O)
 * [Lynn Findley](https://ballotpedia.org/Lynn_Findley) (O)
 * [Marjorie Greene](https://ballotpedia.org/Marjorie_Taylor_Greene) did for a while run for the 6th: see AJC article [here](https://www.ajc.com/blog/politics/another-republican-drops-out-georgia-6th-giving-handel-clear-shot-mcbath/tX1rufaXA8Fi2jOlcYoUoL/) (O)
-* Mark Walker: there is a [Mark Walker](https://ballotpedia.org/Mark_Walker_(Maine)) for Maine and a [Mark Walker](https://ballotpedia.org/Mark_Walker_(North_Carolina)) for North Carolina. Both legit. (O)
+* [Mark Johnson](https://ballotpedia.org/Mark_Johnson_(Arkansas)) for Arkansas and [Mark Johnson](https://ballotpedia.org/Mark_Johnson_(Minnesota)) for Minnesota (O)
+* [Mark Romanchuk](https://ballotpedia.org/Mark_Romanchuk) (O)
+* [Mark Walker](https://ballotpedia.org/Mark_Walker_(Maine)) for Maine and a [Mark Walker](https://ballotpedia.org/Mark_Walker_(North_Carolina)) for North Carolina. Both legit. (O)
 * [Matt Gurtler](https://ballotpedia.org/Matt_Gurtler) (O)
+* [Mike LiPetri](https://ballotpedia.org/Michael_LiPetri) (O)
 * [Mike McKell](https://ballotpedia.org/Mike_McKell) (O)
+* [Nancy Barto](https://ballotpedia.org/Nancy_K._Barto) (O)
 * [Nick Freitas](https://ballotpedia.org/Nick_Freitas) (O)
 * [Niraj Antani](https://ballotpedia.org/Niraj_Antani) (O)
 * [Renee Erickson](https://ballotpedia.org/Renee_Erickson) (O)
 * [Rosemary Becchi](https://ballotpedia.org/Rosemary_Becchi) (O)
 * [Sandy Smith](https://ballotpedia.org/Sandy_Smith_(North_Carolina)): senate run not documented on Ballotpedia, but... uh... merch documented at [Amazon](https://www.amazon.com/Sandy-Smith-Senate-2020-Carolina/dp/B07T32SM44?customId=B07537HQXD&th=1) and [FEC statement of candidacy](https://docquery.fec.gov/cgi-bin/forms/S0NC00293/1318647/) (O)
+* [Scott Fitzgerald](https://ballotpedia.org/Scott_Fitzgerald) (O)
 * [Scott Taylor](https://ballotpedia.org/Scott_Taylor_(Virginia)) (O)
 * [Sean Feucht](https://ballotpedia.org/Sean_Feucht) no record of having ran for the 1st district (X): so "US House California District 1" ---> "US House California District 3"
 * [Steven Jarvis](https://ballotpedia.org/Steven_Jarvis_(North_Carolina)) (O) ---> prior office
 * [Tom Killion](https://ballotpedia.org/Thomas_Killion) no record of having ran for district 7 (X): so "State Senate Pennsylvania District 7" ---> "State Senate Pennsylvania District 9"
+* [Tom Phillips](https://ballotpedia.org/Tom_Phillips_(Kansas)) Kansas and [Tom Phillips](https://ballotpedia.org/Tom_Phillips_(New_Jersey)) New Jersey (O)
 * [Trey Stewart](https://ballotpedia.org/Harold_Stewart) (O) ---> prior office
 * [Vennia Francois](https://ballotpedia.org/Vennia_Francois) (O)
+* [Warren Petersen](https://ballotpedia.org/Warren_Petersen) (O)
+* [Willie Dove](https://ballotpedia.org/Willie_Dove) (O)
 
 ```{r}
-rightus <- rightus %>%
+df_raw <- df_raw %>%
   mutate(
     # Will deal with at-large districts separately
     race = case_when(
       name == "Brett Kokinadis" & race == "US House New Mexico District 3" ~ 
         "US House New Mexico District 1",
-      name == "Buch Miller" & race == "State Senate Georgia District 50" ~ 
+      name == "Butch Miller" & race == "State Senate Georgia District 50" ~ 
         "State Senate Georgia District 49",
       name == "Danny Malouf" & race == "US House Illinois District 17" ~ 
         "US House Illinois District 14",
+      name == "James Burchett" & race == "State House Georgia District 178" ~ 
+        "State House Georgia District 176",
       name == "James P. Bradley" & race == "US House California District 28" ~ 
         "US House California District 33",
       name == "Jim Marter" & race == "US House Illinois District 17" ~ 
@@ -199,11 +226,17 @@ rightus <- rightus %>%
         "US House Georgia District 6",
       name == "John LaHood" & race == "State House Georgia District 172" ~ 
         "State House Georgia District 175",
+      name == "John Wilkinson" & race == "State Senate Georgia District 49" ~
+        "State Senate Georgia District 50",
       name == "Jon Burns" & race == "State House Georgia District 158" ~ 
         "State House Georgia District 159",
       name == "Kathie Hess Crouse" & 
         race == "State Senate West Virginia District 13" ~ 
         "State Senate West Virginia District 8",
+      name == "Sean Feucht" & race == "US House California District 1" ~
+        "US House California District 3",
+      name == "Tom Killion" & race == "State Senate Pennsylvania District 7" ~
+        "State Senate Pennsylvania District 9",
       TRUE ~ race
     )
   )
@@ -211,7 +244,7 @@ rightus <- rightus %>%
 
 ```{r}
 assert_that(
-  rightus %>%
+  df_raw %>%
   group_by(name, race) %>%
   slice(1) %>%
   ungroup() %>%
@@ -221,6 +254,7 @@ assert_that(
     nrow(temp)
 )
 ```
+
 # At-large districts need additional treatment
 
 As seen from the Dusty Johnson and Lee Murphy record, the at-large district expression is not uniform.
