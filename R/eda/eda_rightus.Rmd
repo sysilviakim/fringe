@@ -100,7 +100,19 @@ df_raw %>%
 
 # Any entities across multiple races?
 
-Change of races or candidate status (e.g., primary ---> general)
+Change of races or candidate status (e.g., primary ---> general). For example,
+
+* Lt. Governor 2020 (Primary), North Carolina
+* Lt. Governor 2020 (GOP Nominee), North Carolina
+
+Let's not differentiate by candidate status. If same name, URL, and amount, the following should be treated equally.
+
+Also, don't differentiate by race year, if data is collected in 2020. For example, the following:
+
+* State House 2019 (Incumbent), Virginia District 33
+* State House 2021 (Incumbent), Virginia District 33
+
+Restore race data later if necessary
 
 ```{r}
 temp <- df_raw %>%
@@ -260,6 +272,70 @@ assert_that(
 As seen from the Dusty Johnson and Lee Murphy record, the at-large district expression is not uniform.
 
 ```{r}
+df_raw %>%
+  filter(
+    grepl(
+      state_df %>% filter(al_2010 == 1) %>% .$stname %>%
+        paste0(" ", ., " ", collapse = "|"),
+      race
+    ) & 
+      grepl("US House", race) & grepl("District 1$", race)
+  ) %>%
+  mutate(
+    race = case_when(
+      grepl("US House ", race) & 
+        grepl(
+          state_df %>% filter(al_2010 == 1) %>% .$stname %>%
+            paste0(" ", ., " ", collapse = "|"),
+          race
+        ) ~ 
+        gsub("District 1$", "District AL", race),
+      TRUE ~ race
+    )
+  )
+```
 
+# Change of names
+
+Sometimes, candidate name if changed e.g., Christine Bish ---> Chris Bish. There is no need to treat these as different instances. Need to be manually dealt because sometimes there are URLs with multiple entities. For example, [this link](https://secure.anedot.com/simonsen-and-mcclellan-for-south-jersey/c502f7dda9b7af22160a1). Also one wrong URL.
+
+```{r}
+df_raw %>%
+  select(name, race, url) %>%
+  group_by(url, name) %>%
+  slice(1) %>%
+  arrange(url) %>%
+  group_by(url) %>%
+  filter(first(name) != last(name))
+```
+```{r}
+df_raw <- df_raw %>%
+  mutate(
+    name = case_when(
+      name == "Bob Cupp" & race == "State House Ohio District 4" &
+        grepl("http://bobcupp.org/donate/", url) ~ "Robert Cupp",
+      name == "Christine Bish" & race == "US House, California District 6" &
+        grepl("bish-for-congress/c4ebd2fa51523d54a7dc9", url) ~ "Chris Bish",
+      name == "Bret Guthrie" & race == "US House, Kentucky District 2" &
+        grepl("brett-guthrie-for-congress/c2f680721e268126f6a08", url) ~
+      "Brett Guthrie",
+      name == "Daniel Crenshaw" & race == "US House, Texas District 2" &
+        grepl("crenshaw/c89f699a7ac209c4a0d2f", url) ~ "Dan Crenshaw",
+      name == "Ronda Baldwin-Kennedy" &
+        race == "US House, California District 26" &
+        grepl("ronda-kennedy-for-congress/c1c126c031f520d67376e", url) ~
+      "Ronda Kennedy",
+      name == "Virginia House GOP" & race == "Caucus Committee Virginia" &
+        grepl("vahousegop/c9f894490d6e3ffb63ea7", url) ~
+      "Virginia House Republican Campaign Committee",
+      TRUE ~ name
+    ),
+    url = case_when(
+      grepl("new-hampshire-senate-republican-nominee-fund-2020", url) &
+        name == "New Mexico Senate Republican Nominee Fund 2020" ~
+      gsub("hampshire", "mexico", url),
+      TRUE ~ url
+    )
+  )
 ```
 
