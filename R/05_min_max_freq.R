@@ -5,92 +5,41 @@ if (!dir.exists(here("tab", "number"))) {
 
 # No need to import raw data ===================================================
 load(here("data/tidy/portfolio_summ_platforms.Rda"))
-dl <- dl %>% map(~ .x %>% filter(!is.na(amount) & !is.na(url) & url != ""))
+dl <- dl %>%
+  map(
+    ~ .x %>%
+      ungroup() %>%
+      filter(!is.na(amount) & !is.na(url) & url != "") %>%
+      select(-contains("name_full"))
+  )
 
-# No-prompt/single prompt links ================================================
+# No-prompt/single prompt links for platform fundraisers =======================
 temp <- list(
-  `No Suggestions` = dl %>% 
-    imap_dfr(
-      ~ tibble(Platform = .y, perc = sum(.x$choices == 0) / nrow(.x) * 100)
-    ),
+  `No Suggestions` = dl %>%
+    imap_dfr(~ tibble(Platform = .y, perc = sum(.x$choices == 0) / nrow(.x))),
   `One Suggestion` = dl %>%
-    imap_dfr(
-      ~ tibble(Platform = .y, perc = sum(.x$choices == 1) / nrow(.x) * 100)
-    ),
+    imap_dfr(~ tibble(Platform = .y, perc = sum(.x$choices == 1) / nrow(.x))),
   `One, Federal` = dl %>%
     map(~ .x %>% filter(grepl("us |pres", class))) %>%
-    imap_dfr(
-      ~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x) * 100)
-    ),
+    imap_dfr(~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x))),
   `One, Others` = dl %>%
     map(~ .x %>% filter(!grepl("us |pres", class))) %>%
-    imap_dfr(
-      ~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x) * 100)
-    ),
-  `One, Single-entity` = dl["actblue"] %>%
-    map(~ .x %>% filter(multi_entity == 0)) %>%
-    imap_dfr(
-      ~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x) * 100)
-    ),
-  `One, Multi-entity` = dl["actblue"] %>%
-    map(~ .x %>% filter(multi_entity == 1)) %>%
-    imap_dfr(
-      ~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x) * 100)
-    )
+    imap_dfr(~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x)))
 ) %>%
   bind_rows(.id = "type") %>%
+  mutate(across(contains("Suggestion") | contains("One"), ~ .x * 100)) %>%
   platform_names() %>%
   pivot_wider(id_cols = "Platform", names_from = "type", values_from = "perc")
 
 # Export to xtable =============================================================
 print(
-  xtable(temp), file = here("tab", "no_single_prompts.tex"),
+  xtable(temp),
+  file = here("tab", "no_single_prompts_platform.tex"),
   booktabs = TRUE, include.rownames = FALSE, floating = FALSE
 )
 
-# Multi-entity cases for ActBlue? 0.927305 vs. 0.3641329 so about 2.5 more time
-# for single-entity fundraisers, but very little anyway
-nrow(
-  dl$actblue %>%
-    filter(
-      !is.na(amount) & !grepl("-", amount) &
-        !is.na(url) & url != "" & multi_entity == 0
-    )
-) /
-  nrow(dl$actblue %>% filter(!is.na(url) & url != "" & multi_entity == 0)) * 100
-# [1] 0.927305
+# Import data for specific federal races =======================================
+categories <- c("president", "senate", "house")
+source(here("R", "01_data_import.R"))
 
-nrow(
-  dl$actblue %>% filter(
-    !is.na(amount) & !grepl("-", amount) &
-      !is.na(url) & url != "" & multi_entity > 0
-  )
-) /
-  nrow(dl$actblue %>% filter(!is.na(url) & url != "" & multi_entity > 0)) * 100
-# [1] 0.3641329
 
-# Modal menu percentage ========================================================
-prop(dl$actblue, "amount", sort = TRUE, head = 1)
-prop(dl$winred, "amount", sort = TRUE, head = 1)
-prop(dl$rightus, "amount", sort = TRUE, head = 1)
-
-# Frequency of maximum value by platform =======================================
-max(dl$actblue$max) # 250,000
-min(dl$actblue$max) # 1
-prop(dl$actblue, "max", sort = TRUE, head = 5)
-# max
-# 1000  500  250  100 2800
-# 57.7  9.7  6.2  5.4  2.2
-
-max(dl$winred$max) # 250,000
-min(dl$winred$max) # 1
-prop(dl$winred, "max", sort = TRUE, head = 5)
-
-max(dl$rightus$max)
-min(dl$rightus$max)
-prop(dl$rightus, "max", sort = TRUE, head = 5)
-
-# Frequency of maximum value by platform =======================================
-max(dl$actblue$min)
-min(dl$actblue$min)
-prop(dl$actblue, "min", sort = TRUE, head = 5)

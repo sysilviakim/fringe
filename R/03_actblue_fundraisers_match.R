@@ -56,13 +56,6 @@ actblue <- bind_rows(
     filter(!is.na(class_mode)),
   temp %>% ungroup()
 ) %>%
-  group_by(across(names(actblue_summ))) %>%
-  mutate(
-    multi_entity = ifelse(n() > 1, TRUE, FALSE),
-    multi_entity = sum(multi_entity)
-  ) %>%
-  slice(1) %>%
-  filter(!is.na(year)) %>%
   rename(class = class_mode)
 
 save(actblue, file = here("data/tidy/portfolio_summ_actblue.Rda"))
