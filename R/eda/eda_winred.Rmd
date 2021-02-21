@@ -26,25 +26,26 @@ source(here::here("R", "01_data_import.R"))
 # Any empty URLs? 
 
 ```{r}
-df_ls$winred %>% filter(is.na(url)) %>% nrow()
+df_raw %>% filter(is.na(url)) %>% nrow()
 ```
 
 ```{r}
-df_ls$winred %>% filter(url == "") %>% nrow()
+df_raw %>% filter(url == "") %>% nrow()
 ```
+
 Yes, and 3 with completely empty data (very minor candidates) e.g., [https://ballotpedia.org/A._Wayne_Johnson](https://ballotpedia.org/A._Wayne_Johnson)
 
 ```{r}
 setdiff(
-  df_ls$winred %>% filter(is.na(url)) %>% .$name, 
-  df_ls$winred %>% filter(!is.na(url)) %>% .$name
+  df_raw %>% filter(is.na(url)) %>% .$name, 
+  df_raw %>% filter(!is.na(url)) %>% .$name
 )
 ```
 
 # Does WinRed directory contain changing URLs or are they static? 
 
 ```{r}
-temp <- df_ls$winred %>%
+temp <- df_raw %>%
   group_by(name, race, url) %>%
   slice(1) %>%
   ungroup() %>%
@@ -55,10 +56,10 @@ temp <- df_ls$winred %>%
 temp
 ```
 
-`r round(length(unique(temp$name)) / length(unique(df_ls$winred$name)) * 100, digits = 1)`% (`r length(unique(temp$name))` out of `r length(unique(df_ls$winred$name))` entities) change URL link at some point in time. But most of these seem to be because of addition of "?sc=winred-directory". 
+`r round(length(unique(temp$name)) / length(unique(df_raw$name)) * 100, digits = 1)`% (`r length(unique(temp$name))` out of `r length(unique(df_raw$name))` entities) change URL link at some point in time. But most of these seem to be because of addition of "?sc=winred-directory". 
 
 ```{r}
-temp <- df_ls$winred %>%
+temp <- df_raw %>%
   mutate(url = gsub("\\?sc=winred-directory", "", url)) %>%
   group_by(name, race, url) %>%
   slice(1) %>%
@@ -70,14 +71,14 @@ temp <- df_ls$winred %>%
 temp
 ```
 
-`r round(length(unique(temp$name)) / length(unique(df_ls$winred$name)) * 100, digits = 1)`% (`r length(unique(temp$name))` out of `r length(unique(df_ls$winred$name))` entities) change URL link at some point in time.
+`r round(length(unique(temp$name)) / length(unique(df_raw$name)) * 100, digits = 1)`% (`r length(unique(temp$name))` out of `r length(unique(df_raw$name))` entities) change URL link at some point in time.
 
 # Does any WinRed entity have multiple URLs in the same day?
 
 Oh yikes, yes e.g., Michelle Steel, Young Kim, Lindsey Graham
 
 ```{r}
-df_ls$winred %>%
+df_raw %>%
   group_by(name, race, url, date) %>%
   slice(1) %>%
   ungroup() %>%
@@ -91,7 +92,7 @@ df_ls$winred %>%
 Yes: couple errors, couple real deal
 
 ```{r}
-temp <- df_ls$winred %>%
+temp <- df_raw %>%
   group_by(name, race) %>%
   slice(1) %>%
   ungroup() %>%
@@ -110,7 +111,7 @@ temp
 # Any amount changes within same URL?
 
 ```{r}
-wide_date <- df_ls$winred %>%
+wide_date <- df_raw %>%
   # To kick out duplicates
   mutate(url = gsub("\\?sc=winred-directory", "", url)) %>%
   mutate(name = gsub(" for Congress", "", name)) %>%
@@ -224,4 +225,3 @@ seq(unique(rleid(swain))) %>%
   bind_rows(.id = "seq") %>%
   mutate_at(vars("min", "max"), ~ ymd(gsub("date|_", "", .x)))
 ```
-
