@@ -14,7 +14,8 @@ if (!file.exists(here("data/tidy/president_2020.fst"))) {
       map(loadRData) %>%
       bind_rows() %>%
       as_tibble() %>%
-      dedup()
+      dedup() %>%
+      mutate(across(everything(), ~ trimws(gsub("\\s+", " ", .x))))
     write_fst(df_raw, here(paste0("data/tidy/", c, "_2020.fst")))
   }
 } else {
@@ -26,6 +27,7 @@ if (!file.exists(here("data/tidy/president_2020.fst"))) {
         ~ read_fst(here(paste0("data/tidy/", .x, "_2020.fst")))
       )
   } else if (length(categories) == 1) {
-    df_raw <- read_fst(here(paste0("data/tidy/", categories, "_2020.fst")))
+    df_raw <- read_fst(here(paste0("data/tidy/", categories, "_2020.fst"))) %>%
+      mutate(across(everything(), ~ trimws(gsub("\\s+", " ", .x))))
   }
 }
