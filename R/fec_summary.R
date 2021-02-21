@@ -1,4 +1,4 @@
-source("R/utilities.R")
+source(here::here("R", "utilities.R"))
 
 # Scrape FEC summaries from official website ===================================
 # Extracted after looking at `Network` at the Elements
