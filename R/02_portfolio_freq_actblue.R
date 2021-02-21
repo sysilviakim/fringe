@@ -2,6 +2,12 @@ categories <- "actblue"
 source(here::here("R", "01_data_import.R"))
 
 assert_that(all(!is.na(df_raw$url)))
+df_raw <- df_raw %>%
+  group_by(url, year, date, portfolio) %>%
+  # e.g., https://secure.actblue.com/donate/vtdems : same-date record
+  # The Vermont Democratic Party & Donate to the Vermont Democratic Party
+  # both exist
+  slice(n())
 
 temp <- df_raw %>%
   rename(name = fundraiser) %>%
@@ -60,7 +66,17 @@ temp <- left_join(
   read_fst(here("data/tidy/actblue_portfolio_temp_names_included.fst")) %>%
     group_by(url, amount) %>%
     mutate(name_full = list(unique(name))) %>%
-    slice(n())
+    slice(n()) %>%
+    ungroup() %>%
+    select(-min, -max, -seq) %>%
+    dedup()
+)
+assert_that(
+  temp %>%
+    group_by(year, url, seq, min, max, amount) %>%
+    filter(n() > 1) %>%
+    nrow() %>%
+    {. == 0}
 )
 
 save(
