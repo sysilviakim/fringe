@@ -59,20 +59,11 @@ temp <- left_join(
   read_fst(here("data/tidy/actblue_portfolio_temp_only_url.fst")),
   read_fst(here("data/tidy/actblue_portfolio_temp_names_included.fst")) %>%
     group_by(url, amount) %>%
+    mutate(name_full = list(unique(name))) %>%
     slice(n())
-) %>%
-  mutate(year = as.numeric(year))
+)
 
-entities <- df_raw %>%
-  rename(name = fundraiser) %>%
-  select(!!c("name", "year")) %>%
-  dedup()
-write_fst(entities, here("data/tidy/actblue_entities.fst"))
-
-View(anti_join(entities, temp))
-nrow(full_join(temp, entities))
-
-write_fst(
-  full_join(temp, entities),
-  here("data/tidy/portfolio_summ_actblue_incomplete.fst")
+save(
+  temp,
+  file = here("data/tidy/portfolio_summ_actblue_incomplete.Rda")
 )

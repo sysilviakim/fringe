@@ -152,7 +152,6 @@ entities <- df_raw %>%
 
 View(anti_join(entities, temp))
 nrow(full_join(temp, entities))
+rightus <- full_join(temp, entities)
 
-write_fst(
-  full_join(temp, entities), here("data/tidy/portfolio_summ_rightus.fst")
-)
+save(rightus, file = here("data/tidy/portfolio_summ_rightus.Rda"))

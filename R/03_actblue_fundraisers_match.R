@@ -18,8 +18,8 @@ actblue_entities <- read_fst(
   slice(n())
 
 # Read amount summary for ActBlue ==============================================
-actblue_summ <- read_fst(
-  here("data/tidy/portfolio_summ_actblue_incomplete.fst")
+actblue_summ <- loadRData(
+  here("data/tidy/portfolio_summ_actblue_incomplete.Rda")
 )
 
 # Join just on URLs
@@ -65,4 +65,4 @@ actblue <- bind_rows(
   filter(!is.na(year)) %>%
   rename(class = class_mode)
 
-write_fst(actblue, path = here("data/tidy/portfolio_summ_actblue.fst"))
+save(actblue, file = here("data/tidy/portfolio_summ_actblue.Rda"))

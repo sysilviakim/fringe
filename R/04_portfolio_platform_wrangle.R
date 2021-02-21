@@ -6,7 +6,7 @@ categories <- c("winred", "rightus", "actblue")
 # Import summarized data, create first/last/min/max ============================
 dl <- categories %>%
   set_names(., .) %>%
-  map(~ read_fst(here(paste0("data/tidy/portfolio_summ_", .x, ".fst")))) %>%
+  map(~ loadRData(here(paste0("data/tidy/portfolio_summ_", .x, ".Rda")))) %>%
   map(
     ~ .x %>%
       rename(min_date = min, max_date = max) %>%
