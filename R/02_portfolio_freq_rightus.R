@@ -13,7 +13,7 @@ temp <- df_raw %>%
     race = trimws(race),
     race_orig = race
   ) %>%
-  filter(!is.na(portfolio)) %>%
+  # filter(!is.na(portfolio)) %>%
   # 0 for "Other"
   filter(portfolio > 0) %>%
   mutate(
@@ -110,8 +110,9 @@ temp %>%
   View()
 
 # Top 5 Most Frequent Distributions ============================================
+rightus <- temp %>% filter(grepl("anedot", url))
 p <- prop(
-  temp %>%
+  rightus %>%
     group_by(name, url, amount) %>%
     slice(1),
   "amount",
@@ -145,5 +146,4 @@ print(pdf_default(p))
 dev.off()
 
 # No need to merge with entities ===============================================
-rightus <- temp
 save(rightus, file = here("data/tidy/portfolio_summ_rightus.Rda"))
