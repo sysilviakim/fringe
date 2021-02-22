@@ -4,7 +4,16 @@ source(here::here("R", "utilities.R"))
 categories <- c("winred", "rightus", "actblue")
 dl <- categories %>%
   set_names(., .) %>%
-  map(~ loadRData(here(paste0("data/tidy/portfolio_summ_", .x, ".Rda")))) %>%
+  map(
+    ~ loadRData(here(paste0("data/tidy/portfolio_summ_", .x, ".Rda"))) %>%
+      mutate(
+        amount = case_when(
+          amount == "0-1-2-3" ~ NA_character_,
+          amount == "-999" ~ NA_character_,
+          TRUE ~ amount
+        )
+      )
+  ) %>%
   map(summ_calc_fxn)
 
 # Augment "class" variables (WinRed/Right.us) ==================================
@@ -45,16 +54,18 @@ save(dl, file = here("data/tidy/portfolio_summ_platforms.Rda"))
 
 # Federal candidates ===========================================================
 dl <- loadRData(here("data/tidy/portfolio_summ_federal_first_only.Rda")) %>%
-  map(summ_calc_fxn) %>%
   map(
     ~ .x %>%
       mutate(
         amount = case_when(
-          amount == "0-1-2-3" ~ NA,
-          amount == "-999" ~ NA,
+          amount == "0-1-2-3" ~ NA_character_,
+          amount == "-999" ~ NA_character_,
           TRUE ~ amount
         )
       )
-  )
-
-
+  ) %>%
+  map(summ_calc_fxn) %>%
+  # Clears out cases where amount wasn't scraped because
+  # the scraper didn't work very well
+  map(~ filter(.x, !(is.na(amount) & min_date == max_date)))
+save(dl, file = here("data/tidy/portfolio_summ_federal_final.Rda"))
