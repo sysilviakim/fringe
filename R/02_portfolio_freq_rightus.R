@@ -144,14 +144,6 @@ pdf(here("fig/portfolio_freq_top_5_rightus.pdf"), width = 3, height = 3)
 print(pdf_default(p))
 dev.off()
 
-# Save Output (Check for No-Prompt Referrals) ==================================
-entities <- df_raw %>%
-  select(!!c("name", "race", "year")) %>%
-  mutate(race = trimws(race)) %>%
-  dedup()
-
-View(anti_join(entities, temp))
-nrow(full_join(temp, entities))
-rightus <- full_join(temp, entities)
-
+# No need to merge with entities ===============================================
+rightus <- temp
 save(rightus, file = here("data/tidy/portfolio_summ_rightus.Rda"))
