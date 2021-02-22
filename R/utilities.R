@@ -22,10 +22,17 @@ portfolio_summ <- function(df,
                            order_vars = c("name", "url"),
                            na_value = -999) {
   df[[values_from]][is.na(df[[values_from]])] <- -999
-  
+
   # Pivot from long to wide, create date-columns
   df <- df %>%
     mutate(across(everything(), trimws)) %>%
+    # If it is 25-100-250-100-NA, for example, NA was for "Other Values"
+    # So delete
+    group_by(across(-contains(values_from))) %>%
+    filter(
+      !(n_distinct(!!as.name(values_from)) > 1 &
+        is.na(!!as.name(values_from)))
+    ) %>%
     pivot_wider(
       names_from = !!as.name(names_from),
       values_from = !!as.name(values_from),
@@ -33,8 +40,9 @@ portfolio_summ <- function(df,
       values_fn = list
     ) %>%
     clean_names() %>%
-    arrange(!!!order_vars)
-  
+    arrange(across(order_vars)) %>%
+    ungroup()
+
   # Using all combinations of entities (name-URL) and dates, create nested list
   temp <- cross2(
     df %>% select(-!!exclude_cols) %>% names(),
@@ -48,17 +56,17 @@ portfolio_summ <- function(df,
         return(out)
       }
     )
-  
+
   # Derive unique menus for each entity, excluding NULL and NA values
   menu_list <- seq(nrow(df)) %>%
     map(
       ~ unique(
         temp[
           seq(1, length(temp), by = (ncol(df) - length(exclude_cols)))[.x]:
-            seq(
-              ncol(df) - length(exclude_cols), length(temp),
-              by = (ncol(df) - length(exclude_cols))
-            )[.x]
+          seq(
+            ncol(df) - length(exclude_cols), length(temp),
+            by = (ncol(df) - length(exclude_cols))
+          )[.x]
         ]
       ) %>%
         bind_rows() %>%
@@ -66,7 +74,7 @@ portfolio_summ <- function(df,
     ) %>%
     map(~ Filter(Negate(is.null), .x)) %>%
     map(~ Filter(function(x) any(!is.na(x)), .x))
-  
+
   # For each entity, derive first date a given menu appears in data,
   # + last date, and the menu itself. Bind it with identifiers
   out <- list()
@@ -78,7 +86,7 @@ portfolio_summ <- function(df,
       .[. != ""] %>%
       .[. != "NA"] %>%
       na.omit()
-    
+
     out[[i]] <- seq(unique(rleid(indv))) %>%
       set_names(., .) %>%
       map(
@@ -94,7 +102,7 @@ portfolio_summ <- function(df,
         )
       ) %>%
       bind_rows(.id = "seq")
-    
+
     out[[i]] <- bind_cols(
       out[[i]],
       df[i, ] %>%
@@ -107,6 +115,42 @@ portfolio_summ <- function(df,
       select(!!exclude_cols, everything()) %>%
       mutate_at(vars("min", "max"), ~ ymd(gsub("date|_", "", .x)))
   )
+}
+
+summ_calc_fxn <- function(df) {
+  df %>%
+    rename(min_date = min, max_date = max) %>%
+    mutate(
+      amount = case_when(
+        amount == "0-1-2-3" ~ NA_character_,
+        amount == "-999" ~ NA_character_,
+        TRUE ~ amount
+      )
+    ) %>%
+    {
+      bind_rows(
+        filter(., is.na(amount)) %>%
+          rowwise() %>%
+          mutate(
+            min = NA, max = NA, mean = NA, median = NA,
+            q1 = NA, q3 = NA, first = NA, last = NA,
+            choices = 0
+          ),
+        filter(., !is.na(amount)) %>%
+          rowwise() %>%
+          mutate(
+            min = amount_split(amount) %>% min(., na.rm = TRUE),
+            max = amount_split(amount) %>% max(., na.rm = TRUE),
+            mean = amount_split(amount) %>% mean(., na.rm = TRUE),
+            median = amount_split(amount) %>% median(., na.rm = TRUE),
+            q1 = amount_split(amount) %>% summary() %>% .[["1st Qu."]],
+            q3 = amount_split(amount) %>% summary() %>% .[["3rd Qu."]],
+            first = amount_split(amount) %>% .[1],
+            last = amount_split(amount) %>% .[length(.)],
+            choices = amount_split(amount) %>% length()
+          )
+      )
+    }
 }
 
 fundraising_actblue <- function(x) {
@@ -128,19 +172,19 @@ actblue_js <- function(url) {
   x <- read_html(url) %>%
     html_nodes(xpath = '//*[@type="text/javascript"]') %>%
     html_text()
-  
+
   temp <- x %>%
     map(
       ~ {
         temp <- str_match_all(.x, "window.indigoListResponse = (\\{.*\\})")
         if (!is.null(temp)) {
-          temp[[1]][,2]
+          temp[[1]][, 2]
         }
       }
     ) %>%
     unlist() %>%
     fromJSON()
-  
+
   # temp$entities
   # temp three types: vector, dataframe, value
   temp_df <- temp %>%
@@ -148,29 +192,29 @@ actblue_js <- function(url) {
     unlist() %>%
     which() %>%
     names()
-  
+
   temp_vc <- temp %>%
     map(~ length(.x) > 1 & !is.data.frame(.x)) %>%
     unlist() %>%
     which() %>%
     names()
-  
-  json_rest <- names(temp) %>% 
+
+  json_rest <- names(temp) %>%
     map(
       ~ {
         if (
           !is.null(temp[[.x]]) &
-          !(
-            .x %in% c(
-              # "entities", "post_donation_upsells", "brandings",
-              temp_df,
-              # "relevant_surrogate_keys", "share_content", "radio_amounts",
-              # "eligibility_values", "eligibility_values_es",
-              # "list_disclaimer_policy", "acceptable_card_types",
-              # "managing_entity", "fundraising_video", "custom_fields"
-              temp_vc
+            !(
+              .x %in% c(
+                # "entities", "post_donation_upsells", "brandings",
+                temp_df,
+                # "relevant_surrogate_keys", "share_content", "radio_amounts",
+                # "eligibility_values", "eligibility_values_es",
+                # "list_disclaimer_policy", "acceptable_card_types",
+                # "managing_entity", "fundraising_video", "custom_fields"
+                temp_vc
+              )
             )
-          )
         ) {
           tibble(!!as.name(.x) := temp[[.x]])
         } else {
@@ -178,24 +222,30 @@ actblue_js <- function(url) {
         }
       }
     ) %>%
-    keep(~ !is.null(.x)) %>% 
-    keep(~ nrow(.x) > 0) %>% 
+    keep(~ !is.null(.x)) %>%
+    keep(~ nrow(.x) > 0) %>%
     bind_cols()
-  
+
   out <- tibble(url = url, js_rest = json_rest)
   for (i in c(temp_df, temp_vc)) {
     out[[i]] <- list(temp[[i]])
   }
   assert_that(nrow(out) == 1)
-  
+
   return(out)
 }
 
 amount_split <- function(amount) {
-  str_split(amount, pattern = "-") %>%
+  out <- str_split(amount, pattern = "-") %>%
     unlist() %>%
     as.numeric() %>%
-    na.omit()
+    na.omit() %>%
+    as.vector()
+  if (length(out) == 0) {
+    return(NA)
+  } else {
+    return(out)
+  }
 }
 
 platform_names <- function(df, var = "Platform") {
