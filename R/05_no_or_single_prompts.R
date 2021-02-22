@@ -32,11 +32,31 @@ temp <- list(
 
 # Export to xtable =============================================================
 print(
-  xtable(temp),
+  xtable(temp, digits = c(0, 0, rep(4, 4))),
   file = here("tab", "no_single_prompts_platform.tex"),
   booktabs = TRUE, include.rownames = FALSE, floating = FALSE
 )
 
 # Import data for specific federal races =======================================
-load(here("data/tidy/portfolio_summ_federal_first_only.Rda"))
+load(here("data/tidy/portfolio_summ_federal_final.Rda"))
 
+temp <- list(
+  `No Suggestions` = dl %>%
+    imap_dfr(
+      ~ tibble(Race = simple_cap(.y), perc = sum(.x$choices == 0) / nrow(.x))
+    ),
+  `One Suggestion` = dl %>%
+    imap_dfr(
+      ~ tibble(Race = simple_cap(.y), perc = sum(.x$choices == 1) / nrow(.x))
+    )
+) %>%
+  bind_rows(.id = "type") %>%
+  mutate(across(contains("Suggestion") | contains("One"), ~ .x * 100)) %>%
+  pivot_wider(id_cols = "Race", names_from = "type", values_from = "perc")
+
+# Export to xtable =============================================================
+print(
+  xtable(temp, digits = c(0, 0, 4, 4)),
+  file = here("tab", "no_single_prompts_race.tex"),
+  booktabs = TRUE, include.rownames = FALSE, floating = FALSE
+)
