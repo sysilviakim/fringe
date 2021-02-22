@@ -38,25 +38,5 @@ print(
 )
 
 # Import data for specific federal races =======================================
-categories <- c("president", "senate", "house")
-source(here("R", "01_data_import.R"))
-
-dl <- df_ls %>%
-  imap(
-    ~ {
-      if (.y == "president") {
-        ex <- c("last_name", "url", "year")
-      } else if (.y == "senate") {
-        ex <- c("last_name", "url", "year", "state")
-      } else {
-        ex <- c("last_name", "url", "year", "state", "state_cd")
-      }
-      .x %>%
-        ungroup() %>%
-        mutate(year = 2020) %>%
-        filter(!is.na(url) & url != "") %>%
-        portfolio_summ(exclude_cols = ex, order_vars = ex)
-    }
-  )
-
+load(here("data/tidy/portfolio_summ_federal_first_only.Rda"))
 

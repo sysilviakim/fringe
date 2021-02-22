@@ -40,7 +40,7 @@ portfolio_summ <- function(df,
       values_fn = list
     ) %>%
     clean_names() %>%
-    arrange(across(order_vars)) %>%
+    arrange(across(all_of(order_vars))) %>%
     ungroup()
 
   # Using all combinations of entities (name-URL) and dates, create nested list
