@@ -19,7 +19,9 @@ portfolio_summ <- function(df,
                            names_from = "date",
                            values_from = "portfolio",
                            exclude_cols = c("name", "race", "url"),
-                           order_vars = c("name", "url")) {
+                           order_vars = c("name", "url"),
+                           na_value = -999) {
+  df[[values_from]][is.na(df[[values_from]])] <- -999
   
   # Pivot from long to wide, create date-columns
   df <- df %>%
@@ -192,7 +194,8 @@ actblue_js <- function(url) {
 amount_split <- function(amount) {
   str_split(amount, pattern = "-") %>%
     unlist() %>%
-    as.numeric()
+    as.numeric() %>%
+    na.omit()
 }
 
 platform_names <- function(df, var = "Platform") {
