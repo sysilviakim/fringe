@@ -1,17 +1,20 @@
 
 # Data import for all three platforms and all three federal races ==============
 data/tidy/president_2020.fst : R/01_data_import.R
-		Rscript R/01_data_import.R
+		RScript R/01_data_import.R
 		
 # Portfolio summaries for all three platforms ==================================
 data/tidy/portfolio_summ_actblue_incomplete.Rda : R/02_portfolio_freq_actblue.R
-		Rscript R/02_portfolio_freq_actblue.R
+		RScript R/02_portfolio_freq_actblue.R
 		
 data/tidy/portfolio_summ_rightus.Rda : R/02_portfolio_freq_rightus.R
-		Rscript R/02_portfolio_freq_rightus.R
+		RScript R/02_portfolio_freq_rightus.R
 		
 data/tidy/portfolio_summ_winred.Rda : R/02_portfolio_freq_winred.R
-		Rscript R/02_portfolio_freq_winred.R
+		RScript R/02_portfolio_freq_winred.R
+
+data/tidy/portfolio_summ_federal_first_only.Rda : R/02_portfolio_freq_federal.R
+		RScript R/02_portfolio_freq_federal.R
 
 # ActBlue needs more work to match with fundraising entities ===================
 data/tidy/actblue_fundraisers_full.fst : R/03_actblue_entities_aug.R
