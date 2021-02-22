@@ -31,6 +31,14 @@ write_fst(temp, here("data/tidy/actblue_portfolio_temp_only_url.fst"))
 head(sort(table(temp$amount), decreasing = TRUE), 10)
 
 # Top 5 Most Frequent Distributions ============================================
+temp <- temp %>%
+  mutate(
+    amount = case_when(
+      amount == "-999" ~ "No\nSuggested\nAmounts",
+      TRUE ~ amount
+    )
+  )
+
 p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
   unlist() %>%
   set_names(., nm = names(.)) %>%
