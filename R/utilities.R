@@ -23,7 +23,7 @@ portfolio_summ <- function(df,
                            na_value = -999) {
   df[[values_from]][is.na(df[[values_from]])] <- -999
 
-  # Pivot from long to wide, create date-columns
+  # First, take some necessary steps to trim and clean
   df <- df %>%
     mutate(across(everything(), trimws)) %>%
     # If it is 25-100-250-100-NA, for example, NA was for "Other Values"
@@ -32,7 +32,13 @@ portfolio_summ <- function(df,
     filter(
       !(n_distinct(!!as.name(values_from)) > 1 &
         is.na(!!as.name(values_from)))
-    ) %>%
+    )
+  
+  # Substitute NA values
+  df[[values_from]][is.na(df[[values_from]])] <- -999
+  
+  # Pivot from long to wide, create date-columns
+  df <- df%>%
     pivot_wider(
       names_from = !!as.name(names_from),
       values_from = !!as.name(values_from),
