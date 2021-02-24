@@ -19,10 +19,7 @@ portfolio_summ <- function(df,
                            names_from = "date",
                            values_from = "portfolio",
                            exclude_cols = c("name", "race", "url"),
-                           order_vars = c("name", "url"),
-                           na_value = -999) {
-  df[[values_from]][is.na(df[[values_from]])] <- -999
-
+                           order_vars = c("name", "url")) {
   # First, take some necessary steps to trim and clean
   df <- df %>%
     mutate(across(everything(), trimws)) %>%
@@ -32,13 +29,39 @@ portfolio_summ <- function(df,
     filter(
       !(n_distinct(!!as.name(values_from)) > 1 &
         is.na(!!as.name(values_from)))
+    ) %>%
+    group_by(across(-(contains(values_from) | contains("date")))) %>%
+    filter(
+      # There are other values than NA; NAs are only in the beginning
+      # That indicates scraper that was incomplete
+      # Delete these
+      !(n_distinct(rleid(!!as.name(values_from))) > 2 &
+        rleid(!!as.name(values_from)) == 1 &
+        is.na(!!as.name(values_from)))
+    ) %>%
+    ungroup() %>%
+    group_by(across(c(setdiff(order_vars, "url")))) %>%
+    group_split() %>%
+    map_dfr(
+      ~ .x %>%
+        filter(
+          # Before and after have no NA values; just this one
+          !(!is.na(lag(portfolio)) & (lag(date) != date) & 
+              !is.na(lead(portfolio)) & (lead(date) != date) & 
+              is.na(portfolio))
+        ) %>%
+        filter(
+          # If previously non-NA values, no last NA value
+          !(!is.na(lag(portfolio)) & (lag(date) != date) & 
+              is.na(portfolio) & date == last(date))
+        )
     )
-  
+
   # Substitute NA values
   df[[values_from]][is.na(df[[values_from]])] <- -999
-  
+
   # Pivot from long to wide, create date-columns
-  df <- df%>%
+  df <- df %>%
     pivot_wider(
       names_from = !!as.name(names_from),
       values_from = !!as.name(values_from),
@@ -130,6 +153,7 @@ summ_calc_fxn <- function(df) {
       amount = case_when(
         amount == "0-1-2-3" ~ NA_character_,
         amount == "-999" ~ NA_character_,
+        amount == "No\nSuggested\nAmounts" ~ NA_character_,
         TRUE ~ amount
       )
     ) %>%
@@ -153,7 +177,19 @@ summ_calc_fxn <- function(df) {
             q3 = amount_split(amount) %>% summary() %>% .[["3rd Qu."]],
             first = amount_split(amount) %>% .[1],
             last = amount_split(amount) %>% .[length(.)],
-            choices = amount_split(amount) %>% length()
+            choices = amount_split(amount) %>% length(),
+            ineff_2700 = case_when(
+              2700 %in% amount_split(amount) ~ 1,
+              TRUE ~ 0
+            ),
+            ineff_2900 = case_when(
+              2900 %in% amount_split(amount) ~ 1,
+              TRUE ~ 0
+            ),
+            sanders = case_when(
+              27 %in% amount_split(amount) ~ 1,
+              TRUE ~ 0
+            )
           )
       )
     }
@@ -242,7 +278,7 @@ actblue_js <- function(url) {
 }
 
 amount_split <- function(amount) {
-  out <- str_split(amount, pattern = "-") %>%
+  out <- str_split(gsub("--999|^-999", "", amount), pattern = "-") %>%
     unlist() %>%
     as.numeric() %>%
     na.omit() %>%
@@ -263,6 +299,28 @@ platform_names <- function(df, var = "Platform") {
         !!as.name(var) == "actblue" ~ "ActBlue"
       )
     )
+}
+
+fed_exception_vars <- function(x) {
+  if (x == "president") {
+    ex <- c("last_name", "url", "year")
+  } else if (x == "senate") {
+    ex <- c("state", "last_name", "url", "year")
+  } else {
+    ex <- c("state", "state_cd", "last_name", "url", "year")
+  }
+}
+
+portfolio_na_fig_label <- function(df) {
+  df %>%
+    mutate(
+      amount = case_when(
+        amount == "-999" ~ "No\nSuggested\nAmounts",
+        amount == "0-1-2-3" ~ "No\nSuggested\nAmounts",
+        TRUE ~ amount
+      )
+    ) %>%
+    mutate(amount = gsub("--999", "", amount))
 }
 
 # Other options ================================================================
