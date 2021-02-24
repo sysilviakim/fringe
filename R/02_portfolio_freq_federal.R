@@ -1,17 +1,23 @@
 categories <- c("president", "senate", "house")
 source(here::here("R", "01_data_import.R"))
 
+# Anomalies ====================================================================
+df_ls <- df_ls %>%
+  map(
+    ~ .x %>%
+      mutate(
+        # de Blasio in presidential race
+        # Young Kim in house race
+        # Probably happened because I used lists at some point
+        url = gsub(" .*?$|\\|.*?$", "", url)
+      )
+  )
+
 # All federal records, regardless of the data generating process ===============
 dl <- df_ls %>%
   imap(
     ~ {
-      if (.y == "president") {
-        ex <- c("last_name", "url", "year")
-      } else if (.y == "senate") {
-        ex <- c("state", "last_name", "url", "year")
-      } else {
-        ex <- c("state", "state_cd", "last_name", "url", "year")
-      }
+      ex <- fed_exception_vars(.y)
       .x %>%
         ungroup() %>%
         mutate(year = 2020) %>%
@@ -25,32 +31,72 @@ save(dl, file = here("data/tidy/portfolio_summ_federal.Rda"))
 dl <- df_ls %>%
   imap(
     ~ {
-      if (.y == "president") {
-        ex <- c("last_name", "url", "year")
-      } else if (.y == "senate") {
-        ex <- c("last_name", "url", "year", "state")
-      } else {
-        ex <- c("last_name", "url", "year", "state", "state_cd")
-      }
+      ex <- fed_exception_vars(.y)
       .x %>%
         ungroup() %>%
-        mutate(year = 2020) %>%
+        mutate(year = 2020, portfolio = as.numeric(portfolio)) %>%
         filter(!is.na(url) & url != "") %>%
         # Don't filter for !is.na(portfolio) just yet
         group_by(across(c(setdiff(ex, "url"), "date"))) %>%
         # First URL recorded for a given date/amount
         filter(url == first(url)) %>%
         group_by(across(c(setdiff(ex, "url"), "date", "portfolio"))) %>%
+        # This enforces reordering from smallest number, however
         slice(1) %>%
         ungroup() %>%
-        mutate(
-          url = case_when(
-            last_name == "de Blasio" & grepl("\\|", url) ~
-              gsub("\\|.*?$", "", url),
-            TRUE ~ url
-          )
-        ) %>%
         portfolio_summ(exclude_cols = ex, order_vars = ex)
     }
   )
 save(dl, file = here("data/tidy/portfolio_summ_federal_first_only.Rda"))
+
+# Create figures ===============================================================
+dl %>%
+  imap(
+    ~ {
+      ex <- fed_exception_vars(.y)
+      .x <- portfolio_na_fig_label(.x)
+
+      if (.y != "president") {
+        .x <- .x %>%
+          group_by(across(all_of(ex))) %>%
+          filter(as.Date("2020-11-01") < last(max)) %>%
+          arrange(across(all_of(ex))) %>%
+          # This must be changed later; delete NA records if nested btw
+          # valid records
+          group_by(across(all_of(c(ex, "amount")))) %>%
+          filter(
+            !(n_distinct(amount) > 1 & amount == "No\nSuggested\nAmounts")
+          ) %>%
+          slice(1) %>%
+          filter(!grepl("2022", url))
+      }
+
+      p <- prop(.x, "amount", sort = TRUE, head = 5, print = FALSE) %>%
+        unlist() %>%
+        set_names(., nm = names(.)) %>%
+        imap(~ tibble(label = .y, freq = as.numeric(.x))) %>%
+        bind_rows() %>%
+        mutate(
+          label = gsub("-", "\n", label),
+          label = factor(
+            label,
+            levels = gsub(
+              "-", "\n",
+              names(prop(.x, "amount", sort = TRUE, head = 5, print = FALSE))
+            )
+          )
+        ) %>%
+        ggplot(aes(x = label, y = freq)) +
+        geom_bar(stat = "identity") +
+        xlab(NULL) +
+        ylab("Percentage (%)") +
+        scale_y_continuous(limits = c(0, 50))
+
+      pdf(
+        here("fig", paste0("portfolio_freq_top_5_", .y, ".pdf")),
+        width = 3, height = 3
+      )
+      print(pdf_default(p))
+      dev.off()
+    }
+  )
