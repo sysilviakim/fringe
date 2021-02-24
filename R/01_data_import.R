@@ -12,13 +12,13 @@ if (!file.exists(here("data/tidy/president_2020.fst"))) {
   for (c in categories) {
     for (y in yrs) {
       df_raw <- list.files("data/raw", pattern = c, full.names = TRUE) %>%
-        keep(~ grepl("amount", .x) & grepl("2020", .x)) %>%
+        keep(~ grepl("amount", .x) & grepl(y, .x)) %>%
         map(loadRData) %>%
         bind_rows() %>%
         as_tibble() %>%
         dedup() %>%
         mutate(across(everything(), ~ trimws(gsub("\\s+", " ", .x))))
-      write_fst(df_raw, here(paste0("data/tidy/", c, "_", yrs, ".fst")))
+      write_fst(df_raw, here(paste0("data/tidy/", c, "_", y, ".fst")))
     }
   }
 } else {
