@@ -1,17 +1,24 @@
 source(here::here("R", "utilities.R"))
+categories <- c("senate", "house")
 
-df_ls <- c("senate", "house") %>%
+df_ls <- categories %>%
   set_names(., .) %>%
   map(
     ~ read_fst(here(paste0("data/tidy/", .x, "_2022.fst"))) %>%
       filter(!is.na(party)) %>%
       arrange(across(c(starts_with("state"), ends_with("name"), "date"))) %>%
       filter(incumbent == TRUE) %>%
-      mutate(url = gsub(" .*?$|\\|.*?$", "", url))
+      mutate(url = gsub(" .*?$|\\|.*?$", "", url)) %>%
+      filter(last_name != "Loeffler") %>%
+      dedup()
   )
 
 df_ls %>%
   map(~ assert_that(max(.x$date, na.rm = TRUE) > as.Date("2021-01-01")))
+
+# Note that Greene, LaTurner, and Mace's WinRed links were not scraped
+# due to a flaw in the scraper (when both Anedot and WinRed existed, 
+# scraped only Anedot)
 
 # Create portfolio summaries ===================================================
 dl <- df_ls %>%
@@ -34,7 +41,7 @@ dl <- df_ls %>%
         # This enforces reordering from smallest number, however
         slice(1) %>%
         ungroup() %>%
-        portfolio_summ(exclude_cols = ex, order_vars = ex)
+        portfolio_summ(order_vars = ex)
     }
   )
 save(dl, file = here("data/tidy/portfolio_summ_federal_first_only_2022.Rda"))
@@ -74,7 +81,6 @@ dl <- dl %>%
     )
   )
 
-assert_that(identical(dl %>% map(nrow), temp %>% map(nrow)))
 dl %>% map(~ assert_that(all(!is.na(.x$incumbent))))
 
 # Did candidates shift their maximum amounts to 2,900, if previously 2,800? ====
@@ -88,35 +94,53 @@ temp <- dl %>%
         orig_2800 = ifelse(sum(ineff_2800, na.rm = TRUE) > 0, TRUE, FALSE),
         adjust = ifelse(
           sum(ineff_2900, na.rm = TRUE) > 0 & sum(ineff_2800, na.rm = TRUE) > 0,
-          "Adjusted $2,800 to $2,900", "Did Not Adjust"
+          "Adjusted \\$2,800 to \\$2,900",
+          "Did Not Adjust \\$2,800 Maximum"
         ),
-        winred = ifelse(any(grepl("winred", url)), TRUE, FALSE),
-        actblue = ifelse(any(grepl("actblue", url)), TRUE, FALSE)
-      )
+        winred = ifelse(any(grepl("winred", url)), "WinRed", "Other"),
+        actblue = ifelse(any(grepl("actblue", url)), "ActBlue", "Other")
+      ) %>%
+      mutate(winred = factor(winred, levels = c("WinRed", "Other")))
   )
 
 # Compare by party =============================================================
 # Oh yikes!
-tab <- temp %>%
-  imap(
+tab <- cross2(c("Dem", "Rep"), categories) %>%
+  map(
     ~ prop(
-      .x %>% filter(orig_2800 == TRUE), c("adjust", "party"), print = FALSE
+      temp[[.x[[2]]]] %>% filter(orig_2800 == TRUE & party == .x[[1]]),
+      c("adjust"), print = FALSE
     ) %>%
       rowid_matrix_to_df() %>%
       rename(
-        !!as.name(paste0("Dem (", simple_cap(.y), ")")) := Dem,
-        !!as.name(paste0("Rep (", simple_cap(.y), ")")) := Rep
+        !!as.name(paste0(.x[[1]], " (", simple_cap(.x[[2]]), ")")) := value
       )
   ) %>%
   Reduce(left_join, .) %>%
   rename(" " = rownames) %>%
   xtable()
 
-print(
+highlight_xtable(
   tab, 
   file = here("tab", "max_adjust_congress_2022.tex"),
   booktabs = TRUE, include.rownames = FALSE, floating = FALSE
 )
 
 # Conditional probability by platform ==========================================
+tab <- cross2(c("Dem", "Rep"), categories) %>%
+  map(
+    ~ prop(
+      temp[[.x[[2]]]] %>% filter(orig_2800 == TRUE & party == .x[[1]]),
+      c("adjust", ifelse(.x[[1]] == "Rep", "winred", "actblue")), print = FALSE
+    ) %>%
+      rowid_matrix_to_df() %>%
+      mutate(type = paste0(.x[[1]], " (", simple_cap(.x[[2]]), ")"))
+  )
+
+highlight_xtable(
+  tab, 
+  file = here("tab", "max_adjust_congress_2022.tex"),
+  booktabs = TRUE, include.rownames = FALSE, floating = FALSE
+)
+
 
