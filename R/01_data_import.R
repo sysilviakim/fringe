@@ -8,26 +8,32 @@ if (!file.exists(here("data/tidy/president_2020.fst"))) {
   categories <- c(
     "president", "senate", "house", "actblue", "rightus", "winred"
   )
+  yrs <- seq(2020, 2022, by = 2)
   for (c in categories) {
-    df_raw <- list.files("data/raw", pattern = c, full.names = TRUE) %>%
-      keep(~ grepl("amount", .x)) %>%
-      map(loadRData) %>%
-      bind_rows() %>%
-      as_tibble() %>%
-      dedup() %>%
-      mutate(across(everything(), ~ trimws(gsub("\\s+", " ", .x))))
-    write_fst(df_raw, here(paste0("data/tidy/", c, "_2020.fst")))
+    for (y in yrs) {
+      df_raw <- list.files("data/raw", pattern = c, full.names = TRUE) %>%
+        keep(~ grepl("amount", .x) & grepl("2020", .x)) %>%
+        map(loadRData) %>%
+        bind_rows() %>%
+        as_tibble() %>%
+        dedup() %>%
+        mutate(across(everything(), ~ trimws(gsub("\\s+", " ", .x))))
+      write_fst(df_raw, here(paste0("data/tidy/", c, "_", yrs, ".fst")))
+    }
   }
 } else {
   # Allow specifying categories outside this script
+  if (!exists("yrs")) yrs <- 2020
   if (length(categories) > 1) {
     df_ls <- categories %>%
       set_names(., .) %>%
       map(
-        ~ read_fst(here(paste0("data/tidy/", .x, "_2020.fst")))
+        ~ read_fst(here(paste0("data/tidy/", .x, "_", yrs, ".fst")))
       )
   } else if (length(categories) == 1) {
-    df_raw <- read_fst(here(paste0("data/tidy/", categories, "_2020.fst"))) %>%
+    df_raw <- read_fst(
+      here(paste0("data/tidy/", categories, "_", yrs, ".fst"))
+    ) %>%
       mutate(across(everything(), ~ trimws(gsub("\\s+", " ", .x))))
   }
 }
