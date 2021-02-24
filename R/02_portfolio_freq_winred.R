@@ -64,14 +64,7 @@ temp %>%
   {assert_that(. == 0)}
 
 # Top 5 Most Frequent Distributions ============================================
-temp <- temp %>%
-  mutate(
-    amount = case_when(
-      amount == "-999" ~ "No\nSuggested\nAmounts",
-      TRUE ~ amount
-    )
-  )
-
+temp <- portfolio_na_fig_label(temp)
 p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
   unlist() %>%
   set_names(., nm = names(.)) %>%

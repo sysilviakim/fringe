@@ -110,15 +110,7 @@ temp %>%
   View()
 
 # Top 5 Most Frequent Distributions ============================================
-temp <- temp %>%
-  mutate(
-    amount = case_when(
-      amount == "-999" ~ "No\nSuggested\nAmounts",
-      TRUE ~ amount
-    )
-  )
-
-rightus <- temp %>% filter(grepl("anedot", url))
+rightus <- portfolio_na_fig_label(temp) %>% filter(grepl("anedot", url))
 p <- prop(
   rightus %>%
     group_by(name, url, amount) %>%
