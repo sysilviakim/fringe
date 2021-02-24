@@ -16,7 +16,6 @@ library(Kmisc)
 
 # Functions ====================================================================
 portfolio_summ <- function(df,
-                           names_from = "date",
                            values_from = "portfolio",
                            exclude_cols = c("name", "race", "url"),
                            order_vars = c("name", "url")) {
@@ -44,6 +43,7 @@ portfolio_summ <- function(df,
     group_split() %>%
     map_dfr(
       ~ .x %>%
+        arrange(date) %>%
         filter(
           # Before and after have no NA values; just this one
           !(!is.na(lag(portfolio)) & (lag(date) != date) & 
@@ -63,7 +63,7 @@ portfolio_summ <- function(df,
   # Pivot from long to wide, create date-columns
   df <- df %>%
     pivot_wider(
-      names_from = !!as.name(names_from),
+      names_from = date,
       values_from = !!as.name(values_from),
       names_prefix = "date_",
       values_fn = list
@@ -180,6 +180,10 @@ summ_calc_fxn <- function(df) {
             choices = amount_split(amount) %>% length(),
             ineff_2700 = case_when(
               2700 %in% amount_split(amount) ~ 1,
+              TRUE ~ 0
+            ),
+            ineff_2800 = case_when(
+              2800 %in% amount_split(amount) ~ 1,
               TRUE ~ 0
             ),
             ineff_2900 = case_when(
@@ -309,6 +313,7 @@ fed_exception_vars <- function(x) {
   } else {
     ex <- c("state", "state_cd", "last_name", "url", "year")
   }
+  return(ex)
 }
 
 portfolio_na_fig_label <- function(df) {
