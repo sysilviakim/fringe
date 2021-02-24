@@ -62,10 +62,15 @@ dl <- loadRData(here("data/tidy/portfolio_summ_federal_first_only.Rda")) %>%
           amount == "-999" ~ NA_character_,
           TRUE ~ amount
         )
+      ) %>%
+      mutate(
+        amount = case_when(
+          last_name == "Sewell" & grepl("2020-", amount) ~ 
+            gsub("2020-", "20.20-", amount),
+          TRUE ~ amount
+        )
       )
   ) %>%
-  map(summ_calc_fxn) %>%
-  # Clears out cases where amount wasn't scraped because
-  # the scraper didn't work very well
-  map(~ filter(.x, !(is.na(amount) & min_date == max_date)))
+  map(summ_calc_fxn)
+
 save(dl, file = here("data/tidy/portfolio_summ_federal_final.Rda"))
