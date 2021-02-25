@@ -38,7 +38,7 @@ portfolio_summ <- function(df,
         is.na(!!as.name(values_from)))
     ) %>%
     ungroup() %>%
-    group_by(across(c(setdiff(order_vars, "url")))) %>%
+    group_by(across(all_of(order_vars))) %>%
     group_split() %>%
     map_dfr(
       ~ .x %>%
@@ -132,7 +132,9 @@ portfolio_summ <- function(df,
             paste0(collapse = "-")
         )
       ) %>%
-      bind_rows(.id = "seq")
+      bind_rows() %>%
+      arrange(min) %>%
+      row_seq(row = "seq_url")
 
     out[[i]] <- bind_cols(
       df[i, ] %>%
@@ -144,7 +146,18 @@ portfolio_summ <- function(df,
   return(
     out %>%
       bind_rows() %>%
-      mutate_at(vars("min", "max"), ~ ymd(gsub("date|_", "", .x)))
+      mutate(across(c("min", "max"), ~ ymd(gsub("date|_", "", .x)))) %>%
+      group_by(
+        across(setdiff(names(.), c("min", "max", "amount", "url", "seq_url")))
+      ) %>%
+      group_split() %>%
+      map_dfr(
+        ~ .x %>%
+        arrange(min) %>%
+        row_seq(row = "seq")
+      ) %>%
+      ungroup() %>%
+      arrange(across(all_of(c(setdiff(order_vars, "url"), "min"))))
   )
 }
 
