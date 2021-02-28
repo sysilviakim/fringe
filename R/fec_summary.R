@@ -4,7 +4,7 @@ source(here::here("R", "utilities.R"))
 # Extracted after looking at `Network` at the Elements
 # https://www.fec.gov/data/raising-bythenumbers/?election_year=1980
 
-if (!file.exists("data/tidy/fec_summary.Rda")) {
+if (!file.exists(here("data/tidy/fec_summary.Rda"))) {
   fec_summary <- cross2(c("P", "S", "H"), seq(1980, 2020, by = 4)) %>%
     map(
       ~ paste0(
@@ -31,7 +31,9 @@ if (!file.exists("data/tidy/fec_summary.Rda")) {
       )
     ) %>%
     arrange(office, desc(election_year))
-  save(fec_summary, file = "data/tidy/fec_summary.Rda")
+  save(fec_summary, file = here("data/tidy/fec_summary.Rda"))
+} else {
+  load(here("data/tidy/fec_summary.Rda"))
 }
 
 # Create ggplot objects ========================================================
@@ -69,18 +71,18 @@ p <-
   )
 
 # Export: plots look similar, should use only one ==============================
-pdf("fig/fec_summary_1980_2020_receipts.pdf", width = 8, height = 4)
+pdf(here("fig/fec_summary_1980_2020_receipts.pdf"), width = 8, height = 4)
 grid_arrange_shared_legend(
-  pdf_default(p[[1]]) + xlab(""), 
-  pdf_default(p[[2]]) + ylab(""), 
-  pdf_default(p[[3]]) + ylab("") + xlab("")
+  pdf_default(p[[1]]) + xlab("") + ggtitle("President"), 
+  pdf_default(p[[2]]) + ylab("") + ggtitle("Senate"), 
+  pdf_default(p[[3]]) + ylab("") + xlab("") + ggtitle("House")
 )
 dev.off()
 
-pdf("fig/fec_summary_1980_2020_disbursements.pdf", width = 8, height = 4)
+pdf(here("fig/fec_summary_1980_2020_disbursements.pdf"), width = 8, height = 4)
 grid_arrange_shared_legend(
-  pdf_default(p[[4]]) + xlab(""), 
-  pdf_default(p[[5]]) + ylab(""), 
-  pdf_default(p[[6]]) + ylab("") + xlab("")
+  pdf_default(p[[4]]) + xlab("") + ggtitle("President"), 
+  pdf_default(p[[5]]) + ylab("") + ggtitle("Senate"), 
+  pdf_default(p[[6]]) + ylab("") + xlab("") + ggtitle("House")
 )
 dev.off()
