@@ -97,7 +97,7 @@ write_fst(temp, here("data/tidy/rightus_temp_race.fst"))
 
 temp <- temp %>%
   select(-race_orig) %>%
-  portfolio_summ(., exclude_cols = c("name", "race", "year", "url"))
+  portfolio_summ(., order_vars = c("name", "race", "year", "url"))
 
 head(sort(table(temp$amount), decreasing = TRUE), 10)
 
