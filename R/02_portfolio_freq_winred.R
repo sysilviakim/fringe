@@ -40,7 +40,8 @@ temp <- df_raw %>%
   # Changed jurisdiction but keep the record
   # filter(!(name == "Jimmy Rodriguez" & race == "AZ-8")) %>%
   filter(!is.na(url)) %>%
-  portfolio_summ() %>%
+  group_split(url) %>%
+  map_dfr(~ portfolio_summ(.x, order_vars = c("race", "name"))) %>%
   mutate(
     class = case_when(
       grepl("-", race) & !grepl("-SEN", race) ~ "us house",
@@ -48,8 +49,10 @@ temp <- df_raw %>%
       grepl("Party", race) ~ "party",
       grepl("President", race) ~ "pres"
     )
-  )
+  ) %>%
+  arrange(race, name)
 
+assert_that(all(temp$min <= temp$max))
 temp %>%
   .$class %>%
   table(useNA = "ifany")

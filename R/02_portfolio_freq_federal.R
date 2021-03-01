@@ -22,9 +22,13 @@ dl <- df_ls %>%
         ungroup() %>%
         mutate(year = 2020) %>%
         filter(!is.na(url) & url != "") %>%
-        portfolio_summ(exclude_cols = ex, order_vars = ex)
+        group_split(across(all_of(ex))) %>%
+        map_dfr(~ portfolio_summ(.x, order_vars = ex)) %>%
+        arrange(across(c(setdiff(all_of(ex), "url"), "min")))
     }
   )
+
+dl %>% map(~ assert_that(all(.x$min <= .x$max)))
 save(dl, file = here("data/tidy/portfolio_summ_federal.Rda"))
 
 # Keep only the first URL per date =============================================
@@ -37,16 +41,20 @@ dl <- df_ls %>%
         mutate(year = 2020, portfolio = as.numeric(portfolio)) %>%
         filter(!is.na(url) & url != "") %>%
         # Don't filter for !is.na(portfolio) just yet
-        group_by(across(c(setdiff(ex, "url"), "date"))) %>%
+        group_by(across(c(setdiff(all_of(ex), "url"), "date"))) %>%
         # First URL recorded for a given date/amount
         filter(url == first(url)) %>%
-        group_by(across(c(setdiff(ex, "url"), "date", "portfolio"))) %>%
+        group_by(across(c(setdiff(all_of(ex), "url"), "date", "portfolio"))) %>%
         # This enforces reordering from smallest number, however
         slice(1) %>%
         ungroup() %>%
-        portfolio_summ(exclude_cols = ex, order_vars = ex)
+        group_split(across(all_of(ex))) %>%
+        map_dfr(~ portfolio_summ(.x, order_vars = ex)) %>%
+        arrange(across(c(setdiff(all_of(ex), "url"), "min")))
     }
   )
+
+dl %>% map(~ assert_that(all(.x$min <= .x$max)))
 save(dl, file = here("data/tidy/portfolio_summ_federal_first_only.Rda"))
 
 # Create figures ===============================================================
@@ -63,7 +71,7 @@ dl %>%
           arrange(across(all_of(ex))) %>%
           # This must be changed later; delete NA records if nested btw
           # valid records
-          group_by(across(all_of(c(ex, "amount")))) %>%
+          group_by(across(c(all_of(ex), "amount"))) %>%
           filter(
             !(n_distinct(amount) > 1 & amount == "No\nSuggested\nAmounts")
           ) %>%

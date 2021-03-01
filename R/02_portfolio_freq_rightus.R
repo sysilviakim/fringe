@@ -97,8 +97,13 @@ write_fst(temp, here("data/tidy/rightus_temp_race.fst"))
 
 temp <- temp %>%
   select(-race_orig) %>%
-  portfolio_summ(., order_vars = c("name", "race", "year", "url"))
+  group_split(url) %>%
+  map_dfr(
+    ~ portfolio_summ(.x, order_vars = c("name", "race", "year", "url"))
+  ) %>%
+  arrange(race, name)
 
+assert_that(all(temp$min <= temp$max))
 head(sort(table(temp$amount), decreasing = TRUE), 10)
 
 # Check for within-URL changes =================================================
