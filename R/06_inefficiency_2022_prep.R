@@ -1,4 +1,3 @@
-
 source(here::here("R", "utilities.R"))
 categories <- c("senate", "house")
 
@@ -101,4 +100,4 @@ dl <- dl %>%
   )
 
 dl %>% map(~ assert_that(all(!is.na(.x$incumbent))))
-save(dl, here("data/tidy/portfolio_summ_federal_final_2022.Rda"))
+save(dl, file = here("data/tidy/portfolio_summ_federal_final_2022.Rda"))
