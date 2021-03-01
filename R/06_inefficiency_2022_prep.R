@@ -3,18 +3,27 @@ categories <- c("senate", "house")
 
 df_ls <- categories %>%
   set_names(., .) %>%
-  map(
-    ~ read_fst(here(paste0("data/tidy/", .x, "_2022.fst"))) %>%
-      filter(!is.na(party)) %>%
-      arrange(across(c(starts_with("state"), ends_with("name"), "date"))) %>%
-      # Don't care about incumbents
-      filter(incumbent == TRUE & last_name != "Loeffler") %>%
-      mutate(url = gsub(" .*?$|\\|.*?$", "", url)) %>%
-      # Multiple entity or irrelevant one time links
-      filter(
-        !grepl("8-races", url) & !grepl("official-trump-duncan-yard-signs", url)
-      ) %>%
-      dedup()
+  imap(
+    ~ {
+      ex <- fed_exception_vars(.y)
+      read_fst(here(paste0("data/tidy/", .x, "_2022.fst"))) %>%
+        filter(!is.na(party)) %>%
+        group_by(across(c(setdiff(all_of(ex), "url"), "date"))) %>%
+        filter(url == first(url)) %>%
+        group_by(across(c(setdiff(all_of(ex), "url"), "date", "portfolio"))) %>%
+        slice(1) %>%
+        ungroup() %>%
+        arrange(across(c(starts_with("state"), ends_with("name"), "date"))) %>%
+        # Don't care about incumbents
+        filter(incumbent == TRUE & last_name != "Loeffler") %>%
+        mutate(url = gsub(" .*?$|\\|.*?$", "", url)) %>%
+        # Multiple entity or irrelevant one time links
+        filter(
+          !grepl("8-races", url) &
+            !grepl("official-trump-duncan-yard-signs", url)
+        ) %>%
+        dedup()
+    }
   )
 
 df_ls %>%
