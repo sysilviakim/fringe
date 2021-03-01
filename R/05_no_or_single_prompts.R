@@ -11,6 +11,7 @@ dl <- loadRData(here("data/tidy/portfolio_summ_platforms.Rda")) %>%
       ungroup() %>%
       filter(!is.na(url) & url != "") %>%
       select(-contains("name_full")) %>%
+      # This prevents data collection errors (one-time misses) from taking over
       filter(!(is.na(amount) & min_date == max_date))
   )
 
@@ -34,7 +35,7 @@ temp <- list(
     imap_dfr(~ tibble(Platform = .y, perc = sum((.x)$choices == 1) / nrow(.x)))
 ) %>%
   bind_rows(.id = "type") %>%
-  mutate(across(contains("No") | contains("One"), ~ .x * 100)) %>%
+  mutate(perc = perc * 100) %>%
   platform_names() %>%
   pivot_wider(id_cols = "Platform", names_from = "type", values_from = "perc")
 
@@ -42,16 +43,17 @@ temp <- list(
 print(
   xtable(
     temp %>% rename_with(~ gsub(" ", " \\\\newline ", .x)),
-    digits = c(0, 0, rep(3, 6)), 
+    digits = c(0, 0, rep(2, 6)),
     align = "llXXXXXX"
   ),
   file = here("tab", "no_single_prompts_platform.tex"),
   booktabs = TRUE, include.rownames = FALSE, floating = FALSE,
-  tabular.environment = "tabularx", width = ".85\\textwidth"
+  tabular.environment = "tabularx", width = ".8\\textwidth"
 )
 
 # Import data for specific federal races =======================================
-load(here("data/tidy/portfolio_summ_federal_final.Rda"))
+dl <- loadRData(here("data/tidy/portfolio_summ_federal_final.Rda")) %>%
+  map(~ .x %>% filter(!(is.na(amount) & min_date == max_date)))
 
 temp <- list(
   `No Defaults` = dl %>%
@@ -64,17 +66,24 @@ temp <- list(
     )
 ) %>%
   bind_rows(.id = "type") %>%
-  mutate(across(contains("Default") | contains("One"), ~ .x * 100)) %>%
+  mutate(perc = perc * 100) %>%
   pivot_wider(id_cols = "Race", names_from = "type", values_from = "perc")
 
 # Export to xtable =============================================================
 print(
   xtable(
     temp %>% rename_with(~ gsub(" ", " \\\\newline ", .x)),
-    digits = c(0, 0, 3, 3),
+    digits = c(0, 0, rep(2, 2)),
     align = "llXX"
   ),
   file = here("tab", "no_single_prompts_race.tex"),
   booktabs = TRUE, include.rownames = FALSE, floating = FALSE,
-  tabular.environment = "tabularx", width = ".4\\textwidth"
+  tabular.environment = "tabularx", width = ".35\\textwidth"
 )
+
+dl[c("senate", "house")] %>%
+  map_dbl(nrow) %>%
+  sum()
+dl[c("senate", "house")] %>%
+  map_dbl(~ nrow(.x %>% filter(choices == 0))) %>%
+  sum()
