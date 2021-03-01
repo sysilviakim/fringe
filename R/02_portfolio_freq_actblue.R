@@ -13,6 +13,8 @@ temp <- df_raw %>%
   rename(name = fundraiser) %>%
   group_split(url, .keep = TRUE) %>%
   map_dfr(~ portfolio_summ(.x, exclude_cols = c("name", "year", "url")))
+
+assert_that(all(temp$min <= temp$max))
 write_fst(temp, here("data/tidy/actblue_portfolio_temp_names_included.fst"))
 
 # Check for within-URL changes =================================================
