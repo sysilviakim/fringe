@@ -19,7 +19,7 @@ house <-
   select(-state_po, -district) %>%
   select(state_cd, everything()) %>%
   mutate(candidate = gsub("\u0093|\u0094", "", candidate)) %>%
-  mutate(candidate = gsub("\\\\", "", candidate))
+  mutate(candidate = trimws(gsub("\\\\", "", candidate)))
 
 ## Kick out no variation columns
 house <- house %>%
@@ -68,9 +68,16 @@ senate <-
   select(-state, -state_cen, -state_ic, -state_fips) %>%
   select(state = state_po, everything()) %>%
   mutate(candidate = gsub("\u0093|\u0094", "", candidate)) %>%
-  mutate(candidate = gsub("\\\\", "", candidate)) %>%
+  mutate(candidate = trimws(gsub("\\\\", "", candidate))) %>%
   ## Really minor candidates
   filter(candidatevotes > 1000) %>%
+  ## Error: candidate names
+  mutate(
+    candidate = case_when(
+      candidate == "KEVIN J. O'CONNER" ~ "KEVIN J. O'CONNOR",
+      TRUE ~ candidate
+    )
+  ) %>%
   ## Error: missing parties
   mutate(
     party = case_when(
