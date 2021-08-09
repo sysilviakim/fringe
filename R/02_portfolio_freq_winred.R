@@ -5,7 +5,16 @@ source(here::here("R", "01_data_import.R"))
 df_raw <- df_raw %>%
   # To kick out duplicates
   mutate(url = gsub("\\?sc=winred-directory", "", url)) %>%
-  mutate(name = gsub(" for Congress|For Congress|Friends of ", "", name)) %>%
+  mutate(
+    name = gsub(
+      paste0(
+        " for Congress|For Congress|Friends of |Committee to elect |",
+        " 6th District| Inc.| for U.S. Senate,"
+      ),
+      "", name
+    ),
+    name = trimws(name)
+  ) %>%
   mutate(
     race = case_when(
       name == "Alison Hayden" & race == "CA-16" ~ "CA-15", 
@@ -22,7 +31,7 @@ df_raw <- df_raw %>%
       name == "August Plugger" & grepl("august-pfluger-for-congress", url) ~
         "August Pfluger",
       name == "Ben Sasse for U.S. Senate, Inc." ~ "Ben Sasse",
-      name == "Cawthorn for NC" ~ "Madison Cawthorne",
+      name == "Cawthorn for NC" ~ "Madison Cawthorn",
       name == "Elect Tuman" ~ "Doug Tuman",
       name == "Garske" ~ "John Garske",
       # GOP Strategist; seems a mistake
@@ -32,6 +41,16 @@ df_raw <- df_raw %>%
       name == "Jon Huey" & grepl("mcclintock", url) ~ "Tom McClintock",
       name == "Nick Lalota" ~ "Nick LaLota",
       name == "steven raiser" ~ "Steven Raiser",
+      name == "MANGA FOR CONGRESS" ~ "Manga Anantatmula",
+      name == "Virdell" ~ "Wesley Virdell",
+      name == "Oristian" ~ "Michael Oristian",
+      name == "Dasha" ~ "Dasha Pruett",
+      name == "Team Scalise" ~ "Steve Scalise",
+      name == "Joe Rae Perkins" ~ "Jo Rae Perkins",
+      name == "RaylaForCongress" ~ "Rayla Campbell",
+      name == "Langworthy" ~ "Charles Langworthy",
+      name == "Lancia" ~ "Robert Lancia",
+      name == "Neese" ~ "Terry Neese",
       TRUE ~ name
     )
   )

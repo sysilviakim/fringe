@@ -9,8 +9,16 @@ df_ls <- df_ls %>%
         # de Blasio in presidential race
         # Young Kim in house race
         # Probably happened because I used lists at some point
-        url = gsub(" .*?$|\\|.*?$", "", url)
+        url = gsub(" .*?$|\\|.*?$", "", url),
       )
+  )
+
+df_ls$senate <- df_ls$senate %>%
+  mutate(
+    state = case_when(
+      state == "" & last_name == "Rubio" ~ "FL",
+      TRUE ~ state
+    )
   )
 
 # All federal records, regardless of the data generating process ===============
