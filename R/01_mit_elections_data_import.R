@@ -96,19 +96,29 @@ senate <- senate %>%
   select(-unofficial)
 
 ## In the 2020 election, Sanders and King did not run
-senate <- senate %>%
-  filter(
-    party == "DEMOCRAT" | party == "REPUBLICAN" | 
-      candidate == "ANGUS S. KING, JR." | candidate == "BERNIE SANDERS" | 
-      candidate == "AMY KLOBUCHAR" ## Marked DEMOCRATIC-FARMER-LABOR
-  ) %>%
-  arrange(state, desc(candidatevotes)) %>%
-  mutate(
-    party = case_when(
-      party == "DEMOCRATIC-FARMER-LABOR" ~ "DEMOCRAT",
-      TRUE ~ party
-    )
-  )
+senate <- bind_rows(
+  senate %>%
+    filter(year == 2020) %>%
+    filter(party == "DEMOCRAT" | party == "REPUBLICAN") %>%
+    arrange(state, desc(candidatevotes)),
+  ## Only the winners in previous elections
+  senate %>%
+    filter(year < 2020) %>%
+    filter(
+      party == "DEMOCRAT" | party == "REPUBLICAN" | 
+        candidate == "ANGUS S. KING, JR." | candidate == "BERNIE SANDERS" | 
+        candidate == "AMY KLOBUCHAR" ## Marked DEMOCRATIC-FARMER-LABOR
+    ) %>%
+    mutate(
+      party = case_when(
+        party == "DEMOCRATIC-FARMER-LABOR" ~ "DEMOCRAT",
+        TRUE ~ party
+      )
+    ) %>%
+    arrange(year, state, desc(candidatevotes)) %>%
+    group_by(year, state) %>%
+    slice(1)
+)
 
 ## Exceptions are GA and LA, both due to runoff
 senate %>%
