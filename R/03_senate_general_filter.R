@@ -1,6 +1,6 @@
 source(here::here("R", "utilities.R"))
 load(here("data", "tidy", "mit-tidy.Rda"))
-load(here("data/tidy/portfolio_summ_federal_first_only.Rda"))
+load(here("data", "tidy", "portfolio_summ_federal_first_only.Rda"))
 load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 
 # Missing Senate candidates from data collection ===============================
