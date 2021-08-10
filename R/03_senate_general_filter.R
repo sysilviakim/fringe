@@ -1,6 +1,7 @@
 source(here::here("R", "utilities.R"))
 load(here("data", "tidy", "mit-tidy.Rda"))
 load(here("data/tidy/portfolio_summ_federal_first_only.Rda"))
+load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 
 # Missing Senate candidates from data collection ===============================
 ## Joy Felicia Slade ---> no website, no contribution records
@@ -13,7 +14,7 @@ senate_supp <- list(
     ## https://web.archive.org/web/20200614012238/https://deborahforgeorgia.com/
     last_name = "Jackson",
     state = "GA",
-    url = 
+    url =
       "https://secure.anedot.com/deborah-jackson-for-us-senate/donate",
     min = "2020-06-14",
     max = "2020-11-09",
@@ -26,7 +27,7 @@ senate_supp <- list(
     ## https://web.archive.org/web/20200612032710/https://secure.actblue.com/donate/jamesia-james-for-us-senate-1
     last_name = "James",
     state = "GA",
-    url = 
+    url =
       "https://secure.anedot.com/deborah-jackson-for-us-senate/donate",
     min = "2020-06-12",
     max = "2020-11-09",
@@ -75,16 +76,17 @@ senate_supp <- list(
 ) %>%
   bind_rows() %>%
   mutate(
-    min = as.Date(min), 
+    min = as.Date(min),
     max = as.Date(max),
     last_name = tolower(last_name)
   )
 
+# Merge MIT data and scraped data ==============================================
 senate <- mit$senate %>%
   mutate(
     last_name = case_when(
-      gsub(",|\\.", "", tolower(word(candidate, -1, -1))) == "jr" ~ 
-        gsub(",|\\.", "", tolower(word(candidate, -2, -2))),
+      gsub(",|\\.", "", tolower(word(candidate, -1, -1))) == "jr" ~
+      gsub(",|\\.", "", tolower(word(candidate, -2, -2))),
       candidate == "CATHERINE CORTEZ MASTO" ~ "cortez masto",
       candidate == "MERAV BEN DAVID" ~ "ben-david",
       candidate == "CHRIS VAN HOLLEN" ~ "van hollen",
@@ -109,7 +111,59 @@ senate <- mit$senate %>%
         )
       ) %>%
       bind_rows(., senate_supp)
-  )
+  ) %>%
+  ## Minor candidate; not logged
+  filter(candidate != "ANNETTE DAVIS JACKSON")
 
 ## Check for missing values
-senate %>% filter(is.na(url)) %>% View()
+senate %>%
+  filter(is.na(url)) %>%
+  View()
+
+# Merge with FEC candidate summary =============================================
+senate <- left_join(
+  senate,
+  fec_cand_summ_2020 %>%
+    filter(office == "S") %>%
+    mutate(last_name = trimws(tolower(word(cand_name, 1, 1, sep = ",")))) %>%
+    rename(party_fec = party) %>%
+    mutate(
+      ## Manchin III ---> Manchin
+      last_name = case_when(
+        last_name == "manchin iii" ~ "manchin",
+        last_name == "ben david" ~ "ben-david",
+        last_name == "ben david" ~ "ben-david",
+        last_name == "masto" ~ "cortez masto",
+        TRUE ~ last_name
+      )
+    ) %>%
+    filter(
+      !(cand_name %in% c(
+        "HARRIS, JAMES E.", "YOUNG, ALEEM LEFT MR", "JACKSON, JAMES",
+        "SCOTT, LAWRENCE", "BROWN, WARREN P", "JACKSON, ANNETTE DAVIS"
+      ))
+    )
+)
+
+assert_that(senate %>% filter(is.na(cd)) %>% nrow() == 0)
+
+# Party mismatch resolve =======================================================
+table(senate$party, senate$party_fec)
+
+senate %>%
+  filter(
+    (party == "DEMOCRAT" & party_fec != "DEM") |
+      (party == "REPUBLICAN" & party_fec != "REP")
+  )
+
+## Al Gross *is* non-partisan
+senate <- senate %>%
+  mutate(
+    party = case_when(
+      candidate == "AL GROSS" ~ "INDEPENDENT",
+      TRUE ~ party
+    )
+  ) %>%
+  select(-party_fec)
+
+save(senate, file = here("data", "tidy", "senate-merged.Rda"))
