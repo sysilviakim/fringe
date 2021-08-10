@@ -1,5 +1,5 @@
 categories <- c("president", "senate", "house")
-source(here::here("R", "01_data_import.R"))
+source(here::here("R", "01_scraped_data_import.R"))
 
 # Anomalies ====================================================================
 df_ls <- df_ls %>%
@@ -16,7 +16,9 @@ df_ls <- df_ls %>%
 df_ls$senate <- df_ls$senate %>%
   mutate(
     state = case_when(
-      state == "" & last_name == "Rubio" ~ "FL",
+      last_name == "Rubio" & state == "" ~ "FL",
+      last_name == "Jordan" & state == "CA" ~ "ID",
+      last_name == "Murphy" & state == "CA" ~ "LA",
       TRUE ~ state
     )
   )
@@ -64,6 +66,43 @@ dl <- df_ls %>%
 
 dl %>% map(~ assert_that(all(.x$min <= .x$max)))
 save(dl, file = here("data/tidy/portfolio_summ_federal_first_only.Rda"))
+
+# Create summary statistics ====================================================
+dl <- dl %>%
+  map(
+    ~ .x %>%
+      mutate(
+        amount = case_when(
+          amount == "0-1-2-3" ~ NA_character_,
+          amount == "-999" ~ NA_character_,
+          TRUE ~ amount
+        )
+      ) %>%
+      mutate(
+        amount = case_when(
+          last_name == "Sewell" & grepl("2020-", amount) ~
+            gsub("2020-", "20.20-", amount),
+          TRUE ~ amount
+        )
+      )
+  ) %>%
+  map(summ_calc_fxn) %>%
+  imap(
+    ~ left_join(
+      .x,
+      df_ls[[.y]] %>%
+        select(
+          c(
+            starts_with("state"), ends_with("name"),
+            FEC_ID_cand, party, incumbent, contains("class")
+          )
+        ) %>%
+        dedup() %>%
+        filter(!is.na(incumbent))
+    )
+  )
+
+save(dl, file = here("data/tidy/portfolio_summ_federal_final_2020.Rda"))
 
 # Create figures ===============================================================
 dl %>%
