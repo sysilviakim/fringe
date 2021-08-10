@@ -19,8 +19,9 @@ house <-
   select(-state_po, -district) %>%
   select(state_cd, everything()) %>%
   mutate(candidate = gsub("\u0093|\u0094", "", candidate)) %>%
-  mutate(candidate = trimws(gsub("\\\\", "", candidate)))
-
+  mutate(candidate = trimws(gsub("\\\\", "", candidate))) %>%
+  mutate(candidate = gsub("\u0092", "\'", candidate))
+  
 ## Kick out no variation columns
 house <- house %>%
   select(
@@ -69,6 +70,7 @@ senate <-
   select(state = state_po, everything()) %>%
   mutate(candidate = gsub("\u0093|\u0094", "", candidate)) %>%
   mutate(candidate = trimws(gsub("\\\\", "", candidate))) %>%
+  mutate(candidate = gsub("\u0092", "\'", candidate)) %>%
   ## Really minor candidates
   filter(candidatevotes > 1000) %>%
   ## Error: candidate names
