@@ -707,12 +707,12 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00698282",
     FEC_ID_cand = "S6CA00634"
   ),
-  # CO: Colorado II (last updated Nov 4, 2020) =================================
+  # CO: Colorado II (last updated Jul 5, 2021) =================================
   # Gardner vs. Johnston vs. Hickenlooper
   # vs. Baer vs. Romanoff vs. Walsh vs. Madden vs. Spaulding vs. Burnes
   # vs. Williams vs. Zornio vs. Bray vs. Warren vs. Garcia vs. Leitzel
   # vs. Milton vs. Pottratz vs. Blanton vs. Kombo vs. Bellamy
-  # vs. Burgess vs. Rodriguez vs. Goldfischer vs. Camp vs. Underwood
+  # vs. Burgess vs. Rodriguez vs. Goldfischer vs. Camp vs. Underwood vs. Doane
   # --- Johnston dropped out on Sep 3, 2019
   # --- Baer dropped out to support Hickenlooper on Sep 12, 2019.
   # --- Walsh dropped out to support Hickenlooper on Sep 11, 2019.
@@ -730,6 +730,7 @@ cand_senate_2020 <- list(
   # --- Camp seems to be running for House (felon?!)
   # --- Dupre seems not viable https://twitter.com/margotdupre1
   # --- Cannot find Boyington
+  # --- Doane website not available at https://www.doane4colorado.com
   tibble(
     first_name = "Cory",
     last_name = "Gardner",
@@ -1076,6 +1077,22 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = c("C00735274", "C00613794"),
     FEC_ID_cand = "S6CO00333"
   ),
+  tibble(
+    first_name = "Raymon",
+    last_name = "Doane",
+    state = "CO",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Doane 4 Colorado",
+    campaign_website = "https://www.doane4colorado.com",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00743211",
+    FEC_ID_cand = "S0CO00674"
+  ),
   # CO: Colorado III (last updated Nov 7, 2020) ================================
   # Not up for reelection 2020.
   # Michael Bennet is uncontested (no candidates registered as of Jan 29, 2020)
@@ -1143,7 +1160,7 @@ cand_senate_2020 <- list(
   # (no candidates registered as of Oct 6, 2019)
   # Now Coons vs. Scarane vs. Turley vs. Witzke
   tibble(
-    first_name = "Christopher.",
+    first_name = "Christopher",
     last_name = "Coons",
     state = "DE",
     party = "Dem",
@@ -1338,12 +1355,12 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00676965",
     FEC_ID_cand = "S8FL00273"
   ),
-  # GA: Georgia II (last updated Nov 4, 2020) ==================================
+  # GA: Georgia II (last updated Jul 5, 2021) ==================================
   # Perdue vs. Ossoff
-  # vs. Tomlinson vs. Riggs Amico vs. Terry vs. Johnson vs. Shouse
+  # vs. Hazel vs. Tomlinson vs. Riggs Amico vs. Terry vs. Johnson vs. Shouse
   # vs. Williams vs. Miller vs. Amun vs. Dejesus vs. Kilby vs. Jowers
   # vs. Lieberman vs. Johnson-Shealey vs. Dillard Smith vs. McGuire vs. Winfield
-  # Last updated Jan 31, 2020
+  # Last updated Jul 5, 2021
   tibble(
     first_name = "David",
     last_name = "Perdue",
@@ -1387,6 +1404,22 @@ cand_senate_2020 <- list(
     ),
     anedot_link = NA,
     other_link = NA,
+    FEC_ID_cmte = "C00718866",
+    FEC_ID_cand = "S8GA00180"
+  ),
+  tibble(
+    first_name = "Shane",
+    last_name = "Hazel",
+    state = "GA",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Shane Hazel for Senate",
+    campaign_website = "https://shanehazel.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA, ## Patreon
     FEC_ID_cmte = "C00718866",
     FEC_ID_cand = "S8GA00180"
   ),
@@ -1653,6 +1686,126 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00733030",
     FEC_ID_cand = "S0GA00542"
   ),
+  tibble(
+    first_name = "Ed",
+    last_name = "Tarver",
+    state = "GA",
+    party = "Dem",
+    class = "III",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = NA,
+    campaign_website = "https://www.tarverforsenate.com",
+    ## 2800-1000-500-250-100-25-10
+    actblue_link = "tarver-for-senate-1",
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00737700",
+    FEC_ID_cand = "S0GA00583"
+  ),
+  tibble(
+    first_name = "Kandiss",
+    last_name = "Taylor",
+    state = "GA",
+    party = "Rep",
+    class = "III",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = NA,
+    campaign_website = "http://kandisstaylor.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    ## 25-50-100-250-500-1000-2800
+    other_link = 
+      "https://secure.winred.com/kandiss-taylor-for-u-s-senate/donate",
+    FEC_ID_cmte = "C00741215",
+    FEC_ID_cand = "S0GA00641"
+  ),
+  tibble(
+    first_name = "Annette Davis",
+    last_name = "Jackson",
+    state = "GA",
+    party = "Rep",
+    class = "III",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = NA,
+    campaign_website = "https://annettedjackson.wixsite.com/ussenate",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA, ## no data
+    FEC_ID_cand = "S0GA00716"
+  ),
+  tibble(
+    first_name = "Joy Felicia",
+    last_name = "Slade",
+    state = "GA",
+    party = "Dem",
+    class = "III",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = NA,
+    campaign_website = NA, ## no website
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA, ## no data
+    FEC_ID_cand = "S0GA00708"
+  ),
+  tibble(
+    first_name = "Derrick",
+    last_name = "Grayson",
+    state = "GA",
+    party = "Rep",
+    class = "III",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = NA,
+    campaign_website = "https://www.graysonforga.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    ## 1-5-10-25-50-100-250-1000-2500
+    other_link = "https://www.graysonforga.com/donate",
+    FEC_ID_cmte = c("C00600759", "C00545111"),
+    FEC_ID_cand = "S4GA11236"
+  ),
+  tibble(
+    first_name = "Jamesia",
+    last_name = "James",
+    state = "GA",
+    party = "Dem",
+    class = "III",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = NA,
+    campaign_website = "https://www.jamesiajames4ussenate.com/",
+    ## 25-100-250-1000
+    actblue_link = "jamesia-james-for-us-senate-1",
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00741058",
+    FEC_ID_cand = "S0GA00609"
+  ),
+  tibble(
+    first_name = "Deborah",
+    last_name = "Jackson",
+    state = "GA",
+    party = "Dem",
+    class = "III",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = NA,
+    ## main site: 101-250-1000-500-2800-5600 (weird)
+    campaign_website = "https://deborahforgeorgia.com/",
+    actblue_link = NA,
+    ## !! Democrat but Anedot
+    ## 101-250-500-1000-2800
+    anedot_link = "deborah-jackson-for-us-senate/donate",
+    other_link = NA,
+    FEC_ID_cmte = "C00738203",
+    FEC_ID_cand = "S0GA00591"
+  ),
   # HI: Hawaii I (last updated Nov 7, 2020) ====================================
   # Not up for reelection 2020.
   # Mazie Hirono is uncontested (no candidates registered as of Sep 11, 2019)
@@ -1728,7 +1881,7 @@ cand_senate_2020 <- list(
   tibble(
     first_name = "Paulette",
     last_name = "Jordan",
-    state = "CA",
+    state = "ID",
     party = "Dem",
     class = "II",
     incumbent = FALSE,
@@ -1977,6 +2130,38 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00717827",
     FEC_ID_cand = "S0IL00568"
   ),
+  tibble(
+    first_name = "Danny",
+    last_name = "Malouf",
+    state = "IL",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Danny 2020",
+    campaign_website = "https://www.danny2020.com",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00697235",
+    FEC_ID_cand = "S0IL00618"
+  ),
+  tibble(
+    first_name = "David",
+    last_name = "Black",
+    state = "IL",
+    party = "Grn",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "David Black for Senate",
+    campaign_website = "https://www.davidblackforsenate.org",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "S0IL00634"
+  ),
   # IL: Illinois III (last updated Nov 7, 2020) ================================
   # Not up for reelection 2020.
   # Tammy Duckworth is uncontested (no candidates as of Jan 29, 2020)
@@ -2221,10 +2406,10 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00230482",
     FEC_ID_cand = "S0IA00028"
   ),
-  # KS: Kansas II (last updated Nov 4, 2020) ===================================
+  # KS: Kansas II (last updated Jul 5, 2021) ===================================
   # Pat Roberts retiring. Open seat candidates.
   # Marshall vs. Wagle
-  # vs. Laturner vs. Grissom vs. Lindstrom vs. Kobach vs. Reddi
+  # vs. Laturner vs. Grissom vs. Lindstrom vs. Kobach vs. Reddi vs. Buckley
   # vs. Boyda vs. Pruitt vs. Adams vs. Tillman vs. Tuten vs. Bollier
   # Adams is not connecting at https://eadamsforussenate.com
   tibble(
@@ -2261,6 +2446,22 @@ cand_senate_2020 <- list(
     ),
     FEC_ID_cmte = "C00576173",
     FEC_ID_cand = "S0KS00315"
+  ),
+  tibble(
+    first_name = "Jason",
+    last_name = "Buckley",
+    state = "KS",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Jason Buckley 2020",
+    campaign_website = "http://www.jasonbuckley2020.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00745141",
+    FEC_ID_cand = "S0KS00356"
   ),
   tibble(
     first_name = "Susan",
@@ -2809,7 +3010,7 @@ cand_senate_2020 <- list(
   tibble(
     first_name = "Dustin",
     last_name = "Murphy",
-    state = "CA",
+    state = "LA",
     party = "Rep",
     class = "II",
     incumbent = FALSE,
@@ -2822,6 +3023,23 @@ cand_senate_2020 <- list(
     other_link = "https://www.dustinbmurphy.com/contribute",
     FEC_ID_cmte = "C00747303",
     FEC_ID_cand = "S0LA00352"
+  ),
+  tibble(
+    first_name = "David Drew",
+    last_name = "Knight",
+    state = "LA",
+    party = "Dem",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = NA,
+    campaign_website = "https://drew2020.com/",
+    # 3-10-27-50-100-250-2700
+    actblue_link = "drew-2020-l-l-c-1",
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA, ## nothing
+    FEC_ID_cand = "S0LA00402"
   ),
   # LA: Louisiana III (last updated Nov 4, 2020) ===============================
   # Not up for reelection 2020.
@@ -2847,7 +3065,7 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00608398",
     FEC_ID_cand = "S4LA00065"
   ),
-  # ME: Maine II (last updated Nov 4, 2020) ===================================
+  # ME: Maine II (last updated Jul 5, 2021) ===================================
   # Collins vs. Gideon vs. Sweet vs. London vs. Kidman
   # I can't find Michael Bunker, Danielle VanHelsing, nor Jonathan Treacy
   # Cathleen London ended her campaign
@@ -2882,7 +3100,7 @@ cand_senate_2020 <- list(
     FEC_ID_cand = "S6ME00159"
   ),
   tibble(
-    first_name = "Sarah",
+    first_name = "Sara",
     last_name = "Gideon",
     state = "ME",
     party = "Dem",
@@ -3206,7 +3424,7 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00709675",
     FEC_ID_cand = "S0MA00174"
   ),
-  # MA: Massachusetts I (last updated Nov 7, 2020) =============================
+  # MA: Massachusetts I (last updated Jul 5, 2021) =============================
   # Not up for reelection 2020.
   # Warren is uncontested (no candidates registered as of Jan 29, 2020)
   # Presidential race has concluded, but not yet on 2022 FEC cycle
@@ -3225,11 +3443,11 @@ cand_senate_2020 <- list(
     actblue_link = "ew-web-warren-democrats",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
+    FEC_ID_cmte = "C00500843",
     FEC_ID_cand = "S2MA00170"
   ),
-  # MI: Michigan II (last updated Nov 4, 2020) ================================
-  # Peters vs. James vs. Carr vs. Wilus
+  # MI: Michigan II (last updated Jul 5, 2021) ================================
+  # Peters vs. James vs. Carr vs. Wilus vs. Squier vs. Dern vs. Willis
   # Cannot find Wilus https://ballotpedia.org/Valgrie_Wilus empty page
   tibble(
     first_name = "Gary",
@@ -3290,6 +3508,54 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00655217",
     FEC_ID_cand = "S4MI00298"
   ),
+  tibble(
+    first_name = "Marcia",
+    last_name = "Squier",
+    state = "MI",
+    party = "Grn",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Noncorporate Pro-Peace People's Advocate for US Senate",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://www.crowdpac.com/campaigns/395494/marcia-t-squier",
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "S8MI00430"
+  ),
+  tibble(
+    first_name = "Doug",
+    last_name = "Dern",
+    state = "MI",
+    party = "Oth",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Doug Dern for Senate",
+    campaign_website = "https://dougdern.com",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "S2MI00144"
+  ),
+  tibble(
+    first_name = "Valerie",
+    last_name = "Willis",
+    state = "MI",
+    party = "Oth",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Willis for U.S. Senate 2020",
+    campaign_website = "https://willisforcongress.com",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = c("C00675256", "C00674556"),
+    FEC_ID_cand = "S8MI00422"
+  ),
   # MI: Michigan I (last updated Nov 7, 2020) ==================================
   # Not up for reelection 2020.
   # Debbie Stabenow is uncontested (no candidates registered as of Jan 29, '20)
@@ -3310,7 +3576,8 @@ cand_senate_2020 <- list(
     FEC_ID_cand = "S8MI00281"
   ),
   # MN: Minnesota II (last updated Nov 4, 2020) ================================
-  # Smith vs. Lewis vs. Barrett vs. Washington; cannot find Washington
+  # Smith vs. Lewis vs. Barrett vs. Washington vs. Steinberg
+  # Cannot find Washington
   tibble(
     first_name = "Tina",
     last_name = "Smith",
@@ -3367,6 +3634,22 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00701094",
     FEC_ID_cand = "S0MN00294"
   ),
+  tibble(
+    first_name = "Oliver",
+    last_name = "Steinberg",
+    state = "MN",
+    party = "Oth",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Oliver Steinberg for U.S. Senate",
+    campaign_website = "https://jackherershero.org/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "S0MN00385"
+  ),
   # Missed Forest Hyatt
   # MN: Minnesota I (last updated Nov 4, 2020) =================================
   # Not up for reelection 2020.
@@ -3388,8 +3671,8 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00431353",
     FEC_ID_cand = "S6MN00267"
   ),
-  # MS: Mississippi II (last updated Nov 4, 2020) ==============================
-  # Hyde-Smith vs. Espy vs. Bohren
+  # MS: Mississippi II (last updated Jul 5, 2021) ==============================
+  # Hyde-Smith vs. Espy vs. Edwards vs. Bohren
   tibble(
     first_name = "Cindy",
     last_name = "Hyde-Smith",
@@ -3432,6 +3715,22 @@ cand_senate_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00675884",
     FEC_ID_cand = "S8MS00287"
+  ),
+  tibble(
+    first_name = "Jimmy",
+    last_name = "Edwards",
+    state = "MS",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Jimmy Edwards for Senate",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "S0MS00086"
   ),
   tibble(
     first_name = "Jensen",
@@ -3691,9 +3990,9 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00412304",
     FEC_ID_cand = "S6MT00162"
   ),
-  # NE: Nebraska II (last updated Nov 4, 2020) =================================
+  # NE: Nebraska II (last updated Jul 5, 2021) =================================
   # Sasse vs. Janicek
-  # vs. Innis vs. Macek vs. Philips vs. Shelton
+  # vs. Innis vs. Macek vs. Philips vs. Shelton vs. Siadek
   tibble(
     first_name = "Ben",
     last_name = "Sasse",
@@ -3809,6 +4108,22 @@ cand_senate_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00723007",
     FEC_ID_cand = "S0NE00098"
+  ),
+  tibble(
+    first_name = "Gene",
+    last_name = "Siadek",
+    state = "NE",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Siadek 2020",
+    campaign_website = "https://www.siadek2020.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "S0NE00155"
   ),
   # NE: Nebraska I (last updated Nov 7, 2020) ==================================
   # Not up for reelection 2020.
@@ -3997,10 +4312,10 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00588772",
     FEC_ID_cand = "S6NH00091"
   ),
-  # NJ: New Jersey II (last updated Nov 4, 2020) ===============================
+  # NJ: New Jersey II (last updated Jul 5, 2021) ===============================
   # Booker vs. Meissner vs. Singh
   # vs. McCormick vs. Vergara vs. Mehta vs. Rich vs. Hamm vs.
-  # Bell vs. Rivera vs. Flanagan
+  # Bell vs. Rivera vs. Flanagan vs. Fernandez
   # Vergara is "write-in" <--- ?? Okay, can't find webpage
   # Jeff Bell deceased as of Feb 2018
   # Rivera Twitter locked, Facebook does not exist, can't find webpage
@@ -4173,8 +4488,24 @@ cand_senate_2020 <- list(
       "uSg9ntcfLC9EVkQhR9akakjXhlydcoKS4Mh-lKWMCh-6kCP4QWopGrUC_Dhf_HjQdG2AiG&",
       "country.x=US&locale.x="
     ),
-    FEC_ID_cmte = "S8NJ00541",
-    FEC_ID_cand = "C00674564"
+    FEC_ID_cmte = "C00674564",
+    FEC_ID_cand = "S8NJ00541"
+  ),
+  tibble(
+    first_name = "Veronica",
+    last_name = "Fernandez",
+    state = "NJ",
+    party = "Oth",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Veronica 2020",
+    campaign_website = "https://www.veronica2020.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00742569",
+    FEC_ID_cand = "S0NJ00258"
   ),
   # NJ: New Jersey I (last updated Nov 4, 2020) ================================
   # Not up for reelection 2020.
@@ -4195,11 +4526,11 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00264564",
     FEC_ID_cand = "S6NJ00289"
   ),
-  # NM: New Mexico II (last updated Nov 7, 2020) ===============================
+  # NM: New Mexico II (last updated Jul 5, 2021) ===============================
   # Udall is retiring: open seat candidates.
   # Lujan vs. Toulouse Oliver
   # vs. Clarkson vs. Rich vs. Haqani vs. Martinez
-  # vs. Perkins vs. Sanchez vs. Ronchetti
+  # vs. Perkins vs. Sanchez vs. Ronchetti vs. Walsh
   # Giovanni Haqani withdrew and is supporting Toulouse Oliver
   # Cannot yet find Sanchez, only entered Jan 6, 2020
   tibble(
@@ -4339,6 +4670,22 @@ cand_senate_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00731349",
     FEC_ID_cand = "S0NM00108"
+  ),
+  tibble(
+    first_name = "Bob",
+    last_name = "Walsh",
+    state = "NM",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Bob Walsh for U.S. Senator",
+    campaign_website = "https://www.walshforsenate2020.us/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00741405",
+    FEC_ID_cand = "S0NM00132"
   ),
   # NM: New Mexico I (last updated Nov 7, 2020) ================================
   # Not up for reelection 2020.
@@ -4707,7 +5054,7 @@ cand_senate_2020 <- list(
     FEC_ID_cand = "S0ND00093"
   ),
   tibble(
-    first_name = "Michael ",
+    first_name = "Michael",
     last_name = "Steele",
     state = "ND",
     party = "Dem",
@@ -4791,10 +5138,11 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00722207",
     FEC_ID_cand = "S2OH00287"
   ),
-  # OK: Oklahoma II (last updated Nov 7, 2020) =================================
+  # OK: Oklahoma II (last updated Jul 5, 2021) =================================
   # Jim Inhofe was uncontested (no candidates registered as of Sep 11, 2019)
   # Now Inhofe vs. Stitt
   # vs. Billings vs. Rogers vs. Britt vs. Dougherty vs. Broyles
+  # vs. Farr vs. Nesbitt
   # Cannot find Rogers nor Dougherty
   # Britt withdrew in Aug 21, 2019
   tibble(
@@ -4862,6 +5210,38 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00714477",
     FEC_ID_cand = "S0OK00339"
   ),
+  tibble(
+    first_name = "Joan",
+    last_name = "Farr",
+    state = "OK",
+    party = "Ind",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Joan Farr for Senate",
+    campaign_website = "https://www.joanfarr.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00556522",
+    FEC_ID_cand = "S4OK00224"
+  ),
+  tibble(
+    first_name = "April",
+    last_name = "Nesbit",
+    state = "OK",
+    party = "Ind",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Nesbit Senate",
+    campaign_website = "https://www.nesbitok.org/",
+    actblue_link = NA,
+    anedot_link = "https://secure.anedot.com/nesbit_ok/donate",
+    other_link = NA,
+    FEC_ID_cmte = "C00742353",
+    FEC_ID_cand = "S0OK00404"
+  ),
   # Looks like I missed Neil Mavis: https://neilmavis2020.com
   # OK: Oklahoma III (last updated Nov 7, 2020) ================================
   # Not up for reelection 2020.
@@ -4886,10 +5266,10 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00466482",
     FEC_ID_cand = "S4OK00232"
   ),
-  # OR: Oregon II (last updated Nov 7, 2020) ===================================
+  # OR: Oregon II (last updated Jul 5, 2021) ===================================
   # Jeff Merkley had no notable opponents
   # (Larry Reese not found, zero receipts as of Sep 11, 2019 ~ Jan 31, 2020)
-  # Now Merkley vs. Perkins vs. Reese vs. Taher vs. Romero
+  # Now Merkley vs. Perkins vs. Reese vs. Taher vs. Romero vs. Dye
   # Last updated Jan 31, 2020
   tibble(
     first_name = "Jeff",
@@ -4964,6 +5344,22 @@ cand_senate_2020 <- list(
     ),
     FEC_ID_cmte = "C00725523",
     FEC_ID_cand = "S0OR00337"
+  ),
+  tibble(
+    first_name = "Gary",
+    last_name = "Dye",
+    state = "OR",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Gary Dye for Senate",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "S0OR00378"
   ),
   # OR: Oregon III (last updated Nov 7, 2020) ==================================
   # Not up for reelection 2020.
@@ -5115,7 +5511,7 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00410803",
     FEC_ID_cand = "S6RI00221"
   ),
-  # SC: South Carolina II (last updated Nov 4, 2020) ===========================
+  # SC: South Carolina II (last updated Jul 5, 2021) ===========================
   # Graham vs. Harrison
   # vs. Reynolds vs. Lapierre vs. Tinubu vs. Sloan
   # vs. Kandies vs. Knights vs. Stone
@@ -5156,7 +5552,7 @@ cand_senate_2020 <- list(
     FEC_ID_cand = "S0SC00149"
   ),
   tibble(
-    first_name = "Jamie",
+    first_name = "Jaime",
     last_name = "Harrison",
     state = "SC",
     party = "Dem",
@@ -5439,7 +5835,7 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00409581",
     FEC_ID_cand = "S2SD00068"
   ),
-  # TN: Tennessee II (last updated Nov 4, 2020) ===============================
+  # TN: Tennessee II (last updated Jul 5, 2021) ===============================
   # Lamar Alexander is retiring
   tibble(
     first_name = "Bill",
@@ -5461,7 +5857,7 @@ cand_senate_2020 <- list(
     first_name = "Marquita",
     last_name = "Bradshaw",
     state = "TN",
-    party = "TN",
+    party = "Dem",
     class = "II",
     incumbent = FALSE,
     office_website = NA,
@@ -6414,10 +6810,10 @@ cand_senate_2020 <- list(
     FEC_ID_cmte = "C00750737",
     FEC_ID_cand = "S2WA00338"
   ),
-  # WV: West Virginia II (last updated Nov 7, 2020) ============================
+  # WV: West Virginia II (last updated Jul 5, 2021) ============================
   # Shelley Moore Capito had no notable opponents
   # (Bruce Wiley not found, zero receipts, party unknown as of Sep 11, 2019)
-  # Now Capito vs. Swearegin, Whitt vs. Riley vs. Ojeda
+  # Now Capito vs. Swearegin, Whitt vs. Riley vs. Ojeda vs. Moran
   # David Moran is not up on the FEC
   tibble(
     first_name = "Shelley Moore",
@@ -6486,6 +6882,23 @@ cand_senate_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00734384",
     FEC_ID_cand = "S0WV00249"
+  ),
+  tibble(
+    first_name = "David",
+    last_name = "Moran",
+    state = "WV",
+    party = "Lib",
+    class = "II",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "David Moran for U.S. Senate",
+    campaign_website = "https://www.facebook.com/moran4wv/",
+    # No donation link
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "S0WV00264"
   ),
   # WV: West Virginia I (last updated Nov 7, 2020) =============================
   # Not up for reelection 2020.
