@@ -86,21 +86,10 @@ dl <- dl %>%
         )
       )
   ) %>%
-  map(summ_calc_fxn) %>%
-  imap(
-    ~ left_join(
-      .x,
-      df_ls[[.y]] %>%
-        select(
-          c(
-            starts_with("state"), ends_with("name"),
-            FEC_ID_cand, party, incumbent, contains("class")
-          )
-        ) %>%
-        dedup() %>%
-        filter(!is.na(incumbent))
-    )
-  )
+  map(summ_calc_fxn)
+
+## Unlike 2022 data, I did not have candidate characteristics in the data, 
+## so skip merging
 
 save(dl, file = here("data/tidy/portfolio_summ_federal_final_2020.Rda"))
 
