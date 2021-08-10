@@ -172,8 +172,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://secure.winred.com/TerriHasdorff/donate",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00726109",
+    FEC_ID_cand = "H0AL02194"
   ),
   tibble(
     first_name = "Thomas",
@@ -562,8 +562,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00710582",
+    FEC_ID_cand = "H0AZ02232"
   ),
   # Joseph Morgan had an Anedot: https://secure.anedot.com/jm4cd2/donate
   # No prompts
@@ -1034,7 +1034,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00709667",
     FEC_ID_cand = "H0AR03105"
   ),
-  # AR-04 (last updated Oct 25, 2020) ------------------------------------------
+  # AR-04 (last updated Jul 11, 2021) ------------------------------------------
   # Westerman vs. Redmond vs. Hanson
   # Cannot find Redmond nor Hanson
   # Westerman vs. Hanson vs. Gilbert in General Elections.
@@ -1072,7 +1072,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00717439",
     FEC_ID_cand = "H0AR04087"
   ),
-  # CA: California (last updated Sep 13, 2020) =================================
+  tibble(
+    first_name = "Frank",
+    last_name = "Gilbert",
+    state_cd = "AR-04",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Frank Gilbert For Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00740530",
+    FEC_ID_cand = "H0AR04095"
+  ),
+  # CA: California (last updated Jul 15, 2021) =================================
   # CA-01 ---------------------------------------------------------------------
   # LaMalfa vs. Denney for General Election
   tibble(
@@ -1191,8 +1206,8 @@ cand_house_2020 <- list(
     # uses efundraising connections, not sure about scrape potential but uses:
     # 10-25-50-100-500-5400
     other_link = "https://www.efundraisingconnections.com/c/TomMcClintock/",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00446815",
+    FEC_ID_cand = "H8CA04152"
   ),
   tibble(
     first_name = "Brynne",
@@ -1206,8 +1221,8 @@ cand_house_2020 <- list(
     actblue_link = "brynne_website",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00704650",
+    FEC_ID_cand = "H0CA04175"
   ),
   # CA-05 ---------------------------------------------------------------------
   tibble(
@@ -1224,8 +1239,8 @@ cand_house_2020 <- list(
     # uses fastaction with following amounts:
     # 20-35-50-100-500-2800
     other_link = "https://www.mikethompsonforcongress.com/donate",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00326363",
+    FEC_ID_cand = "H8CA01109"
   ),
   tibble(
     first_name = "Scott",
@@ -1239,8 +1254,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = "giblin-for-congress/donate",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00714592",
+    FEC_ID_cand = "H0CA05107"
   ),
   # CA-06 ---------------------------------------------------------------------
   tibble(
@@ -1358,7 +1373,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H4CA11081"
   ),
   tibble(
-    first_name = "Tony",
+    first_name = "Antonio",
     last_name = "Amador",
     state_cd = "CA-09",
     party = "Rep",
@@ -1370,8 +1385,8 @@ cand_house_2020 <- list(
     anedot_link = NA,
     # 25-50-100-250-500-2800
     other_link = "https://www.efundraisingconnections.com/c/Amador/",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00728618",
+    FEC_ID_cand = "H0CA09125"
   ),
   # CA-10 -----------------------------------------
   # Harder vs. Howze
@@ -1616,7 +1631,7 @@ cand_house_2020 <- list(
     party = "Ind",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "Jackie Speier for Congress",
+    campaign_name = "Taylor2020",
     campaign_website = "https://erictaylor.house/",
     actblue_link = NA,
     anedot_link = NA,
@@ -1873,7 +1888,7 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://act.myngp.com/Forms/-3426693289772775424",
-    FEC_ID_cmte = "H6CA20152",
+    FEC_ID_cmte = "C00592154",
     FEC_ID_cand = "H6CA20152"
   ),
   tibble(
@@ -1888,8 +1903,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = "jeff-gorman-for-congress/donate",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00722363",
+    FEC_ID_cand = "H0CA20122"
   ),
   # Why both incumbents?!
   # I think this may be an FEC error. Jim Costa is CA-16.
@@ -2934,8 +2949,8 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H4CA35031"
   ),
   tibble(
-    first_name = "Mike",
-    last_name = "Cargile",
+    first_name = "Erin",
+    last_name = "Cruz",
     state_cd = "CA-36",
     party = "Rep",
     incumbent = FALSE,
@@ -2946,8 +2961,8 @@ cand_house_2020 <- list(
     anedot_link = NA,
     # 20-36-100-250-360-500-1000-2800
     other_link = "https://erincruz.revv.co/takebackthehouse",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00714048",
+    FEC_ID_cand = "H0CA36193"
   ),
   # CA-37 ---------------------------------------------------------------------
   # Karen Bass was uncontested as of Sep 17, 2019
@@ -2997,8 +3012,8 @@ cand_house_2020 <- list(
     actblue_link = "ls_support",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "H2CA39078",
-    FEC_ID_cand = "C00384057"
+    FEC_ID_cmte = "C00384057",
+    FEC_ID_cand = "H2CA39078"
   ),
   tibble(
     first_name = "Michael",
@@ -3340,7 +3355,7 @@ cand_house_2020 <- list(
   # CA-44 ---------------------------------------------------------------------
   # Barragan vs. Nettles vs. McDonald
   # Cannot find Annette McDonald's campaign site (but she has 1k donation)
-  # Barragan vs Joya in general. But.....
+  # Barragan vs Joya in general.
   tibble(
     first_name = "Nanette",
     last_name = "Barragan",
@@ -3356,7 +3371,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00577353",
     FEC_ID_cand = "H6CA44103"
   ),
-  # .... cannot find Analilia Joya campaign page
+  tibble(
+    first_name = "Analilia",
+    last_name = "Joya",
+    state_cd = "CA-44",
+    party = "Dem",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Joya for Congress",
+    campaign_website = "https://www.analiliajoya.com/home-1",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00735050",
+    FEC_ID_cand = "H4CA44157"
+  ),
   tibble(
     first_name = "Aaron",
     last_name = "Nettles",
@@ -3483,8 +3512,8 @@ cand_house_2020 <- list(
       # "91cmNlPWhlYWRlciZ1dG1fY29udGVudD1jb250cmlidXRlIw%3D%3D"
       "https://secure.winred.com/drlisasparks/website"
     ),
-    FEC_ID_cmte = "H0CA45129",
-    FEC_ID_cand = "C00706051"
+    FEC_ID_cmte = "C00706051",
+    FEC_ID_cand = "H0CA45129"
   ),
   tibble(
     first_name = "Christopher",
@@ -3614,8 +3643,8 @@ cand_house_2020 <- list(
     actblue_link = "lowenthal4congress",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "H2CA00104",
-    FEC_ID_cand = "C00498212"
+    FEC_ID_cmte = "C00498212",
+    FEC_ID_cand = "H2CA00104"
   ),
   tibble(
     first_name = "Amy Phan",
@@ -3769,8 +3798,8 @@ cand_house_2020 <- list(
     actblue_link = "mikelevin",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "H8CA49058",
-    FEC_ID_cand = "C00634253"
+    FEC_ID_cmte = "C00634253",
+    FEC_ID_cand = "H8CA49058"
   ),
   tibble(
     first_name = "Brian",
@@ -3787,8 +3816,8 @@ cand_house_2020 <- list(
     # This is anedot link in disguise, as was the Weld presidential campaign
     # only leads to this now:
     other_link = "https://maryottforcongress.com/contribute",
-    FEC_ID_cmte = "H8CA49108",
-    FEC_ID_cand = "C00666859"
+    FEC_ID_cmte = "C00666859",
+    FEC_ID_cand = "H8CA49108"
   ),
   tibble(
     first_name = "Mara",
@@ -4071,9 +4100,9 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00719112",
     FEC_ID_cand = "H0CA53107"
   ),
-  # CO: Colorado (last updated Jul 1, 2020) ===================================
-  # CO-01 (last updated Jul 1, 2020) ------------------------------------------
-  # Degette vs. Duran vs. Winters
+  # CO: Colorado (last updated Jul 11, 2021) ===================================
+  # CO-01 (last updated Jul 11, 2021) ------------------------------------------
+  # Degette vs. Bolling vs. Furey vs. Fiorino vs. Kok vs. Duran vs. Winters
   tibble(
     first_name = "Diana",
     last_name = "Degette",
@@ -4088,6 +4117,66 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00311639",
     FEC_ID_cand = "H6CO01141"
+  ),
+  tibble(
+    first_name = "Shane",
+    last_name = "Bolling",
+    state_cd = "CO-01",
+    party = "Rep",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Shane 4 Colorado",
+    campaign_website = "https://shane4co.com/",
+    actblue_link = NA,
+    anedot_link = "shane-bolling-campaign/donate",
+    other_link = NA,
+    FEC_ID_cmte = "C00748848",
+    FEC_ID_cand = "H0CO02233"
+  ),
+  tibble(
+    first_name = "Kyle",
+    last_name = "Furey",
+    state_cd = "CO-01",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Kyle Furey for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "NA",
+    FEC_ID_cand = "H0CO01185"
+  ),
+  tibble(
+    first_name = "Paul",
+    last_name = "Fiorino",
+    state_cd = "CO-01",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Fiorino for Colorado",
+    campaign_website = "https://fiorinoforcolorado.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "NA",
+    FEC_ID_cand = "H0CO01193"
+  ),
+  tibble(
+    first_name = "Jan",
+    last_name = "Kok",
+    state_cd = "CO-01",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Jan Kok for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "NA",
+    FEC_ID_cand = "H0CO01177"
   ),
   tibble(
     first_name = "Crisanta",
@@ -4124,9 +4213,10 @@ cand_house_2020 <- list(
   # "Joey Camp is running for U.S. President, U.S. Senate -Colo. and
   # U.S. Rep. -Colo, Dist. 1 as a satirical spoiler." So not entered.
   # Cannot find Shane Bolling
-  # CO-02 (last updated Jul 1, 2020) ------------------------------------------
+  # CO-02 (last updated Jul 11, 2021) ------------------------------------------
   # Neguse vs. Matyi as of Oct 5, 2019
   # Now Neguse vs. Winn vs. Matyi vs. Johnson vs. Cutcher
+  # vs. Atkinson vs. Swing
   tibble(
     first_name = "Joe",
     last_name = "Neguse",
@@ -4157,6 +4247,36 @@ cand_house_2020 <- list(
     other_link = "https://www.winnforcolorado.com/contribute",
     FEC_ID_cmte = "C00735373",
     FEC_ID_cand = "H0CO02225"
+  ),
+  tibble(
+    first_name = "Thom",
+    last_name = "Atkinson",
+    state_cd = "CO-02",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Statesman for Freedom",
+    campaign_website = "https://www.statesman4freedom.us/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0CO02241"
+  ),
+  tibble(
+    first_name = "Gary",
+    last_name = "Swing",
+    state_cd = "CO-02",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Gary Swing for Congress",
+    campaign_website = "https://theswingvote.wixsite.com/unity",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00280552",
+    FEC_ID_cand = "H2CO02080"
   ),
   tibble(
     first_name = "Alex",
@@ -4305,11 +4425,11 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H0CO03173"
   ),
   # Cannot find Robert Moser
-  # CO-04 (last updated Jul 1, 2020) ------------------------------------------
-  # Kenneth vs. McCorkle
+  # CO-04 (last updated Jul 1, 2021) ------------------------------------------
+  # Buck vs. McCorkle vs. Griffith vs. Ireland
   tibble(
-    first_name = "Buck",
-    last_name = "Kenneth",
+    first_name = "Kenneth",
+    last_name = "Buck",
     state_cd = "CO-04",
     party = "Rep",
     incumbent = TRUE,
@@ -4341,6 +4461,36 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H0CO04197"
   ),
   tibble(
+    first_name = "Bruce",
+    last_name = "Griffith",
+    state_cd = "CO-04",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Bruce Griffith for Colorado",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H6CO04178"
+  ),
+  tibble(
+    first_name = "Laura",
+    last_name = "Ireland",
+    state_cd = "CO-04",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Laura Ireland for Colorado",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0CO04221"
+  ),
+  tibble(
     first_name = "Melanie",
     last_name = "Tomitsch",
     state_cd = "CO-04",
@@ -4356,8 +4506,8 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H0CO04213"
   ),
   # Cannot find campaign website for McGannon
-  # CO-05 (last updated Jul 1, 2020) ------------------------------------------
-  # Lamborn vs. Freeland
+  # CO-05 (last updated Jul 11, 2021) ------------------------------------------
+  # Lamborn vs. Freeland vs. Duffett
   tibble(
     first_name = "Doug",
     last_name = "Lamborn",
@@ -4389,6 +4539,21 @@ cand_house_2020 <- list(
     other_link = "https://secure.ngpvan.com/v1/Forms/3Bc6vk22YEOEgD_IvEjdfw2",
     FEC_ID_cmte = "C00700997",
     FEC_ID_cand = "H0CO05129"
+  ),
+  tibble(
+    first_name = "Ed",
+    last_name = "Duffett",
+    state_cd = "CO-05",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Ed Duffett for Congress",
+    campaign_website = "https://www.edduffettforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0CO05160"
   ),
   tibble(
     first_name = "Marcus",
@@ -4453,8 +4618,8 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # CO-06 (last updated Jul 1, 2020) ------------------------------------------
-  # Crow vs. Stockham vs. House vs. Szemler
+  # CO-06 (last updated Jul 11, 2021) ------------------------------------------
+  # Crow vs. Stockham vs. House vs. Olsen Szemler
   # As much attention as House is getting (former CO GOP chairman)
   # can't find his website...
   tibble(
@@ -4524,12 +4689,27 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://secure.winred.com/stevehouse/donate",
+    FEC_ID_cmte = c("C00717868", "C00702506"),
+    FEC_ID_cand = "H0CO06119"
+  ),
+  tibble(
+    first_name = "Norm",
+    last_name = "Olsen",
+    state_cd = "CO-06",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Norm Olsen for Congress",
+    campaign_website = "http://norm4liberty.org/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
     FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cand = "H2CO02122"
   ),
   # Cannot find Ryan Gonzalez
-  # CO-07 (last updated Jul 1, 2020) ------------------------------------------
-  # Perlmutter vs. Clay
+  # CO-07 (last updated Jul 11, 2021) ------------------------------------------
+  # Perlmutter vs. Stockham vs. Biles vs. Olstza vs. Clay
   tibble(
     first_name = "Ed",
     last_name = "Perlmutter",
@@ -4561,7 +4741,6 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00637710",
     FEC_ID_cand = "H8CO07052"
   ),
-  # Was 6th candidate, now switched to CO-07? Apparently on Apr 6, 2020
   tibble(
     first_name = "Casper",
     last_name = "Stockham",
@@ -4581,22 +4760,34 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H0CO06101"
   ),
   tibble(
-    first_name = "Casper",
-    last_name = "Stockham",
+    first_name = "Ken",
+    last_name = "Biles",
     state_cd = "CO-07",
-    party = "Rep",
+    party = "Lib",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "Casper for Colorado",
-    campaign_website = "https://casperforcolorado.com/",
+    campaign_name = "Ken for US House",
+    campaign_website = "http://ken4colorado.com/",
     actblue_link = NA,
     anedot_link = NA,
-    # It's own website
-    # https://casperforcolorado.com/
-    # Difficult to scrape, work later: 2800-1000-500-100-50-35
-    other_link = "https://politics.raisethemoney.com/hipvtk9lopqvrdicigeuzw",
-    FEC_ID_cmte = "C00710855",
-    FEC_ID_cand = "H0CO06101"
+    other_link = "http://ken4colorado.com/donate-1/",
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0CO07109"
+  ),
+  tibble(
+    first_name = "David",
+    last_name = "Olszta",
+    state_cd = "CO-07",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "David Olszta for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0CO07117"
   ),
   tibble(
     first_name = "Anthony",
@@ -4617,7 +4808,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00710855",
     FEC_ID_cand = "H0CO06101"
   ),
-  # CT: Connecticut (last updated Sept 18, 2020) ==============================
+  # CT: Connecticut (last updated Jul 11, 2021) ==============================
   # CT-01 ---------------------------------------------------------------------
   # John Larson is uncontested (no candidates registered as of Sep 24, 2019)
   # Now Mary Fay in the race.
@@ -4664,8 +4855,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://secure.ngpvan.com/v1/Forms/JYMNKz-V9EOuJh3orF2Uvg2",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00410233",
+    FEC_ID_cand = "H2CT02112"
   ),
   tibble(
     first_name = "Justin",
@@ -4680,8 +4871,23 @@ cand_house_2020 <- list(
     # empty box, no options
     anedot_link = "justin-anderson-for-congress/donate/",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00713826",
+    FEC_ID_cand = "H0CT02207"
+  ),
+  tibble(
+    first_name = "Cassandra",
+    last_name = "Martineau",
+    state_cd = "CT-02",
+    party = "Grn",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Cass for Congress",
+    campaign_website = "https://www.cass4congress.rocks/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0CT02215"
   ),
   # CT-03 ---------------------------------------------------------------------
   # Rosa DeLauro is uncontested (no candidates registered as of Sep 24, 2019)
@@ -4744,8 +4950,8 @@ cand_house_2020 <- list(
     actblue_link = "stand-with-jim-himes",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00434191",
+    FEC_ID_cand = "H8CT04172"
   ),
   tibble(
     first_name = "Jonathan",
@@ -4759,8 +4965,23 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = "riddle-for-congress/donate",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00715508",
+    FEC_ID_cand = "H0CT04195"
+  ),
+  tibble(
+    first_name = "Brian",
+    last_name = "Merlen",
+    state_cd = "CT-04",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Vote Merlen",
+    campaign_website = "https://www.votemerlen.com/",
+    actblue_link = NA,
+    anedot_link = "together-health/donate",
+    other_link = NA,
+    FEC_ID_cmte = "C00744722",
+    FEC_ID_cand = "H0CT04211"
   ),
   # CT-05 ---------------------------------------------------------------------
   tibble(
@@ -4844,10 +5065,10 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00743401",
     FEC_ID_cand = "H0DE01066"
   ),
-  # DC: Washington DC (last updated Sept, 2020) ==============================
+  # DC: Washington DC (last updated Jul 11, 2021) ==============================
   # At-large nonvoting district
   # Eleanor Holmes Norton was uncontested as of Sep 17, 2019
-  # Now Norton vs. Krucoff
+  # Now Norton vs. Hynes vs. Musa vs. Lowery vs. Krucoff
   tibble(
     first_name = "Eleanor Holmes",
     last_name = "Norton",
@@ -4864,6 +5085,51 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00244335",
     FEC_ID_cand = "H0DC00058"
+  ),
+  tibble(
+    first_name = "Patrick",
+    last_name = "Hynes",
+    state_cd = "DC-0",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Patrick Hynes for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0DC00264"
+  ),
+  tibble(
+    first_name = "Omari",
+    last_name = "Musa",
+    state_cd = "DC-0",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Omari Musa for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0DC00280"
+  ),
+  tibble(
+    first_name = "Amir",
+    last_name = "Lowery",
+    state_cd = "DC-0",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Amir Lowery for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0DC00272"
   ),
   tibble(
     first_name = "David",
@@ -4897,7 +5163,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # FL: Florida (last updated Oct 2020) =======================================
+  # FL: Florida (last updated Jul 11, 2021) =======================================
   # FL-01 ---------------------------------------------------------------------
   # Romagnano seems to have withdrawn
   tibble(
@@ -4972,7 +5238,6 @@ cand_house_2020 <- list(
   # FL-02 ---------------------------------------------------------------------
   # Cannot find Anderson
   # Kim O'Connor a write-in candidate vs incumbent Dunn
-  # But I cannot find O'Connor.
   tibble(
     first_name = "Neal",
     last_name = "Dunn",
@@ -4984,13 +5249,29 @@ cand_house_2020 <- list(
     campaign_website = "https://www.nealdunn.com/home",
     actblue_link = NA,
     anedot_link = NA,
-    other_link = paste0(
-      "https://spark.widgetmakr.com/widget/render/",
-      "bc027835-dca5-4dc9-b691-cdb648713f67",
+    other_link = c(
+      paste0(
+        "https://spark.widgetmakr.com/widget/render/",
+        "bc027835-dca5-4dc9-b691-cdb648713f67"
+      ),
       "https://secure.winred.com/nealdunn/donate"
     ),
     FEC_ID_cmte = "C00582304",
     FEC_ID_cand = "H6FL02208"
+  ),
+  tibble(
+    first_name = "Kim",
+    last_name = "O'Connor",
+    state_cd = "FL-02",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = "Write-In Kim",
+    campaign_website = "https://www.writeinkim.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H4FL02013"
   ),
   # FL-03 ---------------------------------------------------------------------
   # Ted Yoho is retiring(!)
@@ -5188,7 +5469,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H0FL07143"
   ),
   tibble(
-    first_name = "Bill",
+    first_name = "William",
     last_name = "Garlington",
     state_cd = "FL-07",
     party = "Ind",
@@ -5203,8 +5484,8 @@ cand_house_2020 <- list(
       "https://www.billgarlingtonforcongress.com",
       "/campaigns/donation/donate/"
     ),
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = c("C00740860", "C00740852"),
+    FEC_ID_cand = "H0FL07192"
   ),
   tibble(
     first_name = "Yukong",
@@ -5710,18 +5991,18 @@ cand_house_2020 <- list(
   # FL-17 ---------------------------------------------------------------------
   tibble(
     first_name = "Greg",
-    last_name = "Stuebe",
+    last_name = "Steube",
     state_cd = "FL-17",
     party = "Rep",
     incumbent = TRUE,
-    office_website = "https://stuebe.house.gov",
-    campaign_name = "Greg Stuebe for Congress",
+    office_website = "https://steube.house.gov",
+    campaign_name = "Greg Steube for Congress",
     campaign_website = "https://www.electgregsteube.com/",
     actblue_link = NA,
     anedot_link = "steube/donate",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00671891",
+    FEC_ID_cand = "H8FL17053"
   ),
   tibble(
     first_name = "Allen",
@@ -5735,8 +6016,8 @@ cand_house_2020 <- list(
     actblue_link = "allenellison2020",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0FL17159"
   ),
   # FL-18 ---------------------------------------------------------------------
   # Brian Mast was uncontested (no candidates registered as of Sep 23, 2019)
@@ -5898,8 +6179,8 @@ cand_house_2020 <- list(
     actblue_link = "main-page",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00494856",
+    FEC_ID_cand = "H2FL14053"
   ),
   tibble(
     first_name = "Laura",
@@ -5913,8 +6194,23 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = "laura-loomer-for-congress-inc/highlightgeneral",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00714543",
+    FEC_ID_cand = "H0FL21078"
+  ),
+  tibble(
+    first_name = "Charleston",
+    last_name = "Malkemus",
+    state_cd = "FL-21",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Charleston for Congress",
+    campaign_website = "https://votecharleston.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00744615",
+    FEC_ID_cand = "H0FL21177"
   ),
   # FL-22 ---------------------------------------------------------------------
   tibble(
@@ -6204,7 +6500,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00715474",
     FEC_ID_cand = "H0FL27026"
   ),
-  # GA: Georgia (last updated October 5, 2020) ===============================================================
+  # GA: Georgia (last updated Jul 11, 2021) ===============================================================
   # GA-01 (last updated Oct 7, 2020) -------------------------------------------
   tibble(
     first_name = "Buddy",
@@ -6403,25 +6699,25 @@ cand_house_2020 <- list(
     actblue_link = "nikemaforcongress",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00752584",
+    FEC_ID_cand = "H0GA05301"
   ),
   tibble(
     first_name = "Angela",
-    last_name = "Stanton-King",
+    last_name = "Stanton King",
     state_cd = "GA-05",
     party = "Rep",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "Stanton-King for Congress",
-    campaign_website = "",
+    campaign_name = "Stanton King for Congress",
+    campaign_website = "https://stantonkingforcongress.com/",
     actblue_link = NA,
     # no amount options in anedot
     anedot_link = "stanton-king-for-congress-inc/donate",
     other_link =
       "https://secure.winred.com/stanton-king-for-congress-inc/donate",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00741538",
+    FEC_ID_cand = "H0GA05277"
   ),
   # GA-06 ---------------------------------------------------------------------
   # McBath vs. Greene vs. Handel vs. Beach vs. Rodden vs. Harrison
@@ -6916,7 +7212,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H0GA14048"
   ),
   # Many other candidates. Will come back to this.
-  # HI: Hawaii (last updated Oct 6, 2020) =====================================
+  # HI: Hawaii (last updated Jul 11, 2021) =====================================
   # HI-01 ---------------------------------------------------------------------
   # Ed Case is uncontested (no candidates registered as of Oct 5, 2019)
   # Case vs Curtis for General
@@ -6951,7 +7247,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = ""
   ),
   # HI-02 ---------------------------------------------------------------------
-  # Gabbard vs. Kahele vs. Cornejo
+  # Gabbard vs. Kahele vs. Hoomanawanui vs. Cornejo
   # Gabbard currently running for president
   # Kahale vs Aka
   tibble(
@@ -7000,6 +7296,36 @@ cand_house_2020 <- list(
     other_link = "https://secure.winred.com/akana-for-congress/donate",
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
+  ),
+  tibble(
+    first_name = "Jonathan",
+    last_name = "Hoomanawanui",
+    state_cd = "HI-02",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Jonathan Hoomanawanui for Congress",
+    campaign_website = "http://jhoomanawanuicampaign.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://politics.raisethemoney.com/en/jhoomanawanuiUTKpln9NXzSkSq7Dml216g/",
+    FEC_ID_cmte = "C00735332",
+    FEC_ID_cand = "H0HI02197"
+  ),
+  tibble(
+    first_name = "Ron",
+    last_name = "Burrus",
+    state_cd = "HI-02",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Ron Burrus for Hawai'i",
+    campaign_website = "https://www.rbd2hawaii.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0HI02338"
   ),
   # ID: Idaho (last updated Oct 5, 2020) ======================================
   # ID-01 ---------------------------------------------------------------------
@@ -7088,7 +7414,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # IL: Illinois (last updated Oct 6, 2020) ===================================
+  # IL: Illinois (last updated Jul 11, 2021) ===================================
   # IL-01 -----------------------------------------
   # Rush vs. White in general
   tibble(
@@ -7353,7 +7679,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H0IL05351"
   ),
   tibble(
-    first_name = "Tommy",
+    first_name = "Tom",
     last_name = "Hanson",
     state_cd = "IL-05",
     party = "Rep",
@@ -7366,7 +7692,7 @@ cand_house_2020 <- list(
     anedot_link = NA,
     other_link = NA,
     FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cand = "H8IL05073"
   ),
   tibble(
     first_name = "Tom",
@@ -8347,7 +8673,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # IN: Indiana Updated October 7, 2020 ===============================================================
+  # IN: Indiana Updated Jul 11, 2021 ===============================================================
   # IN-01 ---------------------------------------------------------------------
   # Pete Visclosky is uncontested (no candidates registered as of Sep 24, '19)
   # Visclosky retired, Mrvan vs Levya in General
@@ -8516,6 +8842,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00711887",
     FEC_ID_cand = "H0IN05219"
+  ),
+  tibble(
+    first_name = "Ken",
+    last_name = "Tucker",
+    state_cd = "IN-05",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "A Guy from Indiana",
+    campaign_website = "https://aguyfromindiana.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0IN05342"
   ),
   tibble(
     first_name = "Chuck",
@@ -8778,7 +9119,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H8IN06129"
   ),
   tibble(
-    first_name = "Susan",
+    first_name = "Susan Marie",
     last_name = "Smith",
     state_cd = "IN-07",
     party = "Rep",
@@ -8823,8 +9164,23 @@ cand_house_2020 <- list(
     actblue_link = "hope-in-8-1",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00724310",
+    FEC_ID_cand = "H0IN08213"
+  ),
+  tibble(
+    first_name = "James",
+    last_name = "Rodenberger",
+    state_cd = "IN-08",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "James Rodenberger for Congress",
+    campaign_website = "https://jamesrodenberger.com/index.html",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0IN08221"
   ),
   # IN-09 ---------------------------------------------------------------------
   tibble(
@@ -9174,7 +9530,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00720607",
     FEC_ID_cand = "H0IA04152"
   ),
-  # KS: Kansas (last updated Oct 8, 2020) =====================================
+  # KS: Kansas (last updated Jul 11, 2021) =====================================
   # KS-01 ---------------------------------------------------------------------
   # Can't find Soetaert
   # Mann vs Barnett general
@@ -9251,8 +9607,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://secure.winred.com/kansans-for-laturner/donate-sd",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00718346",
+    FEC_ID_cand = "H0KS02188"
   ),
   tibble(
     first_name = "Michelle",
@@ -9266,8 +9622,23 @@ cand_house_2020 <- list(
     actblue_link = "michelle-for-kansas-website",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00732792",
+    FEC_ID_cand = "H0KS02196"
+  ),
+  tibble(
+    first_name = "Robert",
+    last_name = "Garrard",
+    state_cd = "KS-02",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Robert Garrard for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8KS02108"
   ),
   # KS-03 ---------------------------------------------------------------------
   # Davids vs Adkins General
@@ -9355,7 +9726,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # KY: Kentucky (last updated Oct 13, 2020) ===================================
+  # KY: Kentucky (last updated Jul 11, 2021) ===================================
   # KY-01 ------------------------------------------
   # James Comer is uncontested (no candidates registered as of Sep 24, 2019)
   tibble(
@@ -9643,7 +10014,7 @@ cand_house_2020 <- list(
   # Cannot find Matthew Ryan Best
   # Cannot find John Wells
   # KY-06 ------------------------------------------
-  # Barr vs. Hicks vs. Young
+  # Barr vs. Hicks vs. Harris vs. Young
   tibble(
     first_name = "Andy", # Garland Andy, goes by Andy
     last_name = "Barr",
@@ -9673,6 +10044,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00714279",
     FEC_ID_cand = "H0KY06179"
+  ),
+  tibble(
+    first_name = "Frank",
+    last_name = "Harris",
+    state_cd = "KY-06",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Frank Hairrs for Congress",
+    campaign_website = "https://www.frankharris4congress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8KY06222"
   ),
   tibble(
     first_name = "Daniel",
@@ -10547,8 +10933,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = "havis-for-congress/donate",
     other_link = NA,
-    FEC_ID_cmte = "H0MD05217",
-    FEC_ID_cand = "C00721902"
+    FEC_ID_cmte = "C00721902",
+    FEC_ID_cand = "H0MD05217"
   ),
   tibble(
     first_name = "Chris",
@@ -10701,7 +11087,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # MA: Massachusetts (last updated Oct Oct 18, 2020) =========================
+  # MA: Massachusetts (last updated Jul 11, 2021) =========================
   # MA-01 ---------------------------------------------------------------------
   # Richard Neal faces no major party opposition
   tibble(
@@ -10982,7 +11368,7 @@ cand_house_2020 <- list(
   ),
   # MA-09 ---------------------------------------------------------------------
   # Bill Keating is uncontested (no candidates registered as of Sep 26, 2019)
-  # Keating vs. Brady in General.
+  # Keating vs. Brady vs. Manley in General.
   tibble(
     first_name = "Bill",
     last_name = "Keating",
@@ -10998,7 +11384,37 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00479063",
     FEC_ID_cand = "H0MA10082"
   ),
-  # MI: Michigan (last updated Oct 18, 2020) ==============================================================
+  tibble(
+    first_name = "Helen",
+    last_name = "Brady",
+    state_cd = "MA-09",
+    party = "Rep",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Give 'Em Helen",
+    campaign_website = "https://www.giveemhelen.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00750125",
+    FEC_ID_cand = "H0MA09076"
+  ),
+  tibble(
+    first_name = "Michael",
+    last_name = "Manley",
+    state_cd = "MA-09",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Coach Manley for Congress",
+    campaign_website = "https://coachmanley2020.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MA09084"
+  ),
+  # MI: Michigan (last updated Jul 11, 2021) ==============================================================
   # MI-01 ---------------------------------------------------------------------
   tibble(
     first_name = "Jack",
@@ -11094,21 +11510,21 @@ cand_house_2020 <- list(
     FEC_ID_cand = ""
   ),
   tibble(
-    first_name = "",
-    last_name = "",
-    state_cd = "",
-    party = "",
+    first_name = "Max",
+    last_name = "Riekse",
+    state_cd = "MI-02",
+    party = "Lib",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "",
-    campaign_website = "",
+    campaign_name = "Max Riekse for Congress",
+    campaign_website = NA,
     actblue_link = NA,
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MI02227"
   ),
-  # cannot find Riekse (Lib) or Gerald Van Sickle (Taxpayers)
+  # cannot find Gerald Van Sickle (Taxpayers)
   # MI-03 ---------------------------------------------------------------------
   tibble(
     first_name = "Justin",
@@ -11275,8 +11691,8 @@ cand_house_2020 <- list(
     actblue_link = "dan-kildee-1",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00499947",
+    FEC_ID_cand = "H2MI05119"
   ),
   tibble(
     first_name = "Tim",
@@ -11294,10 +11710,24 @@ cand_house_2020 <- list(
       "https://www.timkellyforcongress.com/donate",
       "https://secure.winred.com/timkelly/donate"
     ),
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00733568",
+    FEC_ID_cand = "H0MI05162"
   ),
-  # Cannot find James Harris or Kathy Goodwin
+  tibble(
+    first_name = "Kathy",
+    last_name = "Goodwin",
+    state_cd = "MI-05",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Kathy Goodwin for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8MI05124"
+  ),
   # MI-06 ---------------------------------------------------------------------
   # Cannot find Tidwell, Gray withdrew on Jul 6, 2018
   tibble(
@@ -11328,12 +11758,12 @@ cand_house_2020 <- list(
     actblue_link = "website-form",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "H0MI06152",
-    FEC_ID_cand = "C00701599"
+    FEC_ID_cmte = "C00701599",
+    FEC_ID_cand = "H0MI06152"
   ),
   tibble(
     first_name = "Jeff",
-    last_name = "Depoy",
+    last_name = "DePoy",
     state_cd = "MI-06",
     party = "Lib",
     incumbent = FALSE,
@@ -11514,7 +11944,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # Cannot find Andrea Kirby (Working Party)
+  tibble(
+    first_name = "Andrea",
+    last_name = "Kirby",
+    state_cd = "MI-09",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "",
+    campaign_website = "https://www.linkedin.com/in/andrea-kirby-836741a5/",
+    # Cannot find donation info.
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "",
+    FEC_ID_cand = ""
+  ),
   # MI-10 ---------------------------------------------------------------------
   # Paul Mitchell is retiring and webpage seems already down
   # Cannot find Jowske
@@ -11678,7 +12123,7 @@ cand_house_2020 <- list(
     party = "Rep",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "",
+    campaign_name = "Jeff Jones for Congress",
     campaign_website = "https://www.facebook.com/JeffJones4Congress/",
     actblue_link = NA,
     anedot_link = NA,
@@ -11686,8 +12131,23 @@ cand_house_2020 <- list(
       "https://www.paypal.com/donate/?cmd=_s-xclick&",
       "hosted_button_id=ACFV55976HUH6&source=url"
     ),
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = c("C00756171", "C00611269"),
+    FEC_ID_cand = "H6MI12264"
+  ),
+  tibble(
+    first_name = "Gary",
+    last_name = "Walkowicz",
+    state_cd = "MI-12",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Gary Walkowicz for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8MI07039"
   ),
   # MI-13 ---------------------------------------------------------------------
   # Tlaib vs. Patterson
@@ -11727,8 +12187,8 @@ cand_house_2020 <- list(
     anedot_link = NA,
     other_link =
       "https://secure.winred.com/the-committee-to-elect-david-dudenhoefer/donate",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00728386",
+    FEC_ID_cand = "H0MI13471"
   ),
   tibble(
     first_name = "D. Etta",
@@ -11742,10 +12202,39 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://www.dettawilcoxon.org/donate",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = c("C00761098", "C00685412"),
+    FEC_ID_cand = "H8MI13342"
   ),
-  # cannot find Articia Bomer (Taxpayers) or Sam Johnson (Working Class)
+  tibble(
+    first_name = "Articia",
+    last_name = "Bomer",
+    state_cd = "MI-13",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Articia Bomer for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = c("C00750968", "C00745950"),
+    FEC_ID_cand = "H0MI13505"
+  ),
+  tibble(
+    first_name = "Sam",
+    last_name = "Johnson",
+    state_cd = "MI-13",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Sam Johnson for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "",
+    FEC_ID_cand = "H4MI07012"
+  ),
   # MI-14 ---------------------------------------------------------------------
   tibble(
     first_name = "Brenda",
@@ -11763,7 +12252,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = ""
   ),
   tibble(
-    first_name = "R. Vance",
+    first_name = "Robert Vance",
     last_name = "Patrick",
     state_cd = "MI-14",
     party = "Rep",
@@ -11793,8 +12282,23 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
+  tibble(
+    first_name = "Philip",
+    last_name = "Kolody",
+    state_cd = "MI-14",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Philip Kolody for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8MI14118"
+  ),
   # cannot find Clyde Shabazz (Green) and Philip Kolody (Working Class)
-  # MN: Minnesota (last updated October 19, 2020) ==============================
+  # MN: Minnesota (last updated Jul 12, 2021) ==============================
   # MN-01 ---------------------------------------------------------------------
   tibble(
     first_name = "Jim",
@@ -11940,6 +12444,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
+  tibble(
+    first_name = "Martin",
+    last_name = "Schulte",
+    state_cd = "MN-02",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Martin Schulte for Congress",
+    campaign_website = "https://www.martinvschulte.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MO02262"
+  ),
   # MN-03 ---------------------------------------------------------------------
   tibble(
     first_name = "Kendall",
@@ -11970,6 +12489,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
+  ),
+  tibble(
+    first_name = "Leonard",
+    last_name = "Steinman",
+    state_cd = "MN-03",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Leonard Steinman for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MO04151"
   ),
   # MN-04 ---------------------------------------------------------------------
   tibble(
@@ -12165,7 +12699,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00713214",
     FEC_ID_cand = "H0MN05186"
   ),
-  # cannot find Michael Moore (Legalize M. Party)
+  tibble(
+    first_name = "Michael",
+    last_name = "Moore",
+    state_cd = "MN-05",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Michael Moore for Congress",
+    campaign_website = "https://www.usrepmoore.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MN05293"
+  ),
   # MN-06 ---------------------------------------------------------------------
   tibble(
     first_name = "Tom",
@@ -12283,7 +12831,36 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00717959",
     FEC_ID_cand = "H0MN07091"
   ),
-  # cannot find Rae Anderson (Grassroots) and Slater Johnson (Legalize M. now)
+  tibble(
+    first_name = "Rae Hart",
+    last_name = "Anderson",
+    state_cd = "MN-07",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Rae Hart Anderson for Congress",
+    campaign_website = "https://www.twitter.com/GodisHere2day4U",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MN07141"
+  ),
+  tibble(
+    first_name = "Slater",
+    last_name = "Johnson",
+    state_cd = "MN-07",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Slater Johnson for Congress",
+    campaign_website = "https://www.facebook.com/Slater-Johnson-for-District-7-109208377567307/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MN07166"
+  ),
   # MN-08 ---------------------------------------------------------------------
   tibble(
     first_name = "Pete",
@@ -12316,8 +12893,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # cannot find Judith Schwartzbacker (legalize marijuana party)
-  # MS: Mississippi (last updated Oct 20, 2020) ===============================
+  tibble(
+    first_name = "Judith",
+    last_name = "Schwartzbacker",
+    state_cd = "MN-08",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Judith Schwartzbacker for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MN08180"
+  ),
+  # MS: Mississippi (last updated Jul 12, 2021) ===============================
   # MS-01 ---------------------------------------------------------------------
   # Trent Kelly is uncontested (no candidates registered as of Sep 26, 2019)
   tibble(
@@ -12417,7 +13008,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Dorothy",
-    last_name = "Dot Benford",
+    last_name = "Benford",
     state_cd = "MS-03",
     party = "Dem",
     incumbent = FALSE,
@@ -12448,7 +13039,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = ""
   ),
   # MO: Missouri ==============================================================
-  # MO-01 (last updated Oct 25, 2020) ------------------------------------------
+  # MO-01 (last updated Jul 12, 2020) ------------------------------------------
   # Incumbent Clay defeated by Cori Bush
   # Bush vs. Rogers
   tibble(
@@ -12501,6 +13092,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00742650",
     FEC_ID_cand = "H0MO01207"
+  ),
+  tibble(
+    first_name = "Alex",
+    last_name = "Furman",
+    state_cd = "MO-01",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Alex Furman for Congress",
+    campaign_website = "https://alexforus.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://alexforus.com/donate.html",
+    FEC_ID_cmte = "C00754507",
+    FEC_ID_cand = "H0MO01215"
   ),
   # MO-02 (last updated Oct 25, 2020) ------------------------------------------
   # Ann Wagner is uncontested (no candidates registered as of Oct 3, 2019)
@@ -12771,6 +13377,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
+  tibble(
+    first_name = "Audrey",
+    last_name = "Richards",
+    state_cd = "MO-07",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Audrey Richards for Congress",
+    campaign_website = "https://www.audreyformissouri.com/",
+    # not taking campaign donations
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3DURD982K4672&source=url",
+    FEC_ID_cmte = "C00753541",
+    FEC_ID_cand = "H0MO07279"
+  ),
   # MO-08 ------------------------------------------
   # Smith vs. Ellis
   tibble(
@@ -12802,6 +13424,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = c("C00701730", "C00639450"),
     FEC_ID_cand = "H8MO08098"
+  ),
+  tibble(
+    first_name = "Tom",
+    last_name = "Schmitz",
+    state_cd = "MO-08",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Tom Schmitz for Liberty",
+    campaign_website = "https://www.tomschmitzforliberty.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0MO08285"
   ),
   # MT: Montana (at-large district; last updated Oct 25, 2020) =================
   # Gianforte vs. Williams
@@ -13071,7 +13708,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # cannot find Tyler Schaeffer (Lib)
+  tibble(
+    first_name = "Tyler",
+    last_name = "Schaeffer",
+    state_cd = "NE-02",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Tyler Schaeffer for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0NC11282"
+  ),
   # NE-03 ---------------------------------------------------------------------
   tibble(
     first_name = "Adrian",
@@ -13246,7 +13897,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Janine",
-    last_name = "Hanson",
+    last_name = "Hansen",
     state_cd = "NV-02",
     party = "IAP", # Independent American Party
     incumbent = FALSE,
@@ -13567,7 +14218,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # cannot find Barry Rubinson (IAP)
+  tibble(
+    first_name = "Barry",
+    last_name = "Rubinson",
+    state_cd = "NV-04",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Barry Rubinson for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "",
+    FEC_ID_cand = "H0NV04171"
+  ),
   # NH: New Hampshire ==============================
   # NH-01 ---------------------------------------------------------------------
   # Chris Pappas is uncontested (no candidates registered as of Oct 5, 2019)
@@ -13781,7 +14446,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Jesse",
-    last_name = "Ehrnstorm",
+    last_name = "Ehrnstrom",
     state_cd = "NJ-02",
     party = "Lib",
     incumbent = FALSE,
@@ -13905,6 +14570,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
+  tibble(
+    first_name = "Robert",
+    last_name = "Shapiro",
+    state_cd = "NJ-03",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Robert Shapiro for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H6NJ12235"
+  ),
   # NJ-04 ---------------------------------------------------------------------
   tibble(
     first_name = "Chris",
@@ -13931,7 +14611,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Stephanie",
-    last_name = "Schmidt",
+    last_name = "Schmid",
     state_cd = "NJ-04",
     party = "Dem",
     incumbent = FALSE,
@@ -13978,7 +14658,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # Cannot find Hank Schroeder (Ind)
+  tibble(
+    first_name = "Hank",
+    last_name = "Schroeder",
+    state_cd = "NJ-04",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Vote Hank",
+    campaign_website = "https://www.facebook.com/pg/votehanknj/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H6NJ04182"
+  ),
   # NJ-05 -----------------------------------------
   tibble(
     first_name = "Josh",
@@ -14279,8 +14973,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
-  # cannot find Chris Auriemma (Ind)
-  # NJ-10 (last updated Oct 25, 2020) ------------------------------------------
+  tibble(
+    first_name = "Chris",
+    last_name = "Auriemma",
+    state_cd = "NJ-09",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Chris for Congress",
+    campaign_website = "https://www.facebook.com/chrisforcongress9thdistrict/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00742874",
+    FEC_ID_cand = "H0NJ09218"
+  ),
+  # NJ-10 (last updated Jul 12, 2021) ------------------------------------------
   tibble(
     first_name = "Donald",
     last_name = "Payne", # Jr.
@@ -14309,7 +15017,52 @@ cand_house_2020 <- list(
     anedot_link = NA,
     other_link = "https://secure.winred.com/jen-zinone/donate",
     FEC_ID_cmte = "C00740720",
-    FEC_ID_cand = "Jen Zinone for Congress"
+    FEC_ID_cand = "H0NJ10232"
+  ),
+  tibble(
+    first_name = "Akil",
+    last_name = "Khalfani",
+    state_cd = "NJ-10",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Akil Khalfani for Congress",
+    campaign_website = "https://www.akilkhalfani.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://politics.raisethemoney.com/khalfani4congress",
+    FEC_ID_cmte = "C00750406",
+    FEC_ID_cand = "H0NJ10257"
+  ),
+  tibble(
+    first_name = "Khaliah",
+    last_name = "Fitchette",
+    state_cd = "NJ-10",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Khaliah for Congress",
+    campaign_website = "https://www.khaliahforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00758565",
+    FEC_ID_cand = "H0NJ10240"
+  ),
+  tibble(
+    first_name = "John",
+    last_name = "Mirrione",
+    state_cd = "NJ-10",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "John for Congress",
+    campaign_website = "https://johnmirrione.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://johnmirrione.com/donate",
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0NJ10265"
   ),
   # NJ-11 (last updated Oct 25, 2020) ------------------------------------------
   tibble(
@@ -14399,7 +15152,7 @@ cand_house_2020 <- list(
   # NM-01 (last updated Oct 25, 2020) ------------------------------------------
   # Haaland vs. Kokinadis vs. Chick
   tibble(
-    first_name = "Deb",
+    first_name = "Deb", # Debra goes by Deb
     last_name = "Haaland",
     state_cd = "NM-01",
     party = "Dem",
@@ -14614,8 +15367,8 @@ cand_house_2020 <- list(
     actblue_link = "joseph-sanchez-1",
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "H0NM03144",
-    FEC_ID_cand = "C00707620"
+    FEC_ID_cmte = "C00707620",
+    FEC_ID_cand = "H0NM03144"
   ),
   tibble(
     first_name = "Audra",
@@ -14880,7 +15633,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00691824",
     FEC_ID_cand = "H8NY02088"
   ),
-  # NY-03 (last updated Oct 24, 2020) ------------------------------------------
+  # NY-03 (last updated Jul 13, 2021) ------------------------------------------
   tibble(
     first_name = "Thomas",
     last_name = "Suozzi",
@@ -14934,16 +15687,31 @@ cand_house_2020 <- list(
     first_name = "Michael",
     last_name = "Weinstock",
     state_cd = "NY-03",
-    party = "Michael Weinstock for Congress",
+    party = "Dem",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "",
+    campaign_name = "Michael Weinstock for Congress",
     campaign_website = "https://weinstockforcongress.com",
     actblue_link = "weinstock",
     anedot_link = NA,
     other_link = NA,
     FEC_ID_cmte = "C00691709",
     FEC_ID_cand = "H0NY03059"
+  ),
+  tibble(
+    first_name = "Howard",
+    last_name = "Rabin",
+    state_cd = "NY-03",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Howard Rabin for U.S. Congress",
+    campaign_website = "https://howardrabinforuscongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00756577",
+    FEC_ID_cand = "H0NY03091"
   ),
   # Sauberman withdrew
   # NY-04 (last updated Oct 24, 2020) ------------------------------------------
@@ -15155,7 +15923,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00704460",
     FEC_ID_cand = "H0NY06052"
   ),
-  # NY-07 (last updated Oct 24, 2020) ------------------------------------------
+  # NY-07 (last updated Jul 13, 2021) ------------------------------------------
   tibble(
     first_name = "Nydia",
     last_name = "Velazquez",
@@ -15234,6 +16002,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00733055",
     FEC_ID_cand = "H0NY07100"
+  ),
+  tibble(
+    first_name = "Gilbert",
+    last_name = "Midonnet",
+    state_cd = "NY-07",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Gilbert Midonnet for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0NY07126"
   ),
   # NY-08 (last updated Oct 24, 2020) ------------------------------------------
   # Hakeem Jeffries was uncontested
@@ -15681,7 +16464,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00704288",
     FEC_ID_cand = "H0NY11086"
   ),
-  # NY-12 (last updated Oct 24, 2020) ------------------------------------------
+  # NY-12 (last updated Jul 13, 2021) ------------------------------------------
   tibble(
     first_name = "Carolyn",
     last_name = "Maloney",
@@ -15782,6 +16565,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00708156",
     FEC_ID_cand = "H0NY12183"
+  ),
+  tibble(
+    first_name = "Steven",
+    last_name = "Kolln",
+    state_cd = "NY-12",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Kolln for Congress",
+    campaign_website = "http://kollnforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0NY12217"
   ),
   # NY-13 (last updated Oct 24, 2020) ------------------------------------------
   # Espaillat vs. Keith
@@ -15887,7 +16685,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00728055",
     FEC_ID_cand = "H0NY13140"
   ),
-  # Cannot find Christopher Morris-Perry
+  tibble(
+    first_name = "Christopher",
+    last_name = "Morris-Perry",
+    state_cd = "NY-13",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Christopher Morris-Perry for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00737544",
+    FEC_ID_cand = "H0NY13157"
+  ),
   # NY-14 (last updated Oct 24, 2020) ------------------------------------------
   # Ocasio-Cortez vs. Papazian
   # vs. Hernandez vs. Tucker vs. Butler vs. Murray vs. Solano vs.
@@ -16397,7 +17209,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00741926",
     FEC_ID_cand = "H0NY15301"
   ),
-  # NY-16 (last updated Oct 24, 2020) ------------------------------------------
+  # NY-16 (last updated Jul 13, 2021) ------------------------------------------
   # Engel vs. Bowman vs. Ghebreghiorgis vs. Fink vs. Ravelo vs. Belvin
   tibble(
     first_name = "Eliot",
@@ -16586,6 +17398,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00710954",
     FEC_ID_cand = "H0NY16150"
+  ),
+  tibble(
+    first_name = "Patrick",
+    last_name = "McManus",
+    state_cd = "NY-16",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "McManus for Congress",
+    campaign_website = "https://www.mcmanusforcongress2020.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00759027",
+    FEC_ID_cand = "H8NY15114"
   ),
   # Cannot find Kenny Belvin
   # NY-17 (last updated Oct 24, 2020) ------------------------------------------
@@ -16866,7 +17693,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00565465",
     FEC_ID_cand = "H4NY18109"
   ),
-  # NY-19 (last updated Oct 24, 2020) ------------------------------------------
+  # NY-19 (last updated Jul 13, 2021) ------------------------------------------
   tibble(
     first_name = "Antonio",
     last_name = "Delgado",
@@ -16944,6 +17771,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00737650",
     FEC_ID_cand = "H0NY19204"
+  ),
+  tibble(
+    first_name = "Steven",
+    last_name = "Greenfield",
+    state_cd = "NY-19",
+    party = "Grn",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Steven Greenfield for Congress",
+    campaign_website = "https://stevegreenfieldforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://stevegreenfieldforcongress.com/fund-me/",
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H2NY22097"
   ),
   # NY-20 (last updated Oct 24, 2020) ------------------------------------------
   # Tonko vs. Joy vs. Seney
@@ -17303,7 +18145,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00741439",
     FEC_ID_cand = "H0NY25102"
   ),
-  # NY-26 (last updated Oct 17, 2020) ------------------------------------------
+  # NY-26 (last updated Jul 13, 2021) ------------------------------------------
   # Higgins vs. Egriu vs. Raleigh vs. Donovan vs. Samsel
   # Cannot find Egriu (proper website)
   # https://ballotpedia.org/Emin_Eddie_Egriu
@@ -17357,7 +18199,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00557223",
     FEC_ID_cand = "H0NY26068"
   ),
-  # Cannot find Mike Raleigh
+  tibble(
+    first_name = "Mile",
+    last_name = "Raleigh",
+    state_cd = "NY-26",
+    party = "Grn",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Raleigh For Congress",
+    campaign_website = "https://www.raleighforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00739912",
+    FEC_ID_cand = "H0NY26076"
+  ),
   # Cannot find Ricky Donovan
   # James Samsel no website
   # NY-27 (last updated Oct 17, 2020) ------------------------------------------
@@ -17479,7 +18335,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00735811",
     FEC_ID_cand = "H0NY27132"
   ),
-  # NC: North Carolina (last updated Oct 17, 2020) =============================
+  # NC: North Carolina (last updated Jul 12, 2021) =============================
   # NC-01 (last updated Oct 17, 2020) ------------------------------------------
   # Butterfield vs. Smith vs. Nix vs. Carter vs. Baca
   tibble(
@@ -17959,8 +18815,8 @@ cand_house_2020 <- list(
       "3ZWJzaXRlJnV0bV9zb3VyY2U9aG9tZXBhZ2UmdXRtX2NvbnRlbnQ9ZG9uYXRlX2hlYWRlc",
       "iM%3D"
     ),
-    FEC_ID_cmte = "H4NC06052",
-    FEC_ID_cand = "C00543231"
+    FEC_ID_cmte = "C00543231",
+    FEC_ID_cand = "H4NC06052"
   ),
   tibble(
     first_name = "Angela",
@@ -18360,7 +19216,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00649806",
     FEC_ID_cand = "H8NC10097"
   ),
-  # NC-11 (last updated Oct 17, 2020) ------------------------------------------
+  # NC-11 (last updated Jul 12, 2021) ------------------------------------------
   # Meadows announced retirement on Dec 19, 2020; open seat
   # Driscoll vs. Bennett
   # vs. Davis vs. Woodsmall vs. Collias vs. OShea vs. Archerd
@@ -18649,6 +19505,36 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00699363",
     FEC_ID_cand = "H0NC12124"
   ),
+  tibble(
+    first_name = "Tamara",
+    last_name = "Zwinak",
+    state_cd = "NC-12",
+    party = "Grn",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Tamara Zwinak for Congress",
+    campaign_website = "https://ushouserace2020.blogspot.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0NC11274"
+  ),
+  tibble(
+    first_name = "Tracey",
+    last_name = "DeBruhl",
+    state_cd = "NC-12",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "DeBruhl for Congress",
+    campaign_website = "https://www.facebook.com/DeBruhl-For-Congress-105350877641380",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0NC11282"
+  ),
   # NC-13 (last updated Oct 17, 2020) ------------------------------------------
   # Ted Budd was uncontested (no candidates registered as of Oct 8, 2019)
   # Now Budd vs. Huffman
@@ -18830,7 +19716,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H2OH02085"
   ),
   tibble(
-    first_name = "Jamie",
+    first_name = "Jaime",
     last_name = "Castle",
     state_cd = "OH-02",
     party = "Dem",
@@ -19474,7 +20360,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = c("C00704619", "C00647305"),
     FEC_ID_cand = "H8OH11281"
   ),
-  # OH-12 (last updated Oct 17, 2020) -----------------------------------------
+  # OH-12 (last updated Jul 13, 2021) -----------------------------------------
   # Balderson vs. Shearer vs. Bell vs. Weislogel vs. Mierzejewski
   tibble(
     first_name = "Troy", # William Troy, goes by Troy
@@ -19519,7 +20405,7 @@ cand_house_2020 <- list(
     last_name = "Bell",
     state_cd = "OH-12",
     party = "Dem",
-    incumbent = TRUE,
+    incumbent = FALSE,
     office_website = NA,
     campaign_name = "Jenny Bell 2020",
     campaign_website = "https://jennybell2020.us",
@@ -19529,7 +20415,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00717405",
     FEC_ID_cand = "H0OH12161"
   ),
-  # OH-13 (last updated Oct 17, 2020) ------------------------------------------
+  tibble(
+    first_name = "John",
+    last_name = "Stewart",
+    state_cd = "OH-12",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Elect John Stewart",
+    campaign_website = "https://www.electjohnstewart.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00749135",
+    FEC_ID_cand = "H0OH12229"
+  ),
+  # OH-13 (last updated Jul 13, 2021) ------------------------------------------
   # Tim Ryan was running for president
   # Ryan vs. Lyras vs. Hagan vs. Santos vs. Truex vs. Morckel
   tibble(
@@ -19636,6 +20537,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00714808",
     FEC_ID_cand = "H6OH13240"
   ),
+  tibble(
+    first_name = "Michael",
+    last_name = "Fricke",
+    state_cd = "OH-13",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Fricke for Ohio",
+    campaign_website = "https://www.facebook.com/mikefricke2020",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0OH13235"
+  ),
   # OH-14 (last updated Oct 17, 2020) ------------------------------------------
   # David Joyce was uncontested (no candidates registered as of Oct 8, 2019)
   # Now Joyce vs. Mueri
@@ -19733,7 +20649,7 @@ cand_house_2020 <- list(
     anedot_link = NA,
     # 5-10-25-50-100
     other_link = "https://huntforcongress.us/support-new-leadership/",
-    FEC_ID_cmte = "",
+    FEC_ID_cmte = "C00733212",
     FEC_ID_cand = "H0OH15156"
   ),
   # OH-16 (last updated Oct 17, 2020) ------------------------------------------
@@ -19912,7 +20828,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00749770",
     FEC_ID_cand = "H0OK03093"
   ),
-  # OK-04 (last updated Oct 8, 2020) -------------------------------------------
+  # OK-04 (last updated Jul 13, 2021) -------------------------------------------
   # Tom Cole was uncontested (no candidates registered as of Sep 26, 2019)
   # Now Cole vs. Brannon
   tibble(
@@ -19954,6 +20870,21 @@ cand_house_2020 <- list(
     ),
     FEC_ID_cmte = "C00678060",
     FEC_ID_cand = "H8OK04094"
+  ),
+  tibble(
+    first_name = "Bob",
+    last_name = "White",
+    state_cd = "OK-04",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Bob White for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0OK04216"
   ),
   # OK-05 (last updated Oct 8, 2020) -------------------------------------------
   # Oakley for Oklahoma turned out to be for the state congressional district
@@ -20111,7 +21042,7 @@ cand_house_2020 <- list(
   tibble(
     first_name = "Christopher",
     last_name = "Christensen",
-    state_cd = "OR-02",
+    state_cd = "OR-01",
     party = "Rep",
     incumbent = FALSE,
     office_website = NA,
@@ -20160,7 +21091,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00739045",
     FEC_ID_cand = "H0OR01186"
   ),
-  # OR-02 (last updated Oct 4, 2020) -------------------------------------------
+  # OR-02 (last updated Jul 13, 2021) -------------------------------------------
   # Greg Walden retired as of Oct 28, 2019; open seat
   tibble(
     first_name = "Cliff",
@@ -20292,8 +21223,23 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00736843",
     FEC_ID_cand = "H0OR02192"
   ),
+  tibble(
+    first_name = "Robert",
+    last_name = "Werch",
+    state_cd = "OR-02",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Robert Werch for Congress",
+    campaign_website = "http://robertwerch.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "http://robertwerch.com/donate/",
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0OR02291"
+  ),
   # Cannot find Mark Roberts
-  # OR-03 (last updated Oct 4, 2020) -------------------------------------------
+  # OR-03 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Earl",
     last_name = "Blumenauer",
@@ -20369,10 +21315,25 @@ cand_house_2020 <- list(
     FEC_ID_cmte = c("C00681387", "C00684621"),
     FEC_ID_cand = "H8OR03102"
   ),
+  tibble(
+    first_name = "Josh",
+    last_name = "Solomon",
+    state_cd = "OR-03",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Josh Solomon for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0OR03216"
+  ),
   # Ed Baker no activity for six months
   # https://www.facebook.com/edbakerforcongress/
   # Cannot find Gregory Aller
-  # OR-04 (last updated Oct 4, 2020) -------------------------------------------
+  # OR-04 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Peter",
     last_name = "Defazio",
@@ -20463,6 +21424,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00720185",
     FEC_ID_cand = "H0OR04123"
+  ),
+  tibble(
+    first_name = "Daniel",
+    last_name = "Hoffay",
+    state_cd = "OR-04",
+    party = "Grn",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Daniel Hoffay 2020",
+    campaign_website = "http://danielhoffay2020.org/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0OR03208"
   ),
   # OR-05 (last updated Oct 4, 2020) -------------------------------------------
   tibble(
@@ -20672,8 +21648,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = "runmikerun/donate",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "", # Not available
+    FEC_ID_cand = "H0PA03347"
   ),
   # PA-04 (last updated Oct 4, 2020) -------------------------------------------
   # Madeleine Dean was uncontested (no candidates registered as of Sep 24, '19)
@@ -20980,14 +21956,14 @@ cand_house_2020 <- list(
     office_website = NA,
     campaign_name = "Eugene for Congress",
     campaign_website = "https://eugeneforcongress.com",
-    actblue_link = NA,
-    anedot_link = NA,
-    other_link = c(
+    actblue_link = c(
       # Change within ActBlue; was still old link on Sep 8, 2020
       # But changed by Sep 29, 2020
       "depasquale-for-pa-1-weekly",
       "depasquale-for-pa-1"
     ),
+    anedot_link = NA,
+    other_link = NA,
     FEC_ID_cmte = "C00710533",
     FEC_ID_cand = "H0PA10110"
   ),
@@ -21344,7 +22320,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00701847",
     FEC_ID_cand = "H0PA18097"
   ),
-  # Rhode Island (last updated Oct 4, 2020) ====================================
+  # Rhode Island (last updated Jul 13, 2021) ====================================
   # RI-01 (last updated Oct 4, 2020) -------------------------------------------
   # Cicilline vs. Wysocki (Rep -> Ind, Rep primary canceled)
   tibble(
@@ -21639,7 +22615,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00616888",
     FEC_ID_cand = "H4SC03111"
   ),
-  # SC-04 (last updated Oct 4, 2020) -------------------------------------------
+  # SC-04 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "William",
     last_name = "Timmons",
@@ -21652,8 +22628,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://secure.winred.com/williamtimmons/donate",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00668491",
+    FEC_ID_cand = "H8SC04250"
   ),
   tibble(
     first_name = "Kim",
@@ -21669,6 +22645,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00710665",
     FEC_ID_cand = "H0SC04281"
+  ),
+  tibble(
+    first_name = "Michael",
+    last_name = "Chandler",
+    state_cd = "SC-04",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Chandler for Congress",
+    campaign_website = "https://mgchand39.wixsite.com/chandlerforcongress",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H2SC04121"
   ),
   # SC-05 (last updated Oct 4, 2020) -------------------------------------------
   tibble(
@@ -21701,7 +22692,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00736694",
     FEC_ID_cand = "H0SC05056"
   ),
-  # SC-06 (last updated Oct 4, 2020) -------------------------------------------
+  # SC-06 (last updated Jul 13, 2021) -------------------------------------------
   # Jim Clyburn was uncontested (no candidates registered as of Sep 26, 2019)
   # Now Clyburn vs. McCollum vs. Hackett
   tibble(
@@ -21738,6 +22729,21 @@ cand_house_2020 <- list(
     ),
     FEC_ID_cmte = "C00745877",
     FEC_ID_cand = "H0SC06237"
+  ),
+  tibble(
+    first_name = "Mark",
+    last_name = "Hackett",
+    state_cd = "SC-06",
+    party = "Oth",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Mark Hackett for Congress",
+    campaign_website = "https://www.facebook.com/markhackettSC",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0SC06245"
   ),
   # SC-07 (last updated Oct 4, 2020) -------------------------------------------
   tibble(
@@ -21806,7 +22812,7 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = NA,
-    FEC_ID_cmte = "",
+    FEC_ID_cmte = "", # Not available
     FEC_ID_cand = "H2CO02155"
   ),
   tibble(
@@ -21856,8 +22862,8 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00736561",
     FEC_ID_cand = "H0SD01094"
   ),
-  # Tennessee (last updated Oct 4, 2020) =======================================
-  # TN-01 (last updated Oct 4, 2020) -------------------------------------------
+  # Tennessee (last updated Jul 13, 2021) =======================================
+  # TN-01 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Blair",
     last_name = "Walshingham",
@@ -21997,6 +23003,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00693739",
     FEC_ID_cand = "H0TN01043"
+  ),
+  tibble(
+    first_name = "Steve",
+    last_name = "Holder",
+    state_cd = "TN-01",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Steve Holder for Congress",
+    campaign_website = "https://steveholder44945532.wordpress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TN01241"
   ),
   # Lost Jay Adkins
   # TN-02 (last updated Oct 4, 2020) -------------------------------------------
@@ -22265,7 +23286,36 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00684977",
     FEC_ID_cand = "H6TN08250"
   ),
-  # James Hart independent: cannot find. Also known eugenist?
+  tibble(
+    first_name = "James",
+    last_name = "Hart",
+    state_cd = "TN-08",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "James Hart for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00372722",
+    FEC_ID_cand = "H2TN08077"
+  ),
+  tibble(
+    first_name = "Jon",
+    last_name = "Dillard",
+    state_cd = "TN-08",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Jon Dillard for Congress",
+    campaign_website = "https://jondillard.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TN08360"
+  ),
   # TN-09 (last updated Oct 4, 2020) -------------------------------------------
   # Stephen Cohen was uncontested (no candidates registered as of Sep 26, 2019)
   # Now Cohen vs.
@@ -22360,7 +23410,7 @@ cand_house_2020 <- list(
   ),
   # TX-02 (last updated Oct 4, 2020) -------------------------------------------
   tibble(
-    first_name = "Dan",
+    first_name = "Dan", #Daniel, goes by Dan
     last_name = "Crenshaw",
     state_cd = "TX-02",
     party = "Rep",
@@ -22502,7 +23552,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00637405",
     FEC_ID_cand = "H8TX03081"
   ),
-  # TX-04 (last updated Oct 4, 2020) -------------------------------------------
+  # TX-04 (last updated Jul 13, 2021) -------------------------------------------
   # John Ratcliffe was uncontested (no candidates registered as of Sep 26, 2019)
   # Became Director of national intelligence
   tibble(
@@ -22557,6 +23607,21 @@ cand_house_2020 <- list(
     other_link = "https://secure.winred.com/JohnRatcliffe/donate",
     FEC_ID_cmte = "C00554113",
     FEC_ID_cand = "H4TX04153"
+  ),
+  tibble(
+    first_name = "Lou",
+    last_name = "Antonelli",
+    state_cd = "TX-04",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Lou Antonelli for Congress",
+    campaign_website = "https://louantonelliforcongress.blogspot.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://www.powr.io/checkout_screen?unique_label=2d93d4a1_1599429793",
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TX04250"
   ),
   # TX-05 (last updated Oct 4, 2020) -------------------------------------------
   # Lance Gooden is uncontested (no candidates registered as of Sep 26, 2019)
@@ -22652,7 +23717,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = c("C00701003", "C00702886"),
     FEC_ID_cand = "H0TX07170"
   ),
-  # TX-08 (last updated Oct 4, 2020) -------------------------------------------
+  # TX-08 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Kevin",
     last_name = "Brady",
@@ -22714,6 +23779,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00721597",
     FEC_ID_cand = "H0TX08145"
+  ),
+  tibble(
+    first_name = "Chris",
+    last_name = "Duncan",
+    state_cd = "TX-08",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Chris Duncan for Congress",
+    campaign_website = "https://www.facebook.com/ChrisDuncanLPTexas/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8TX08122"
   ),
   # TX-09 (last updated Oct 4, 2020) -------------------------------------------
   tibble(
@@ -22801,7 +23881,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H4TX10093"
   ),
   tibble(
-    first_name = "Michael",
+    first_name = "Mike", #Michael, goes by Mike
     last_name = "Siegel",
     state_cd = "TX-10",
     party = "Dem",
@@ -22911,8 +23991,8 @@ cand_house_2020 <- list(
     # Unfortunately, not archived.
     anedot_link = "j-ross-lacy-for-congress/donate",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00715169",
+    FEC_ID_cand = "H0TX11172"
   ),
   tibble(
     first_name = "Brandon",
@@ -22927,8 +24007,8 @@ cand_house_2020 <- list(
     # Unfortunately, not archived.
     anedot_link = "brandon-batch-for-congress/donate",
     other_link = NA,
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00721076",
+    FEC_ID_cand = "H0TX11263"
   ),
   tibble(
     first_name = "JD",
@@ -23421,8 +24501,38 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00730309",
     FEC_ID_cand = "H0TX18334"
   ),
+  tibble(
+    first_name = "Vince",
+    last_name = "Duncan",
+    state_cd = "TX-18",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Vince Duncan for Congress",
+    campaign_website = "https://www.vinceforus.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://www.paypal.com/cgi-bin/we%20back?cmd=_s-xclick&hosted_button_id=639ZSBXNMTF5N",
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H4TX18112"
+  ),
+  tibble(
+    first_name = "Luke",
+    last_name = "Spencer",
+    state_cd = "TX-18",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Luke Spencer for Congress",
+    campaign_website = "https://www.lukespencerforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00682286",
+    FEC_ID_cand = "H8TX18196"
+  ),
   # ActBlue marcflores
-  # TX-19 (last updated Oct 3, 2020) -------------------------------------------
+  # TX-19 (last updated Jul 13, 2021) -------------------------------------------
   # Jodey Arrington was uncontested
   # (no candidates registered as of Sep 26, 2019)
   tibble(
@@ -23457,6 +24567,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00731463",
     FEC_ID_cand = "H0TX19068"
+  ),
+  tibble(
+    first_name = "Joe",
+    last_name = "Burnes",
+    state_cd = "TX-19",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Joe Burnes for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TX19100"
   ),
   # TX-20 (last updated Oct 3, 2020) -------------------------------------------
   tibble(
@@ -23607,6 +24732,36 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00713297",
     FEC_ID_cand = "H0TX21148"
+  ),
+  tibble(
+    first_name = "Arthur",
+    last_name = "DiBianca",
+    state_cd = "TX-21",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Arthur DiBianca for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TX21155"
+  ),
+  tibble(
+    first_name = "Thomas",
+    last_name = "Wakely",
+    state_cd = "TX-21",
+    party = "Grn",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Wakely 2020",
+    campaign_website = "https://www.wakely2020.green/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00748459",
+    FEC_ID_cand = "H6TX21228"
   ),
   # TX-22 (last updated Oct 3, 2020) -------------------------------------------
   # Olson is retiring; open seat
@@ -23767,7 +24922,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00717215",
     FEC_ID_cand = "H0TX22211"
   ),
-  # TX-23 (last updated Oct 3, 2020) -------------------------------------------
+  # TX-23 (last updated Jul 13, 2021) -------------------------------------------
   # I realize that Hurd announced to retire but his page is live so will scrape
   tibble(
     first_name = "Gina Ortiz",
@@ -23925,6 +25080,21 @@ cand_house_2020 <- list(
     ),
     FEC_ID_cmte = "C00719344",
     FEC_ID_cand = "H0TX23227"
+  ),
+  tibble(
+    first_name = "Beto",
+    last_name = "Villela",
+    state_cd = "TX-23",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Beto Villela for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TX23300"
   ),
   # TX-24 (last updated Oct 3, 2020) -------------------------------------------
   # Open seat; Marchant retires
@@ -24166,7 +25336,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00723692",
     FEC_ID_cand = "H0TX24258"
   ),
-  # TX-25 (last updated Oct 3, 2020) -------------------------------------------
+  # TX-25 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Roger",
     last_name = "Williams",
@@ -24214,7 +25384,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00714253",
     FEC_ID_cand = "H0TX25131"
   ),
-  # TX-26 (last updated Oct 3, 2020) -------------------------------------------
+  tibble(
+    first_name = "Bill",
+    last_name = "Kelsey",
+    state_cd = "TX-25",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Bill Kelsey for Congress",
+    campaign_website = "http://kelseyforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H4TX10184"
+  ),
+  # TX-26 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Michael",
     last_name = "Burgess",
@@ -24227,8 +25412,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://secure.winred.com/michaelburgess/donate",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00372532",
+    FEC_ID_cand = "H2TX26093"
   ),
   tibble(
     first_name = "Carol",
@@ -24244,6 +25429,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00694307",
     FEC_ID_cand = "H0TX26121"
+  ),
+  tibble(
+    first_name = "Mark",
+    last_name = "Boler",
+    state_cd = "TX-26",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Mark Boler for Congress",
+    campaign_website = "https://www.markboler4congress.org/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TX26105"
   ),
   # Missed Jack Wyman: http://jackwymanforcongress.com
   # Unfortunately, contribution page not archived
@@ -24299,10 +25499,10 @@ cand_house_2020 <- list(
       "token=AfgIXvKKxAaC7AmK3hf2OW6P4_3nZIbiHIRwIRdqga6xpNeCXE5dhx-",
       "0zQ54FrPp03o_IG36meD-2hoP"
     ),
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "", # Not available
+    FEC_ID_cand = "H6TX01261"
   ),
-  # TX-28 (last updated Oct 3, 2020) -------------------------------------------
+  # TX-28 (last updated Jul 13, 2021) -------------------------------------------
   # Cuellar vs. Cisneros vs. Whitten
   # DCCC-backed Cuellar, progressive-backed Cisneros (e.g. AOC)
   tibble(
@@ -24346,7 +25546,7 @@ cand_house_2020 <- list(
     last_name = "Whitten",
     state_cd = "TX-28",
     party = "Rep",
-    incumbent = TRUE,
+    incumbent = FALSE,
     office_website = NA,
     campaign_name = "Sandra for Texas",
     campaign_website = "https://sandrafortexas.com",
@@ -24356,7 +25556,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00700823",
     FEC_ID_cand = "H0TX28069"
   ),
-  # TX-29 (last updated Oct 3, 2020) -------------------------------------------
+  tibble(
+    first_name = "Bekah",
+    last_name = "Congdon",
+    state_cd = "TX-28",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Bekah Congdon for Congress",
+    campaign_website = "https://www.facebook.com/LibertyBeks/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TX28085"
+  ),
+  # TX-29 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Sylvia",
     last_name = "Garcia",
@@ -24388,7 +25603,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00664581",
     FEC_ID_cand = "H8TX29110"
   ),
-  # TX-30 (last updated Oct 3, 2020) -------------------------------------------
+  tibble(
+    first_name = "Phil",
+    last_name = "Kurtz",
+    state_cd = "TX-29",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Phil Kurtz for Congress",
+    campaign_website = "https://www.philkurtzforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8TX09153"
+  ),
+  # TX-30 (last updated Jul 13, 2021) -------------------------------------------
   # Johnson vs. Pennie
   tibble(
     first_name = "Eddie Bernice",
@@ -24426,7 +25656,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00707059",
     FEC_ID_cand = "H0TX32053"
   ),
-  # TX-31 (last updated Oct 3, 2020) -------------------------------------------
+  tibble(
+    first_name = "Eric",
+    last_name = "Williams",
+    state_cd = "TX-30",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Eric Williams 2020",
+    campaign_website = "https://www.ericwilliams2020.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8TX30043"
+  ),
+  # TX-31 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "John",
     last_name = "Carter",
@@ -24472,7 +25717,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = c("C00706754", "C00638346"),
     FEC_ID_cand = "H8TX31033"
   ),
-  # TX-32 (last updated Oct 3, 2020) -------------------------------------------
+  tibble(
+    first_name = "Clark",
+    last_name = "Patterson",
+    state_cd = "TX-31",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Clark Patterson for Congress",
+    campaign_website = "http://www.clarkpforcongress.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H2TX01070"
+  ),
+  # TX-32 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Colin",
     last_name = "Allred",
@@ -24506,7 +25766,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = c("C00715235", "C00702894"),
     FEC_ID_cand = "H0TX32087"
   ),
-  # TX-33 (last updated Oct 3, 2020) -------------------------------------------
+  tibble(
+    first_name = "Jason",
+    last_name = "Sigmon",
+    state_cd = "TX-32",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Jason Sigmon for Congress",
+    campaign_website = "https://jasonsigmon.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UKFUT3MQPQYBA&source=url",
+    FEC_ID_cmte = "C00733980",
+    FEC_ID_cand = "H0TX32111"
+  ),
+  # TX-33 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Marc",
     last_name = "Veasey",
@@ -24537,7 +25812,37 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00700294",
     FEC_ID_cand = "H0TX33010"
   ),
-  # TX-34 (last updated Oct 3, 2020) -------------------------------------------
+  tibble(
+    first_name = "Carlos",
+    last_name = "Quintanilla",
+    state_cd = "TX-33",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Carlos Quintanilla for Congress",
+    campaign_website = "http://quintanilla2020.com/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "C00663369",
+    FEC_ID_cand = "H2TX06186"
+  ),
+  tibble(
+    first_name = "Jason",
+    last_name = "Reeves",
+    state_cd = "TX-33",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Jason Reeves for Congress",
+    campaign_website = "https://www.facebook.com/Jason-Reeves-Libertarian-CD-33-TX-110529837455613/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H4TX33020"
+  ),
+  # TX-34 (last updated Jul 13, 2021) -------------------------------------------
   # Filemon Vela was uncontested (no candidates registered as of Sep 26, 2019)
   tibble(
     first_name = "Filemon",
@@ -24569,6 +25874,21 @@ cand_house_2020 <- list(
     other_link = "https://reygonzalez.org/donate-today.html",
     FEC_ID_cmte = "C00607333",
     FEC_ID_cand = "H0TX34042"
+  ),
+  tibble(
+    first_name = "Anthony",
+    last_name = "Cristo",
+    state_cd = "TX-34",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Cristo for Congress",
+    campaign_website = "https://www.facebook.com/CristoForCongress2018/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H8TX15069"
   ),
   # TX-35 (last updated Oct 3, 2020) -------------------------------------------
   # Lloyd Doggett was uncontested (no candidates registered as of Sep 26, 2019)
@@ -24603,7 +25923,22 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00740068",
     FEC_ID_cand = "H0TX35064"
   ),
-  # TX-36 (last updated Oct 3, 2020) -------------------------------------------
+  tibble(
+    first_name = "Mark",
+    last_name = "Loewe",
+    state_cd = "TX-35",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Mark Loewe for Congress",
+    campaign_website = "http://www.markloewe.org/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H4TX21082"
+  ),
+  # TX-36 (last updated Jul 13, 2021) -------------------------------------------
   tibble(
     first_name = "Brian",
     last_name = "Babin",
@@ -24648,6 +25983,21 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00711440",
     FEC_ID_cand = "H0TX36013"
+  ),
+  tibble(
+    first_name = "Chad",
+    last_name = "Abbey",
+    state_cd = "TX-36",
+    party = "Lib",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Chad Abbey for Congress",
+    campaign_website = NA,
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H0TX36039"
   ),
   # Utah (last updated Oct 3, 2020) ============================================
   # UT-01 (last updated Oct 3, 2020) -------------------------------------------
@@ -25387,7 +26737,7 @@ cand_house_2020 <- list(
   # VA-07 (last updated Oct 3, 2020) -------------------------------------------
   tibble(
     first_name = "Abigail",
-    last_name = "Spangberger",
+    last_name = "Spanberger",
     state_cd = "VA-07",
     party = "Dem",
     incumbent = TRUE,
@@ -26159,7 +27509,7 @@ cand_house_2020 <- list(
   # WA-09 (last updated Sep 19, 2020) ------------------------------------------
   # Adam Smith is uncontested (no candidates registered as of Sep 23, 2019)
   tibble(
-    first_name = "Adam",
+    first_name = "Adam", # H. Adam, goes by Adam
     last_name = "Smith",
     state_cd = "WA-09",
     party = "Dem",
@@ -26174,7 +27524,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H6WA09025"
   ),
   tibble(
-    first_name = "Doug",
+    first_name = "Doug", # Douglas Michael, goes by Doug
     last_name = "Basler",
     state_cd = "WA-08",
     party = "Rep",
@@ -26542,7 +27892,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Roger",
-    last_name = "Pollack",
+    last_name = "Polack",
     state_cd = "WI-01",
     party = "Dem",
     incumbent = FALSE,
@@ -26632,7 +27982,7 @@ cand_house_2020 <- list(
   # --- Cannot find Peters nor Sundblom
   #
   tibble(
-    first_name = "Ron",
+    first_name = "Ron", # Ronald James, goes by Ron
     last_name = "Kind",
     state_cd = "WI-03",
     party = "Dem",
@@ -26741,7 +28091,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H0WI03159"
   ),
   # Cannot find Sundblom
-  # WI-04 (last updated Sep 19, 2020) ------------------------------------------
+  # WI-04 (last updated Jul 13, 2021) ------------------------------------------
   tibble(
     first_name = "Gwen",
     last_name = "Moore",
@@ -26771,8 +28121,8 @@ cand_house_2020 <- list(
     anedot_link = NA,
     # No prompts
     other_link = "https://www.rogersforwisconsin.com/donate",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00759506",
+    FEC_ID_cand = "H8WI04069"
   ),
   tibble(
     first_name = "Cindy",
@@ -26789,6 +28139,21 @@ cand_house_2020 <- list(
     other_link = "https://www.werner4congress.com/contribute",
     FEC_ID_cmte = "C00717413",
     FEC_ID_cand = "H0WI04132"
+  ),
+  tibble(
+    first_name = "Robert",
+    last_name = "Raymond",
+    state_cd = "WI-04",
+    party = "Ind",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Robert Raymond For Congress",
+    campaign_website = "https://www.facebook.com/RobertRaymondCampaignForCongress/",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = NA,
+    FEC_ID_cand = "H4WI04266"
   ),
   # WI-05 (last updated Sep 19, 2020) ------------------------------------------
   # Fitzgerald vs. Palzewicz
@@ -26873,8 +28238,8 @@ cand_house_2020 <- list(
     actblue_link = NA,
     anedot_link = NA,
     other_link = "https://actions.ngpvan.com/v1/Forms/4TWofcO3I0eXdjs78us-tg2",
-    FEC_ID_cmte = "",
-    FEC_ID_cand = ""
+    FEC_ID_cmte = "C00648774",
+    FEC_ID_cand = "H8PA16078"
   ),
   # WI-07 (last updated Sep 19, 2020) ------------------------------------------
   # Zero receipts and disbursements as of Sep 16, 2019.
@@ -26987,7 +28352,7 @@ cand_house_2020 <- list(
     FEC_ID_cand = "H6WY00159"
   ),
   tibble(
-    first_name = "Lynette",
+    first_name = "Lynnette",
     last_name = "Grey Bull",
     state_cd = "WY-0",
     party = "Dem",
