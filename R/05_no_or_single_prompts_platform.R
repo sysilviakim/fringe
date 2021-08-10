@@ -51,9 +51,13 @@ print(
   tabular.environment = "tabularx", width = ".8\\textwidth"
 )
 
+dl %>% map_dbl(~ Mode(.x$choices))
+
 # Import data for specific federal races =======================================
 dl <- loadRData(here("data/tidy/portfolio_summ_federal_final.Rda")) %>%
   map(~ .x %>% filter(!(is.na(amount) & min_date == max_date)))
+
+dl %>% map_dbl(~ Mode(.x$choices))
 
 temp <- list(
   `No Defaults` = dl %>%
