@@ -11,6 +11,18 @@ load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 
 senate_supp <- list(
   tibble(
+    ## https://web.archive.org/web/20200711064320/https://secure.actblue.com/donate/drew-2020-l-l-c-1
+    last_name = "Knight",
+    state = "LA",
+    url =
+      "https://secure.actblue.com/donate/drew-2020-l-l-c-1",
+    min = "2020-06-27",
+    max = "2020-11-09",
+    amount = "3-10-27-50-100-250-2700",
+    seq_url = 1,
+    seq = 1
+  ),
+  tibble(
     ## https://web.archive.org/web/20200614012238/https://deborahforgeorgia.com/
     last_name = "Jackson",
     state = "GA",
@@ -146,7 +158,7 @@ senate <- left_join(
     )
 )
 
-assert_that(senate %>% filter(is.na(cd)) %>% nrow() == 0)
+assert_that(senate %>% filter(is.na(state)) %>% nrow() == 0)
 
 # Party mismatch resolve =======================================================
 table(senate$party, senate$party_fec)
