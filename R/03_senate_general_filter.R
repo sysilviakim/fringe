@@ -88,7 +88,7 @@ senate <- mit$senate %>%
     last_name = case_when(
       gsub(",|\\.", "", tolower(word(candidate, -1, -1))) %in%
         c("jr", "sr", "ii", "iii", "iv") ~
-      gsub(",|\\.", "", tolower(word(candidate, -2, -2))),
+        gsub(",|\\.", "", tolower(word(candidate, -2, -2))),
       candidate == "CATHERINE CORTEZ MASTO" ~ "cortez masto",
       candidate == "MERAV BEN DAVID" ~ "ben-david",
       candidate == "CHRIS VAN HOLLEN" ~ "van hollen",
