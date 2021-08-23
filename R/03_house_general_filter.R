@@ -12,7 +12,7 @@ house_supp <- list(
   tibble(
     ## https://web.archive.org/web/20201031182324/https://connect.clickandpledge.com/w/Form/7a862fb4-4953-4fef-b11b-b53c533d08e1
     last_name = "rogers",
-    state = "AL-03",
+    state_cd = "AL-03",
     url = "https://connect.clickandpledge.com/w/Form/7a862fb4-4953-4fef-b11b-b53c533d08e1",
     min = "2020-10-31",
     max = "2020-11-05",
@@ -526,7 +526,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201013125910/https://secure.winred.com/jaime-for-congress/website_donation_page
-    last_name = "beutler",
+    last_name = "herrera beutler",
     state_cd = "WA-03",
     url =
       "https://secure.winred.com/jaime-for-congress/website_donation_page",
@@ -657,7 +657,11 @@ house <- left_join(
     mutate(state_cd = gsub("-00", "-0", paste(state, cd, sep = "-")))
 )
 
+## Sanity check
 assert_that(house %>% filter(is.na(state_cd)) %>% nrow() == 0)
+
+## Must hold true; does not
+# assert_that(house %>% filter(is.na(cd)) %>% nrow() == 0)
 
 # Party mismatch resolve =======================================================
 table(house$party, house$party_fec)
