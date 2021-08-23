@@ -4,10 +4,6 @@ load(here("data", "tidy", "portfolio_summ_federal_first_only.Rda"))
 load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 
 # Missing House candidates from data collection ================================
-## Joy Felicia Slade ---> no website, no contribution records
-## Annette Davis Jackson ---> no contribution records
-## Isakson/Rand Paul retired, McCain died, Shelby had no contribution link
-## Bunch of minor candidates in GA/LA
 house_supp <- list(
   tibble(
     ## https://web.archive.org/web/20201031182324/https://connect.clickandpledge.com/w/Form/7a862fb4-4953-4fef-b11b-b53c533d08e1
@@ -640,11 +636,19 @@ house <- mit$house %>%
       ) %>%
       select(-year) %>%
       bind_rows(., house_supp)
+  ) %>%
+  mutate(
+    ## if no scraped data, still need to create cd
+    state = case_when(
+      is.na(state) ~ gsub("[[:digit:]]|-", "", state_cd),
+      TRUE ~ state
+    )
   )
 
 ## Check for missing values
 house %>%
   filter(is.na(url)) %>%
+  arrange(desc(candidatevotes)) %>%
   View()
 
 # Merge with FEC candidate summary =============================================
@@ -657,11 +661,12 @@ house <- left_join(
     mutate(state_cd = gsub("-00", "-0", paste(state, cd, sep = "-")))
 )
 
-## Sanity check
-assert_that(house %>% filter(is.na(state_cd)) %>% nrow() == 0)
-
 ## Must hold true; does not
 # assert_that(house %>% filter(is.na(cd)) %>% nrow() == 0)
+house %>%
+  filter(is.na(cd)) %>%
+  arrange(desc(candidatevotes)) %>%
+  View()
 
 # Party mismatch resolve =======================================================
 table(house$party, house$party_fec)
