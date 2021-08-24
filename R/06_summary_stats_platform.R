@@ -11,7 +11,3 @@ dl <- loadRData(here("data/tidy/portfolio_summ_platforms.Rda")) %>%
       filter(!(is.na(amount) & min_date == max_date))
   )
 
-# By race ======================================================================
-dl <- loadRData(here("data/tidy/portfolio_summ_federal_final.Rda")) %>%
-  map(~ .x %>% filter(!(is.na(amount) & min_date == max_date)))
-

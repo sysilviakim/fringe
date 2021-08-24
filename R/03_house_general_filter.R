@@ -643,6 +643,39 @@ house <- mit$house %>%
       is.na(state) ~ gsub("[[:digit:]]|-", "", state_cd),
       TRUE ~ state
     )
+  ) %>%
+  mutate(
+    min = case_when(
+      last_name == "petel" & state_cd == "CA-14"  ~ as.Date("2020-06-07"),
+      last_name == "schakowsky" & state_cd == "IL-09" ~ as.Date("2019-12-05"),
+      TRUE ~ min
+    ),
+    max = case_when(
+      last_name == "petel" & state_cd == "CA-14" ~ as.Date("2020-11-09"),
+      last_name == "ausdal" & state_cd == "GA-14"  ~ as.Date("2020-11-26"),
+      last_name == "londrigan" & state_cd == "IL-13"  ~ as.Date("2020-11-06"),
+      last_name == "brady" & state_cd == "MA-09"  ~ as.Date("2020-11-12"),
+      ## razzoli actually paused Anedot receipts before Nov
+      ## https://web.archive.org/web/20200401000000*/https://secure.anedot.com/mark-razzoli-for-cong/home
+      last_name == "christensen" & state_cd == "OR-01"  ~ as.Date("2020-12-01"),
+      last_name == "collick" & state_cd == "VA-03"  ~ as.Date("2020-11-09"),
+      last_name == "dunn" & state_cd == "FL-02" ~ as.Date("2020-11-09"),
+      TRUE ~ max
+    ),
+    amount = case_when(
+      last_name == "petel" & state_cd == "CA-14" ~ 
+        "25-50-100-200-500-1000-1500-2800",
+      ## error in data collection; traceback
+      ## https://web.archive.org/web/20200517161104/https://secure.winred.com/nealdunn/donate
+      last_name == "dunn" & state_cd == "FL-02" ~ "250-500-1000-2800-5600",
+      ## Weird link; not archived
+      ## https://web.archive.org/web/20201005050648/https://schakowsky.bsd.net/page/contribute/default?donate_page_KEY=15
+      last_name == "schakowsky" & state_cd == "IL-09" ~ "10-50-250-2800-25-100-1000",
+      ## https://web.archive.org/web/20201111201429/https://secure.ngpvan.com/Kc_4TB6OfUqzi_V_cUHm6g2
+      ## NGP VAN scrape error
+      last_name == "tonko" & state_cd == "NY-20" ~ "10-50-100-500-1000-2800",
+      TRUE ~ amount
+    )
   )
 
 ## Check for missing values

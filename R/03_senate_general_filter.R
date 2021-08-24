@@ -153,7 +153,8 @@ senate <- left_join(
     filter(
       !(cand_name %in% c(
         "HARRIS, JAMES E.", "YOUNG, ALEEM LEFT MR", "JACKSON, JAMES",
-        "SCOTT, LAWRENCE", "BROWN, WARREN P", "JACKSON, ANNETTE DAVIS"
+        "SCOTT, LAWRENCE", "BROWN, WARREN P", "JACKSON, ANNETTE DAVIS",
+        "HARRIS, EUGENE PATTERSON"
       ))
     )
 )
