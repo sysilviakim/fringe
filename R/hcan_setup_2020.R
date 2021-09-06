@@ -23623,6 +23623,21 @@ cand_house_2020 <- list(
     FEC_ID_cmte = NA,
     FEC_ID_cand = "H0TX04250"
   ),
+  tibble(
+    first_name = "Pat",
+    last_name = "Fallon",
+    state_cd = "TX-04",
+    party = "Rep",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "Fallon for Congress",
+    campaign_website = "https://www.fallonforcongress.com/",
+    actblue_link = NA,
+    anedot_link = "fallonforcongress/donate",
+    other_link = NA,
+    FEC_ID_cmte = "C00750307",
+    FEC_ID_cand = "H0TX04219"
+  ),
   # TX-05 (last updated Oct 4, 2020) -------------------------------------------
   # Lance Gooden is uncontested (no candidates registered as of Sep 26, 2019)
   tibble(
@@ -26701,6 +26716,82 @@ cand_house_2020 <- list(
     other_link = NA,
     FEC_ID_cmte = "C00714964",
     FEC_ID_cand = "H0VA05145"
+  ),
+  tibble(
+    first_name = "Bob",
+    last_name = "Good",
+    state_cd = "VA-05",
+    party = "Rep",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "",
+    campaign_website = "https://www.bobgoodforcongress.com",
+    actblue_link = NA,
+    ## https://web.archive.org/web/20200514202434/https://secure.anedot.com/good-for-congress/donate
+    anedot_link = "good-for-congress/donate",
+    other_link = NA,
+    FEC_ID_cmte = "C00721308",
+    FEC_ID_cand = "H0VA05160"
+  ),
+  tibble(
+    first_name = "",
+    last_name = "",
+    state_cd = "VA-05",
+    party = "",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "",
+    campaign_website = "",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "",
+    FEC_ID_cand = ""
+  ),
+  tibble(
+    first_name = "",
+    last_name = "",
+    state_cd = "VA-05",
+    party = "",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "",
+    campaign_website = "",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "",
+    FEC_ID_cand = ""
+  ),
+  tibble(
+    first_name = "",
+    last_name = "",
+    state_cd = "VA-05",
+    party = "",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "",
+    campaign_website = "",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "",
+    FEC_ID_cand = ""
+  ),
+  tibble(
+    first_name = "",
+    last_name = "",
+    state_cd = "VA-05",
+    party = "",
+    incumbent = FALSE,
+    office_website = NA,
+    campaign_name = "",
+    campaign_website = "",
+    actblue_link = NA,
+    anedot_link = NA,
+    other_link = NA,
+    FEC_ID_cmte = "",
+    FEC_ID_cand = ""
   ),
   # VA-06 (last updated Oct 3, 2020) -------------------------------------------
   # Ben Cline is uncontested (no candidates registered as of Sep 26, 2019)

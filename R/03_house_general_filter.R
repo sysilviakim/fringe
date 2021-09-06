@@ -25,10 +25,8 @@ load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 ## Frank Lucas ---> no contribution link
 ## David Torres ---> no contribution link
 ## Christopher Finley ---> no contribution link
-## Pat Fallon ---> no record in setup file
 ## Randy Weber ---> no contribution link
 ## Ricardo Rick De la Fuente ---> no contribution link
-## Robert G. Bob Good ---> no record in setup file
 
 house_supp <- list(
   tibble(
@@ -638,6 +636,28 @@ house_supp <- list(
     min = "2019-12-12",
     max = "2020-11-03",
     amount = NA,
+    seq_url = 1,
+    seq = 1
+  ),
+  tibble(
+    ## https://web.archive.org/web/20201101025655/https://www.bobgoodforcongress.com/
+    last_name = "good",
+    state_cd = "VA-05",
+    url = "https://secure.anedot.com/good-for-congress/donate", 
+    min = "2020-05-14",
+    max = "2020-11-03",
+    amount = "10-25-100-250-1000-2800",
+    seq_url = 1,
+    seq = 1
+  ),
+  tibble(
+    ## https://web.archive.org/web/20201101011336/https://www.fallonforcongress.com/
+    last_name = "fallon",
+    state_cd = "TX-04",
+    url = "https://secure.anedot.com/fallonforcongress/donate", 
+    min = "2020-08-11",
+    max = "2020-11-03",
+    amount = "10-25-50-100-250-500-1000-2800",
     seq_url = 1,
     seq = 1
   )
