@@ -10,8 +10,12 @@ load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 ## Tommy Hanson ---> no contribution link
 ## Lee Ann Dugas ---> no contribution link
 ## David Schilling ---> no record in setup file
+##                      https://ballotpedia.org/David_Schilling ---> nothing!
+##                      https://www.facebook.com/David-Schilling-for-U-S-
+##                      Representative-District-2-100437218506904/
 ## Glenn Harris ---> no contribution link
 ## Sheldon Vincent ---> no record in setup file
+##                      https://ballotpedia.org/Sheldon_Vincent_Sr. ---> no need
 ## Ben Gibson ---> no contribution link
 ## Allen Guillory ---> no contribution link
 ## Jesse Lagarde ---> no contribution link
