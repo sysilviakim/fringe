@@ -6,9 +6,6 @@ load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 # Missing House candidates from data collection ================================
 ## Dale Mensing ---> no contribution link
 ## Analilia Joya ---> no contribution link
-## Michael San Nicolas ---> no record in setup file
-## Robert Underwood ---> no record in setup file
-## Joshie Cruz Ezammudeen ---> no record in setup file
 ## Lindsay Holliday ---> no contribution link
 ## Tommy Hanson ---> no contribution link
 ## Lee Ann Dugas ---> no contribution link
@@ -26,7 +23,6 @@ load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 ## Brian Kelly ---> no contribution link
 ## Garfield Wallace ---> no contribution link
 ## Frank Lucas ---> no contribution link
-## Brendan F. Democrat ---> wrong name, should be Brendan F. Boyle in MIT file
 ## David Torres ---> no contribution link
 ## Christopher Finley ---> no contribution link
 ## Pat Fallon ---> no record in setup file
