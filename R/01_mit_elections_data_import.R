@@ -20,7 +20,14 @@ house <-
   select(state_cd, everything()) %>%
   mutate(candidate = gsub("\u0093|\u0094", "", candidate)) %>%
   mutate(candidate = trimws(gsub("\\\\", "", candidate))) %>%
-  mutate(candidate = gsub("\u0092", "\'", candidate))
+  mutate(candidate = gsub("\u0092", "\'", candidate)) %>%
+  ## Fix error
+  mutate(
+    candidate = case_when(
+      candidate == "BRENDAN F. DEMOCRAT" ~ "BRENDAN F. BOYLE",
+      TRUE ~ candidate
+    )
+  )
   
 ## Kick out no variation columns
 house <- house %>%
@@ -46,7 +53,8 @@ house <- bind_rows(
   arrange(state_cd, desc(candidatevotes))
 
 ## "Typical" cases of two-party candidates (one each) or uncontested races
-## https://en.wikipedia.org/wiki/Third-party_and_independent_members_of_the_United_States_House_of_Representatives
+## https://en.wikipedia.org/wiki/Third-party_and_independent_members
+## _of_the_United_States_House_of_Representatives
 ## Amash and Mitchell both did not run
 house <- house %>%
   filter(party == "DEMOCRAT" | party == "REPUBLICAN")
