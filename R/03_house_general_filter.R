@@ -4,6 +4,36 @@ load(here("data", "tidy", "portfolio_summ_federal_first_only.Rda"))
 load(here("data", "tidy", "fec_cand_summ_2020.Rda"))
 
 # Missing House candidates from data collection ================================
+## Dale Mensing ---> no contribution link
+## Analilia Joya ---> no contribution link
+## Michael San Nicolas ---> no record in setup file
+## Robert Underwood ---> no record in setup file
+## Joshie Cruz Ezammudeen ---> no record in setup file
+## Lindsay Holliday ---> no contribution link
+## Tommy Hanson ---> no contribution link
+## Lee Ann Dugas ---> no contribution link
+## David Schilling ---> no record in setup file
+## Glenn Harris ---> no contribution link
+## Sheldon Vincent ---> no record in setup file
+## Ben Gibson ---> no contribution link
+## Allen Guillory ---> no contribution link
+## Jesse Lagarde ---> no contribution link
+## George McDermott ---> no contribution link
+## Anthony Rogers ---> no contribution link
+## Megan Rezabek ---> no contribution link
+## Daryl Farrow ---> no contribution link
+## Jason Mushnik ---> no contribution link
+## Brian Kelly ---> no contribution link
+## Garfield Wallace ---> no contribution link
+## Frank Lucas ---> no contribution link
+## Brendan F. Democrat ---> wrong name, should be Brendan F. Boyle in MIT file
+## David Torres ---> no contribution link
+## Christopher Finley ---> no contribution link
+## Pat Fallon ---> no record in setup file
+## Randy Weber ---> no contribution link
+## Ricardo Rick De la Fuente ---> no contribution link
+## Robert G. Bob Good ---> no record in setup file
+
 house_supp <- list(
   tibble(
     ## https://web.archive.org/web/20201031182324/https://connect.clickandpledge.com/w/Form/7a862fb4-4953-4fef-b11b-b53c533d08e1
@@ -102,7 +132,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101133231/https://secure.actblue.com/donate/dmb-2020
-    last_name = "bush",
+    last_name = "mitsch bush",
     state_cd = "CO-03",
     url =
       "https://secure.actblue.com/donate/dmb-2020",
@@ -126,7 +156,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101151051/https://secure.actblue.com/donate/lisa-blunt-rochester-for-congress-1
-    last_name = "rochester",
+    last_name = "blunt rochester",
     state_cd = "DE-0",
     url =
       "https://secure.actblue.com/donate/lisa-blunt-rochester-for-congress-1",
@@ -138,7 +168,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201102061149/https://secure.winred.com/annapaulinaluna/web
-    last_name = "luna",
+    last_name = "paulina luna",
     state_cd = "FL-13",
     url =
       "https://secure.winred.com/AnnaPaulinaLuna/web",
@@ -174,7 +204,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101025706/https://secure.actblue.com/donate/dwsdefault
-    last_name = "schultz",
+    last_name = "wasserman schultz",
     state_cd = "FL-23",
     url =
       "https://secure.actblue.com/donate/dwsdefault",
@@ -198,7 +228,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20200825162402/http://www.kevinvanausdal.com/donate
-    last_name = "ausdal",
+    last_name = "van ausdal",
     state_cd = "GA-14",
     url =
       "https://www.kevinvanausdal.com/donate",
@@ -234,7 +264,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101085407/https://secure.actblue.com/donate/michelle-for-kansas-website
-    last_name = "isla",
+    last_name = "de la isla",
     state_cd = "KS-02",
     url =
       "https://secure.actblue.com/donate/michelle-for-kansas-website",
@@ -306,7 +336,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201027085901/https://secure.winred.com/van-drew-for-congress/donate
-    last_name = "drew",
+    last_name = "van drew",
     state_cd = "NJ-02",
     url =
       "https://secure.winred.com/van-drew-for-congress/donate",
@@ -342,7 +372,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101144924/https://secure.anedot.com/garcia-holmes-for-congress/donate
-    last_name = "holmes",
+    last_name = "garcia holmes",
     state_cd = "NM-01",
     url =
       "https://secure.anedot.com/garcia-holmes-for-congress/donate",
@@ -354,7 +384,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101051048/https://secure.actblue.com/donate/xochitl-torres-small
-    last_name = "small",
+    last_name = "torres small",
     state_cd = "NM-02",
     url =
       "https://secure.actblue.com/donate/xochitl-torres-small",
@@ -378,7 +408,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20200926090421/https://secure.winred.com/george-santos-for-congress/donate
-    last_name = "santos",
+    last_name = "devolder-santos",
     state_cd = "NY-03",
     url =
       "https://secure.winred.com/george-santos-for-congress/donate",
@@ -402,7 +432,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101095601/https://secure.winred.com/van-de-water-for-congress/donate
-    last_name = "water",
+    last_name = "van de water",
     state_cd = "NY-19",
     url =
       "https://secure.winred.com/van-de-water-for-congress/donate",
@@ -438,7 +468,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101071151/https://secure.actblue.com/donate/mad4pawebsite
-    last_name = "cunnane",
+    last_name = "dean cunnane",
     state_cd = "PA-04",
     url =
       "https://secure.actblue.com/donate/mad4pawebsite",
@@ -474,7 +504,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101041352/https://erikastottspearson.com/donate/
-    last_name = "pearson",
+    last_name = "stotts-pearson",
     state_cd = "TN-08",
     url =
       "https://erikastottspearson.com/donate/",
@@ -486,7 +516,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20200817065315/https://secure.anedot.com/monica-de-la-cruz-hernandez-for-congress/m4congress
-    last_name = "cruz-hernandez",
+    last_name = "de la cruz hernandez",
     state_cd = "TX-15",
     url =
       "https://secure.anedot.com/monica-de-la-cruz-hernandez-for-congress/m4congress",
@@ -498,7 +528,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101193757/https://secure.winred.com/beth-van-duyne-for-congress/support-today/
-    last_name = "duyne",
+    last_name = "van duyne",
     state_cd = "TX-24",
     url =
       "https://secure.winred.com/beth-van-duyne-for-congress/support-today/",
@@ -534,7 +564,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201012105133/https://secure.winred.com/cathy-mcmorris-rodgers/donate
-    last_name = "rodgers",
+    last_name = "mcmorris rodgers",
     state_cd = "WA-05",
     url =
       "https://secure.winred.com/cathy-mcmorris-rodgers/donate",
@@ -547,7 +577,7 @@ house_supp <- list(
   tibble(
     ## https://web.archive.org/web/20201212194533/https://secure.anedot.com/friends-of-doug-basler/basler4congress
     last_name = "basler",
-    state_cd = "WA-08",
+    state_cd = "WA-09",
     url =
       "https://secure.anedot.com/friends-of-doug-basler/basler4congress",
     min = "2020-01-01",
@@ -570,7 +600,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201027085548/https://secure.winred.com/van-orden-for-congress/home
-    last_name = "orden",
+    last_name = "van orden",
     state_cd = "WI-03",
     url =
       "https://secure.winred.com/van-orden-for-congress/home",
@@ -594,7 +624,7 @@ house_supp <- list(
   ),
   tibble(
     ## https://web.archive.org/web/20201101114410/https://secure.actblue.com/donate/grey-bull-for-congress-1
-    last_name = "bull",
+    last_name = "grey bull",
     state_cd = "WY-0",
     url =
       "https://secure.actblue.com/donate/grey-bull-for-congress-1",

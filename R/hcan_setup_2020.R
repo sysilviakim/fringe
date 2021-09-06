@@ -981,7 +981,7 @@ cand_house_2020 <- list(
     # 10-25-50-100-250-500-1000-2800 to 25-50-100-250-500-1000-2000-2800
     other_link =
       # "https://politics.raisethemoney.com/mpsxflhxxj3xhbfwquclw",
-    "https://politics.raisethemoney.com/fhillazL9AmiyKOwSyThL6AmWPg",
+      "https://politics.raisethemoney.com/fhillazL9AmiyKOwSyThL6AmWPg",
     FEC_ID_cmte = "C00551275",
     FEC_ID_cand = "H4AR02141"
   ),
@@ -1307,12 +1307,12 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Buzz",
-    last_name = "Paterson",
+    last_name = "Patterson",
     state_cd = "CA-07",
     party = "Rep",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "Buzz Paterson for Congress",
+    campaign_name = "Buzz Patterson for Congress",
     campaign_website = "https://buzz4congress.com/",
     actblue_link = NA,
     # $11,200 (!!!!) - captioned double maximum contribution per couple!
@@ -2337,7 +2337,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Ronda",
-    last_name = "Kennedy",
+    last_name = "Kennedy", #Baldwin-Kennedy, goes by Kennedy
     state_cd = "CA-26",
     party = "Rep",
     incumbent = FALSE,
@@ -5945,7 +5945,7 @@ cand_house_2020 <- list(
   tibble(
     first_name = "Alan",
     last_name = "Cohn",
-    state_cd = "FL-14",
+    state_cd = "FL-15",
     party = "Dem",
     incumbent = FALSE,
     office_website = NA,
@@ -6261,7 +6261,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Carla",
-    last_name = "Spaldin",
+    last_name = "Spalding",
     state_cd = "FL-23",
     party = "Rep",
     incumbent = FALSE,
@@ -7436,7 +7436,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00257121",
     FEC_ID_cand = "H2IL01042"
   ),
-
+  
   tibble(
     first_name = "Philanise",
     last_name = "White",
@@ -8431,8 +8431,8 @@ cand_house_2020 <- list(
     anedot_link = NA,
     other_link =
       # Listed as https://winred.revv.co/darren-duncan-for-congress/commonsense
-    # But essentially the same page
-    "https://secure.winred.com/darren-duncan-for-congress/commonsense",
+      # But essentially the same page
+      "https://secure.winred.com/darren-duncan-for-congress/commonsense",
     FEC_ID_cmte = "C00729210",
     FEC_ID_cand = "H0IL15186"
   ),
@@ -8711,12 +8711,12 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Mark",
-    last_name = "Levya",
+    last_name = "Leyva",
     state_cd = "IN-01",
     party = "Rep",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "Mark Levya for Congress",
+    campaign_name = "Mark Leyva for Congress",
     campaign_website = "https://markleyva.com/",
     actblue_link = NA,
     anedot_link = NA,
@@ -9347,7 +9347,7 @@ cand_house_2020 <- list(
   tibble(
     first_name = "Cindy",
     last_name = "Axne",
-    state_cd = "IA-01",
+    state_cd = "IA-03",
     party = "Dem",
     incumbent = TRUE,
     office_website = "https://axne.house.gov",
@@ -9460,7 +9460,7 @@ cand_house_2020 <- list(
     anedot_link = NA,
     # Change documented to WinRed Jun 3, 2020
     other_link = # paste0(
-    "https://secure.winred.com/feenstraforcongress/donate",
+      "https://secure.winred.com/feenstraforcongress/donate",
     # "https://secure.victorypassport.com/pages/feenstra/donations-iframe?",
     # "location=https%3A%2F%2Fwww.feenstraforcongress.com%2Fdonate&location",
     # "_url=aHR0cHM6Ly93d3cuZmVlbnN0cmFmb3Jjb25ncmVzcy5jb20vZG9uYXRlLyM%3D"
@@ -10278,7 +10278,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = c("C00716993", "C00675421"),
     FEC_ID_cand = "H8LA03086"
   ),
-
+  
   # LA-04 ---------------------------------------------------------------------
   # Mike Johnson is uncontested (no candidates registered as of Sep 24, 2019)
   tibble(
@@ -10710,7 +10710,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00719658",
     FEC_ID_cand = "H0MD01216"
   ),
-
+  
   tibble(
     first_name = "Mia",
     last_name = "Mason",
@@ -11629,7 +11629,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Jerry",
-    last_name = "Hillard",
+    last_name = "Hilliard",
     state_cd = "MI-04",
     party = "Dem",
     incumbent = FALSE,
@@ -12350,7 +12350,7 @@ cand_house_2020 <- list(
   # Craig vs. Olson vs. Zeiler vs. Kistner vs. Barr
   tibble(
     first_name = "Angie", # Angela Dawn, goes by Angie
-    last_name = "Criag",
+    last_name = "Craig",
     state_cd = "MN-02",
     party = "Dem",
     incumbent = TRUE,
@@ -12521,7 +12521,7 @@ cand_house_2020 <- list(
     FEC_ID_cmte = "C00354688",
     FEC_ID_cand = "H0MN04049"
   ),
-
+  
   tibble(
     first_name = "David",
     last_name = "Sandbeck",
@@ -15290,7 +15290,7 @@ cand_house_2020 <- list(
   # McDonald withdrew on May 2019,
   tibble(
     first_name = "Teresa",
-    last_name = "Leger", # Goes by Leger Fernandez
+    last_name = "Fernandez", # Goes by Leger Fernandez
     state_cd = "NM-03",
     party = "Dem",
     incumbent = FALSE,
@@ -16045,7 +16045,7 @@ cand_house_2020 <- list(
     party = "Rep",
     incumbent = FALSE,
     office_website = NA,
-    campaign_name = "Hakeem Jeffries for Congress",
+    campaign_name = "Garfield Wallace for Congress",
     campaign_website = NA,
     actblue_link = NA,
     anedot_link = NA,
@@ -17442,7 +17442,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Maureen",
-    last_name = "Schulman",
+    last_name = "Mcardle-Schulman",
     state_cd = "NY-17",
     party = "Rep",
     incumbent = FALSE,
@@ -21506,10 +21506,10 @@ cand_house_2020 <- list(
     # Change documented to WinRed on Feb 12, 2020
     other_link =
       # paste0(
-    #   "https://www.paypal.com/donate/?token=gnKIc7iiekbGM7EfSW6mWxl3TNT-bfm",
-    #   "BQ1akHGPZfj9qNgjZbwjfsnPHzAfsOdnN4l--kG&country.x=US&locale.x="
-    # ),
-    "https://secure.winred.com/JoeyNations/donatefightingfororegon",
+      #   "https://www.paypal.com/donate/?token=gnKIc7iiekbGM7EfSW6mWxl3TNT-bfm",
+      #   "BQ1akHGPZfj9qNgjZbwjfsnPHzAfsOdnN4l--kG&country.x=US&locale.x="
+      # ),
+      "https://secure.winred.com/JoeyNations/donatefightingfororegon",
     FEC_ID_cmte = "C00672477",
     FEC_ID_cand = "H8OR05206"
   ),
@@ -21657,7 +21657,7 @@ cand_house_2020 <- list(
   # Cannot find Tarshish (independent)
   tibble(
     first_name = "Madeleine",
-    last_name = "Dean",
+    last_name = "Dean Cunnane", #Goes by Dean
     state_cd = "PA-04",
     party = "Dem",
     incumbent = TRUE,
@@ -22524,7 +22524,7 @@ cand_house_2020 <- list(
     # other_link =
     #   "https://secure.piryx.com/donate/WzJc4e8g/joewilson/sitelink",
     # Change documented to WinRed on Oct 4, 2020
-
+    
     other_link = "https://secure.winred.com/joewilson/donate",
     FEC_ID_cmte = "C00368522",
     FEC_ID_cand = "H2SC02059"
@@ -24366,7 +24366,7 @@ cand_house_2020 <- list(
     #   to 5-10-25-50-100-250-500
     other_link =
       # "https://app.campaignhq.com/campaigns/supportjaimeforcongress/pay",
-    "https://secure.winred.com/JaimeArriola/votejaime",
+      "https://secure.winred.com/JaimeArriola/votejaime",
     FEC_ID_cmte = "C00717231",
     FEC_ID_cand = "H0TX16114"
   ),
@@ -27526,7 +27526,7 @@ cand_house_2020 <- list(
   tibble(
     first_name = "Doug", # Douglas Michael, goes by Doug
     last_name = "Basler",
-    state_cd = "WA-08",
+    state_cd = "WA-09",
     party = "Rep",
     incumbent = FALSE,
     office_website = NA,
@@ -28264,7 +28264,7 @@ cand_house_2020 <- list(
   tibble(
     first_name = "Tricia",
     last_name = "Zunker",
-    state_cd = "WY-0",
+    state_cd = "WI-07",
     party = "Dem",
     incumbent = FALSE,
     office_website = NA,
