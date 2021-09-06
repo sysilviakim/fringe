@@ -633,6 +633,17 @@ house_supp <- list(
     amount = "25-100-250-1000",
     seq_url = 1,
     seq = 1
+  ),
+  tibble(
+    ## https://web.archive.org/web/20201006195841/https://johsiecruz2020.com/
+    last_name = "cruz",
+    state_cd = "GA-04",
+    url = NA, ## paypal
+    min = "2019-12-12",
+    max = "2020-11-03",
+    amount = NA,
+    seq_url = 1,
+    seq = 1
   )
 ) %>%
   bind_rows() %>%
@@ -655,9 +666,55 @@ house <- mit$house %>%
     last_name = gsub("á", "a", last_name),
     last_name = gsub("ñ", "n", last_name),
     last_name = gsub("í", "i", last_name),
+    last_name = gsub("ó", "o", last_name),
+    last_name = case_when(
+      last_name == "bull" & candidate == "LYNNETTE GREY BULL" ~ 
+        "grey bull",
+      last_name == "rochester" & candidate == "LISA BLUNT ROCHESTER" ~
+        "blunt rochester",
+      last_name == "cunnane" & candidate == "MADELEINE DEAN CUNNANE" ~ 
+        "dean cunnane",
+      last_name == "beutler" & candidate == "JAIME HERRERA BEUTLER" ~ 
+        "herrera beutler",
+      last_name == "schultz" & candidate == "DEBBIE WASSERMAN SCHULTZ" ~ 
+        "wasserman schultz",
+      last_name == "drew" & candidate == "JEFFERSON VAN DREW" ~ 
+        "van drew",
+      last_name == "luna" & candidate == "ANNA PAULINA LUNA" ~ 
+        "paulina luna",
+      last_name == "orden" & candidate == "DERRICK VAN ORDEN" ~ 
+        "van orden",
+      last_name == "duyne" & candidate == "BETH VAN DUYNE" ~ 
+        "van duyne",
+      last_name == "santos" & candidate == "GEORGE A. D. SANTOS" ~ 
+        "devolder-santos",
+      last_name == "water" & candidate == "KYLE VAN DE WATER" ~ 
+        "van de water",
+      last_name == "isla" & candidate == "MICHELLE DE LA ISLA" ~ 
+        "de la isla",
+      last_name == "holmes" & candidate == "MICHELLE GARCIA HOLMES" ~ 
+        "garcia holmes",
+      last_name == "small" & candidate == "XOCHITL TORRES SMALL" ~ 
+        "torres small",
+      last_name == "cruz-hernandez" & 
+        candidate == "MONICA DE LA CRUZ-HERNANDEZ" ~ 
+        "de la cruz hernandez",
+      last_name == "pearson" & candidate == "ERIKA STOTTS PEARSON" ~ 
+        "stotts-pearson",
+      last_name == "stanton-king" & candidate == "ANGELA STANTON-KING" ~ 
+        "stanton king",
+      last_name == "fuente" & candidate == "RICARDO RICK DE LA FUENTE" ~ 
+        "de la fuente",
+      last_name == "ausdal" & candidate == "KEVIN VAN AUSDAL" ~ 
+        "van ausdal",
+      last_name == "ezammudeen" & candidate == "JOHSIE CRUZ EZAMMUDEEN" ~ 
+        "cruz",
+      TRUE ~ last_name
+    ),
     state_cd = gsub("-00", "-0", state_cd)
   ) %>%
   select(last_name, everything()) %>%
+  filter(!grepl("DC", state_cd)) %>%
   left_join(
     ., dl$house %>%
       mutate(
@@ -721,15 +778,51 @@ house <- left_join(
     filter(office == "H") %>%
     mutate(last_name = trimws(tolower(word(cand_name, 1, 1, sep = ",")))) %>%
     rename(party_fec = party) %>%
-    mutate(state_cd = gsub("-00", "-0", paste(state, cd, sep = "-")))
+    mutate(
+      cd = case_when(
+        cand_name == "ISSA, DARRELL" & cd == "49" ~ "50",
+        ## https://ballotpedia.org/Sara_Jacobs
+        cand_name == "JACOBS, SARA" & cd == "49" ~ "53",
+        TRUE ~ cd
+      )
+    ) %>%
+    mutate(state_cd = gsub("-00", "-0", paste(state, cd, sep = "-"))) %>%
+    mutate(
+      last_name = case_when(
+        last_name == "mcardle schulman" & 
+          cand_name == "MCARDLE SCHULMAN, MAUREEN B MRS" ~ "mcardle-schulman",
+        last_name == "kennedy" & cand_name == "KENNEDY, RONDA" ~ 
+          "baldwin-kennedy",
+        last_name == "walorski swihart" & 
+          cand_name == "WALORSKI SWIHART, JACKIE" ~ 
+          "walorski",
+        last_name == "leger" & cand_name == "LEGER, TERESA" ~ 
+          "fernandez",
+        last_name == "dean" & cand_name == "DEAN, MADELEINE" ~ 
+          "dean cunnane",
+        last_name == "arenholz" & cand_name == "ARENHOLZ, ASHLEY HINSON" ~ 
+          "hinson",
+        TRUE ~ last_name
+      )
+    ) %>%
+    bind_rows(
+      ## https://ballotpedia.org/George_McDermott missing
+      ., tibble(
+        cand_id = NA,
+        cand_name = "MCDERMOTT, GEORGE",
+        office = "H",
+        inc = "CHALLENGER",
+        state = "MD",
+        cd = "04",
+        party_fec = "REP",
+        last_name = "mcdermott",
+        state_cd = "MD-04"
+      )
+    )
 )
 
 ## Must hold true; does not
-# assert_that(house %>% filter(is.na(cd)) %>% nrow() == 0)
-house %>%
-  filter(is.na(cd)) %>%
-  arrange(desc(candidatevotes)) %>%
-  View()
+assert_that(house %>% filter(is.na(cd)) %>% nrow() == 0)
 
 # Party mismatch resolve =======================================================
 table(house$party, house$party_fec)

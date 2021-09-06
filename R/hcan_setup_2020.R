@@ -2337,7 +2337,7 @@ cand_house_2020 <- list(
   ),
   tibble(
     first_name = "Ronda",
-    last_name = "Kennedy", #Baldwin-Kennedy, goes by Kennedy
+    last_name = "Baldwin-Kennedy", # Baldwin-Kennedy, goes by Kennedy
     state_cd = "CA-26",
     party = "Rep",
     incumbent = FALSE,
@@ -21657,7 +21657,7 @@ cand_house_2020 <- list(
   # Cannot find Tarshish (independent)
   tibble(
     first_name = "Madeleine",
-    last_name = "Dean Cunnane", #Goes by Dean
+    last_name = "Dean Cunnane", # Goes by Dean
     state_cd = "PA-04",
     party = "Dem",
     incumbent = TRUE,
@@ -28364,7 +28364,7 @@ cand_house_2020 <- list(
     anedot_link = NA,
     other_link = NA,
     FEC_ID_cmte = "C00749598",
-    FEC_ID_cand = "rey-bull-for-congress-1"
+    FEC_ID_cand = "H0WY01036"
   ),
   # Although lost primaries...
   tibble(
