@@ -841,8 +841,77 @@ house <- left_join(
     )
 )
 
-## Must hold true; does not
+## Must hold true
 assert_that(house %>% filter(is.na(cd)) %>% nrow() == 0)
+
+# No solicitations link: resolve errors ========================================
+## Plus manual inputs from PayPal links, recorded on the setup file
+house <- house %>%
+  mutate(
+    amount = case_when(
+      last_name == "huffman" & amount == "-999" ~
+        "5",
+      last_name == "guest" & amount == "-999" ~
+        "100",
+      last_name == "schakowsky" & amount == "-999" ~
+        "10-25-50-100-250-1000-2800",
+      last_name == "smith" & amount == "-999" ~
+        "25-50-100-200-500-1500",
+      last_name == "tonko" & amount == "-999" ~
+        "10-50-100-500-1000-2800",
+      last_name == "kelly" & amount == "-999" ~
+        "10-25-50-100-200-250-500-1000-2800-5600",
+      last_name == "cleaver" & amount == "-999" ~
+        "25-50-100-200-500-1500",
+      last_name == "oberweis" & amount == "-999" ~
+        "35-50-100-250-500-1000-2800-5600",
+      last_name == "maryott" & amount == "-999" ~
+        "2800-1000-500-250-100-50",
+      last_name == "spenser" & amount == "-999" ~
+        "12-25-50-101-500-100-1500-2800",
+      last_name == "parrott" & amount == "-999" ~
+        "6-14-25-50-100-250-500-1000-2800-75-125",
+      last_name == "costa" & amount == "-999" ~
+        "25-50-100-250-1000-2800",
+      last_name == "kumar" & amount == "-999" ~
+        "1000-2800-5600",
+      last_name == "bradley" & amount == "-999" ~
+        "5-10-25-50-100-250-500-1000-2800",
+      last_name == "briscoe" & amount == "-999" ~
+        "199-200-250-500-1000-2700",
+      last_name == "weber" & amount == "-999" ~
+        "10-20.20-50-100-1000-2800",
+      last_name == "garcia" & amount == "-999" ~
+        "20-35-50-100-500-2500",
+      last_name == "reed" & amount == "-999" ~
+        "1-5-15-25-100-250-500-1000-1776-2700-5400",
+      last_name == "thorpe" & amount == "-999" ~
+        "35-75-125-250",
+      last_name == "wood" & amount == "-999" ~
+        "5-10-25-50-100-250-500-2800-5600",
+      last_name == "gonzalez" & amount == "-999" ~
+        "25-50-100-250-500-1000-1500-2000-2700",
+      last_name == "armendariz-jackson" & amount == "-999" ~
+        "100-500-2800-5600",
+      last_name == "bish" & amount == "-999" ~
+        "25-100-500-2800",
+      last_name == "patrick" & amount == "-999" ~
+        "	10-50-100",
+      last_name == "hogg" & amount == "-999" ~
+        "20-35-50-100-500-2500",
+      last_name == "50-100-200-500-1000" & amount == "-999" ~
+        "santiago-cano",
+      last_name == "pennie" & amount == "-999" ~
+        "10-25-50-100-250-500-1000-2800",
+      last_name == "piterman" & amount == "-999" ~
+        "10-100-1000",
+      last_name == "mitris" & amount == "-999" ~
+        "250-500-1000",
+      last_name == "beeler" & amount == "-999" ~
+        "5-25-100",
+      TRUE ~ amount
+    )
+  )
 
 # Party mismatch resolve =======================================================
 table(house$party, house$party_fec)
