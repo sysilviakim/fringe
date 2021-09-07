@@ -152,4 +152,49 @@ cong_filtered$house %>%
   select(url, everything()) %>%
   View()
 
+# Histograms ===================================================================
+
+# Summary statistics ===========================================================
+summ <- c(senate = "senate", house = "house") %>%
+  imap_dfr(
+    ~ cong_filtered[[.x]] %>%
+      ## i.e., everything
+      mutate(cd = "00") %>%
+      group_by(cd) %>%
+      summarise(
+        empty_prop = sum(is.na(amount)) / n() * 100,
+        single = sum(!is.na(amount) & !grepl("-", amount)) / n() * 100,
+        ineff_2700 = sum(ineff_2700 == 1, na.rm = TRUE) / n() * 100,
+        max_out = sum(ineff_2800 == 1, na.rm = TRUE) / n() * 100,
+        beyond_max = sum(max > 2800, na.rm = T) / n() * 100,
+        sanders = sum(sanders == 1, na.rm = TRUE) / n() * 100,
+        amount = Mode(amount, na.rm = TRUE),
+        min_mode = Mode(min, na.rm = TRUE), 
+        max_mode = Mode(max, na.rm = TRUE), 
+        mean_mode = Mode(mean, na.rm = TRUE),
+        min_mean = median(min, na.rm = TRUE), 
+        max_mean = median(max, na.rm = TRUE), 
+        mean_mean = median(mean, na.rm = TRUE)
+      ) %>%
+      ungroup() %>%
+      select(-cd),
+    .id = "office"
+  ) %>%
+  mutate(across(everything(), ~ formatC(.x, format = "f", digits = 1)))
+summ
+
+xtab_df <- as_tibble(t(summ), rownames = "var") %>%
+  `colnames<-`(.[1, ]) %>%
+  .[-1, ] %>%
+  select(office, Senate = senate, House = ` house`) %>%
+  mutate(
+    office = case_when(
+      office == "empty_prop" ~ "No Defaults (%)",
+      office == "single" ~ "One Default (%)",
+      office == "ineff_2700" ~ "Did Not Adjust $2,700",
+      office == "max_out" ~ "Used $2,800 (Individual Maximum)",
+      office == "sanders" ~ "Sanders Heritage ($27)"
+    )
+  )
+
 
