@@ -169,7 +169,7 @@ summ_calc_fxn <- function(df) {
         amount == "0-1-2-3" ~ NA_character_,
         amount == "-999" ~ NA_character_,
         amount == "No\nSuggested\nAmounts" ~ NA_character_,
-        TRUE ~ amount
+        TRUE ~ gsub("^0-", "", amount)
       )
     ) %>%
     {

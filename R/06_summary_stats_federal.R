@@ -153,6 +153,53 @@ cong_filtered$house %>%
   View()
 
 # Histograms ===================================================================
+cong <- cong_filtered %>% bind_rows(.id = "office") %>%
+  mutate(office = simple_cap(office)) %>%
+  group_by(office) %>%
+  mutate(
+    min_min = min(min, na.rm = TRUE),
+    min_med = median(min, na.rm = TRUE),
+    min_max = max(min, na.rm = TRUE),
+    mean_min = min(mean, na.rm = TRUE),
+    mean_med = median(mean, na.rm = TRUE),
+    mean_max = max(mean, na.rm = TRUE),
+    max_min = min(max, na.rm = TRUE),
+    max_med = median(max, na.rm = TRUE),
+    max_max = max(max, na.rm = TRUE)
+  )
+  
+hist_list <- c("min", "max", "mean") %>%
+  set_names(., .) %>%
+  imap(
+    ~ ggplot(aes(x = !!as.name(.x)), data = cong) +
+      geom_histogram(bins = 60) + 
+      facet_wrap(~ office) + 
+      scale_x_continuous(labels = scales::comma) + 
+      scale_y_continuous(labels = scales::comma) + 
+      scale_y_continuous(
+        labels = scales::comma,
+        limits = c(0, 575), breaks = seq(0, 575, by = 100)
+      )
+  )
+
+hist_list %>%
+  imap(
+    ~ {
+      pdf(
+        here("fig", paste0("hist_congress_2020_", .y, ".pdf")),
+        width = 5, height = 2
+      )
+      print(pdf_default(.x) + theme(axis.title = element_blank()))
+      dev.off()
+    }
+  )
+
+ks.test(cong_filtered$senate$mean, cong_filtered$house$mean)
+# Two-sample Kolmogorov-Smirnov test
+# 
+# data:  cong_filtered$senate$mean and cong_filtered$house$mean
+# D = 0.056141, p-value = 0.8428
+# alternative hypothesis: two-sided
 
 # Summary statistics ===========================================================
 summ <- c(senate = "senate", house = "house") %>%
