@@ -87,6 +87,9 @@ cong_filtered$house %>%
   select(url, everything()) %>%
   View()
 
+# Save =========================================================================
+save(cong_filtered, file = here("data", "tidy", "cong-filtered.Rda"))
+
 # Histograms ===================================================================
 cong <- cong_filtered %>% bind_rows(.id = "office") %>%
   mutate(office = simple_cap(office)) %>%
