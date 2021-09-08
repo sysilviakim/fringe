@@ -91,6 +91,7 @@ dwnom_sliced <- dwnom %>%
       party_code == 328 ~ "INDEPENDENT"
     )
   ) %>%
+  ungroup() %>%
   select(
     ## ICPSR legacy infos
     -state_icpsr, -icpsr, -district_code, -occupancy, -last_means, -party_code
@@ -148,6 +149,48 @@ unmatched_house <- congress$house %>%
 
 unmatched_house %>% View()
 nrow(unmatched_house) / nrow(congress$house) ## 29%
+
+# Sanity check =================================================================
+congress %>% 
+  bind_rows(.id = "office") %>%
+  group_by(party) %>%
+  summarise(
+    min = min(nominate_dim1, na.rm = TRUE), 
+    mean = mean(nominate_dim1, na.rm = TRUE),
+    max = max(nominate_dim1, na.rm = TRUE)
+  )
+
+congress %>% 
+  bind_rows(.id = "office") %>%
+  ggplot(aes(x = nominate_dim1, group = party, colour = party, fill = party)) + 
+  geom_histogram()
+
+# Add in state-GDPs from the Bureau of Economic Analysis =======================
+## https://apps.bea.gov/iTable/iTable.cfm?reqid=70&step=1&acrdn=2
+bea <- read_csv(here("data", "raw", "bea-2020-gdp.csv"), skip = 4) %>%
+  clean_names() %>%
+  mutate(
+    across(is.character, ~ tolower(trimws(gsub("\\*", "", .x)))),
+    geo_fips = as.numeric(geo_fips) / 1000
+  ) %>%
+  filter(
+    geo_name != "united states" & 
+      description == "per capita personal income (dollars) 2/"
+  ) %>%
+  select(-description, -line_code) %>%
+  rename(
+    q1_income = x2020_q1, q2_income = x2020_q2,
+    q3_income = x2020_q3, q4_income = x2020_q4
+  ) %>%
+  left_join(., state_df %>% select(geo_fips = stfips, state = stabb)) %>%
+  select(-geo_fips, -geo_name) %>%
+  ## Per capita income across all 2020 quarters
+  mutate(pci2020 = (q1_income + q2_income + q3_income + q4_income) / 4) %>%
+  select(state, everything()) %>%
+  filter(!is.na(state))
+
+congress <- congress %>%
+  imap(~ left_join(.x, bea))
 
 # Save =========================================================================
 save(congress, file = here("data", "tidy", "congress-merged.Rda"))
