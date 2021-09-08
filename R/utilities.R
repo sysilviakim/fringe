@@ -445,5 +445,31 @@ highlight_xtable <-
     )
   }
 
+broom_custom <- function(x) {
+  x %>%
+    broom::tidy() %>%
+    mutate(across(where(is.numeric), round, 5))
+}
+
+scatter_custom <- function(df, xvar, yvar = "mean", xlab = NULL) {
+  p <- ggplot(
+    df %>% 
+      rename(Party = party) %>%
+      mutate(Party = simple_cap(tolower(Party))), 
+    aes(
+      x = !!as.name(xvar), y = !!as.name(yvar), 
+      group = Party, fill = Party, colour = Party
+    )
+  ) +
+    geom_point() + 
+    scale_color_manual(values = c("#67a9cf", "#000000", "#ef8a62")) + 
+    scale_y_continuous(labels = scales::comma) + 
+    ylab(simple_cap(yvar))
+  if (!is.null(xlab)) {
+    p <- p + xlab(xlab)
+  }
+  pdf_default(p)
+}
+
 # Other options ================================================================
 options(scipen = 999)
