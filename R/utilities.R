@@ -339,6 +339,7 @@ portfolio_na_fig_label <- function(df) {
   df %>%
     mutate(
       amount = case_when(
+        is.na(amount) ~ "No\nSuggested\nAmounts",
         amount == "-999" ~ "No\nSuggested\nAmounts",
         amount == "0-1-2-3" ~ "No\nSuggested\nAmounts",
         TRUE ~ amount

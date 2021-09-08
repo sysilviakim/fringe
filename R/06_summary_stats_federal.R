@@ -1,70 +1,5 @@
 source(here::here("R", "utilities.R"))
-
-# Import congressional data ====================================================
-congress <- list(
-  senate = loadRData(here("data", "tidy", "senate-merged.Rda")),
-  house = loadRData(here("data", "tidy", "house-merged.Rda"))
-) %>%
-  map(summ_calc_fxn) %>%
-  imap(
-    ~ {
-      out <- .x %>%
-        select(-seq_url, -contains("office")) %>%
-        select(
-          last_name, contains("state"), party, inc, contains("year"), amount, 
-          min_date, max_date, seq, min, max, mean, median, q1, q3, first, last,
-          choices, contains("ineff"), sanders, everything()
-        ) %>%
-        filter(!is.na(url)) %>%
-        mutate(
-          max_date = case_when(
-            max_date >= as.Date("2020-11-06") ~ as.Date("2020-11-06"),
-            TRUE ~ max_date
-          )
-        ) %>%
-        mutate(duration = max_date - min_date)
-      if (.y == "house") {
-        out <- out %>% arrange(state, state_cd, last_name, seq, min)
-      } else {
-        out <- out %>% arrange(state, last_name, seq, min)
-      }
-      return(out)
-    }
-  )
-
-# View(congress$senate)
-# congress$senate %>% filter(is.na(amount)) %>% View()
-
-# Which Senate candidates *don't* have links live in November? =================
-
-## Kamala Harris, of course
-
-## Chuck Grassley: 
-## https://web.archive.org/web/20201007075445/https://grassleyworks.com/
-## *Literally* didn't have a contribution link on his website for long
-## Not sure why...
-## WinRed link was live, of course
-
-## Pat Toomey's WinRed link went down(!) mid September, and is still(!!) down
-## Screenshot evidence exists, although not snapshoted frequently at WayBack
-
-congress$senate %>%
-  group_by(state, last_name) %>%
-  filter(
-    !(lubridate::month(max(max_date, na.rm = TRUE)) >= 11 & 
-        lubridate::year(max(max_date, na.rm = TRUE)) == 2020)
-  ) %>%
-  View()
-
-# Which House candidates *don't* have links live in November? ==================
-## razzoli stopped donation link before Nov; kick from sample
-congress$house %>%
-  group_by(state, state_cd, last_name) %>%
-  filter(
-    !(lubridate::month(max(max_date, na.rm = TRUE)) >= 11 & 
-        lubridate::year(max(max_date, na.rm = TRUE)) == 2020)
-  ) %>%
-  View()
+load(here("data", "tidy", "congress-merged.Rda"))
 
 # One link per candidate =======================================================
 cong_filtered <- congress %>%
@@ -200,6 +135,56 @@ ks.test(cong_filtered$senate$mean, cong_filtered$house$mean)
 # data:  cong_filtered$senate$mean and cong_filtered$house$mean
 # D = 0.056141, p-value = 0.8428
 # alternative hypothesis: two-sided
+
+# Top 5 frequent figures =======================================================
+c("senate", "house") %>%
+  map(
+    ~ {
+      p <- prop(
+        portfolio_na_fig_label(cong_filtered[[.x]]) %>%
+          group_by(url, amount) %>%
+          slice(1),
+        "amount",
+        sort = TRUE, head = 5, print = FALSE
+      ) %>%
+        unlist() %>%
+        set_names(., nm = names(.)) %>%
+        imap(~ tibble(label = .y, freq = as.numeric(.x))) %>%
+        bind_rows() %>%
+        mutate(
+          label = gsub(
+            "-", "\n",
+            paste0(label, ifelse(.x == "senate", "", "\n"))),
+          label = factor(
+            label,
+            levels = gsub(
+              "-", "\n",
+              paste0(
+                names(
+                  prop(
+                    portfolio_na_fig_label(cong_filtered[[.x]]), "amount", 
+                    sort = TRUE, head = 5, print = FALSE
+                  )
+                ),
+                ifelse(.x == "senate", "", "\n")
+              )
+            )
+          )
+        ) %>%
+        ggplot(aes(x = label, y = freq)) +
+        geom_bar(stat = "identity") +
+        # xlab("\nSolicitation Amounts, Top 5, Right.us Directory") +
+        xlab(NULL) +
+        ylab("Percentage (%)") +
+        scale_y_continuous(limits = c(0, 50)) 
+      pdf(
+        here("fig", paste0("portfolio_freq_top_5_", .x, "_2020.pdf")),
+        width = 3, height = 3
+      )
+      print(pdf_default(p))
+      dev.off()
+    }
+  )
 
 # Summary statistics ===========================================================
 summ <- c(senate = "senate", house = "house") %>%
