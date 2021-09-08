@@ -208,6 +208,10 @@ summ_calc_fxn <- function(df) {
             sanders = case_when(
               27 %in% amount_split(amount) ~ 1,
               TRUE ~ 0
+            ),
+            beyond_max = case_when(
+              !is.na(max) & max > 2800 ~ 1,
+              TRUE ~ 0
             )
           )
       )
