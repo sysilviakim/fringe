@@ -11,6 +11,8 @@ library(jsonlite)
 library(janitor)
 library(data.table)
 library(xtable)
+library(estimatr)
+library(stargazer)
 
 library(Kmisc)
 
@@ -452,6 +454,12 @@ broom_custom <- function(x) {
 }
 
 scatter_custom <- function(df, xvar, yvar = "mean", xlab = NULL) {
+  if ("INDEPENDENT" %in% df$party) {
+    values <- c("#67a9cf", "#000000", "#ef8a62")
+  } else {
+    values <- c("#67a9cf", "#ef8a62")
+  }
+  
   p <- ggplot(
     df %>% 
       rename(Party = party) %>%
@@ -462,7 +470,7 @@ scatter_custom <- function(df, xvar, yvar = "mean", xlab = NULL) {
     )
   ) +
     geom_point() + 
-    scale_color_manual(values = c("#67a9cf", "#000000", "#ef8a62")) + 
+    scale_color_manual(values = values) + 
     scale_y_continuous(labels = scales::comma) + 
     ylab(simple_cap(yvar))
   if (!is.null(xlab)) {
