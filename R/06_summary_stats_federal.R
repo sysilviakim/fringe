@@ -189,31 +189,32 @@ c("senate", "house") %>%
     }
   )
 
-# Summary statistics by chamber ================================================
-summ <- c(senate = "senate", house = "house") %>%
-  imap_dfr(
-    ~ cong_filtered[[.x]] %>%
+# Summary statistics by chamber and party ======================================
+summ <- cross2(c("senate", "house"), c("DEMOCRAT", "REPUBLICAN")) %>%
+  map_dfr(
+    ~ cong_filtered[[.x[[1]]]] %>%
+      filter(party == .x[[2]]) %>%
       ## i.e., everything
       mutate(cd = "00") %>%
       group_by(cd) %>%
       summarise(
         empty_prop = sum(is.na(amount)) / n(),
-        # single = sum(!is.na(amount) & !grepl("-", amount)) / n(),
         amount = Mode(amount, na.rm = TRUE),
         min_median = median(min, na.rm = TRUE), 
-        max_median = median(max, na.rm = TRUE), 
         mean_median = median(mean, na.rm = TRUE),
+        max_median = median(max, na.rm = TRUE), 
         ineff_2700 = sum(ineff_2700 == 1, na.rm = TRUE) / n(),
         max_out = sum(ineff_2800 == 1, na.rm = TRUE) / n(),
         beyond_max = sum(beyond_max == 1, na.rm = T) / n(),
         sanders = sum(sanders == 1, na.rm = TRUE) / n()
-        # min_mode = Mode(min, na.rm = TRUE), 
-        # max_mode = Mode(max, na.rm = TRUE), 
-        # mean_mode = Mode(mean, na.rm = TRUE)
       ) %>%
       ungroup() %>%
-      select(-cd),
-    .id = "office"
+      select(-cd) %>%
+      mutate(
+        office = paste0(
+          simple_cap(tolower(.x[[2]])), ", ", simple_cap(.x[[1]])
+        )
+      )
   ) %>%
   mutate(
     across(
@@ -224,117 +225,32 @@ summ <- c(senate = "senate", house = "house") %>%
       contains("median"),
       ~ formatC(.x, format = "f", digits = 1, big.mark = ",")
     )
-  )
+  ) %>%
+  select(office, everything())
 summ
 
 xtab_df <- as_tibble(t(summ), rownames = "var") %>%
   `colnames<-`(.[1, ]) %>%
   .[-1, ] %>%
-  select(office, Senate = senate, House = house) %>%
   mutate(
     office = case_when(
-      office == "empty_prop" ~ "No Defaults (%)",
-      office == "single" ~ "One Default (%)",
+      office == "empty_prop" ~ "No Defaults",
       office == "ineff_2700" ~ "Did Not Adjust $2,700",
       office == "max_out" ~ "Used $2,800 (Individual Maximum)",
       office == "beyond_max" ~ "Solicited More Than $2,800",
       office == "sanders" ~ "Sanders Heritage ($27)",
-      office == "min_median" ~ "Median of Minimum Value Solicited",
-      office == "max_median" ~ "Median of Maximum Value Solicited",
-      office == "mean_median" ~ "Median of Mean Value Solicited",
+      office == "min_median" ~ "Median of Minimum USD Solicited",
+      office == "max_median" ~ "Median of Maximum USD Solicited",
+      office == "mean_median" ~ "Median of Mean USD Solicited",
+      office == "amount" ~ "Mode of Solicitation Set",
       TRUE ~ office
     )
   )
 xtab_df
 
-which_var <- which(xtab_df$office == "amount")
-assert_that(xtab_df$Senate[which_var] == xtab_df$House[which_var])
-addtorow <- list(
-  pos = list(which_var - 1),
-  command = paste0(
-    "Mode Solicitation Set & \\multicolumn{2}{c}{ ",
-    xtab_df$Senate[which_var],
-    " }", " \\\\
-  "
-  )
-)
-
 print(
-  xtable(
-    xtab_df %>% 
-      filter(office != "amount") %>%
-      select(` ` = office, everything()),
-    align = "llrr"
-  ),
-  add.to.row = addtorow, hline.after = c(-1, 0, 4, nrow(xtab_df) - 1),
-  file = here("tab", "congress_desc_2020.tex"),
-  booktabs = TRUE, include.rownames = FALSE, floating = FALSE
-)
-
-# Summary statistics by party ==================================================
-summ <- c(Democrat = "DEMOCRAT", Republican = "REPUBLICAN") %>%
-  map_dfr(
-    ~ cong_filtered %>%
-      bind_rows(.id = "office") %>%
-      filter(party == .x) %>%
-      mutate(cd = "00") %>%
-      group_by(cd) %>%
-      summarise(
-        empty_prop = sum(is.na(amount)) / n(),
-        amount = Mode(amount, na.rm = TRUE),
-        min_median = median(min, na.rm = TRUE), 
-        max_median = median(max, na.rm = TRUE), 
-        mean_median = median(mean, na.rm = TRUE),
-        ineff_2700 = sum(ineff_2700 == 1, na.rm = TRUE) / n(),
-        max_out = sum(ineff_2800 == 1, na.rm = TRUE) / n(),
-        beyond_max = sum(beyond_max == 1, na.rm = T) / n(),
-        sanders = sum(sanders == 1, na.rm = TRUE) / n()
-      ) %>%
-      ungroup() %>%
-      select(-cd),
-    .id = "party"
-  ) %>%
-  mutate(
-    across(
-      c("empty_prop", "ineff_2700", "max_out", "beyond_max", "sanders"),
-      ~ scales::percent(.x, accuracy = 0.1)
-    ),
-    across(
-      contains("median"),
-      ~ formatC(.x, format = "f", digits = 1, big.mark = ",")
-    )
-  )
-summ
-
-xtab_df <- as_tibble(t(summ), rownames = "var") %>%
-  `colnames<-`(.[1, ]) %>%
-  .[-1, ] %>%
-  mutate(
-    party = case_when(
-      party == "empty_prop" ~ "No Defaults (%)",
-      party == "single" ~ "One Default (%)",
-      party == "ineff_2700" ~ "Did Not Adjust $2,700",
-      party == "max_out" ~ "Used $2,800 (Individual Maximum)",
-      party == "beyond_max" ~ "Solicited More Than $2,800",
-      party == "sanders" ~ "Sanders Heritage ($27)",
-      party == "min_median" ~ "Median of Minimum Value Solicited",
-      party == "max_median" ~ "Median of Maximum Value Solicited",
-      party == "mean_median" ~ "Median of Mean Value Solicited",
-      party == "amount" ~ "Mode Solicitation Set",
-      TRUE ~ party
-    )
-  )
-xtab_df
-
-print(
-  xtable(
-    xtab_df %>% 
-      select(` ` = party, everything()),
-    align = "llrr"
-  ),
+  xtable(xtab_df %>%  select(` ` = office, everything()), align = "llrrrr"),
   hline.after = c(-1, 0, 5, nrow(xtab_df)),
-  file = here("tab", "party_desc_2020.tex"),
+  file = here("tab", "congress_by_chamber_party_desc_2020.tex"),
   booktabs = TRUE, include.rownames = FALSE, floating = FALSE
 )
-
-
