@@ -170,7 +170,7 @@ congress %>%
 bea <- read_csv(here("data", "raw", "bea-2020-gdp.csv"), skip = 4) %>%
   clean_names() %>%
   mutate(
-    across(is.character, ~ tolower(trimws(gsub("\\*", "", .x)))),
+    across(where(is.character), ~ tolower(trimws(gsub("\\*", "", .x)))),
     geo_fips = as.numeric(geo_fips) / 1000
   ) %>%
   filter(
@@ -191,6 +191,22 @@ bea <- read_csv(here("data", "raw", "bea-2020-gdp.csv"), skip = 4) %>%
 
 congress <- congress %>%
   imap(~ left_join(.x, bea))
+
+# Also add Cook PVI ============================================================
+## Since it's already built from solicitRwinred... 
+load(here("data", "tidy", "cook_pvi.Rda"))
+
+congress$senate <- left_join(
+  congress$senate, 
+  cook_pvi %>% filter(office == "S") %>% select(-office) %>% select(-state_cd)
+)
+assert_that(!any(is.na(congress$senate$PVI)))
+
+congress$house <- left_join(
+  congress$house, 
+  cook_pvi %>% filter(office == "H") %>% select(-office)
+)
+assert_that(!any(is.na(congress$house$PVI)))
 
 # Save =========================================================================
 save(congress, file = here("data", "tidy", "congress-merged.Rda"))
