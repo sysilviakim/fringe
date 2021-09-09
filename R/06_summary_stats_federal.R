@@ -189,7 +189,7 @@ c("senate", "house") %>%
     }
   )
 
-# Summary statistics ===========================================================
+# Summary statistics by chamber ================================================
 summ <- c(senate = "senate", house = "house") %>%
   imap_dfr(
     ~ cong_filtered[[.x]] %>%
@@ -270,4 +270,71 @@ print(
   file = here("tab", "congress_desc_2020.tex"),
   booktabs = TRUE, include.rownames = FALSE, floating = FALSE
 )
+
+# Summary statistics by party ==================================================
+summ <- c(Democrat = "DEMOCRAT", Republican = "REPUBLICAN") %>%
+  map_dfr(
+    ~ cong_filtered %>%
+      bind_rows(.id = "office") %>%
+      filter(party == .x) %>%
+      mutate(cd = "00") %>%
+      group_by(cd) %>%
+      summarise(
+        empty_prop = sum(is.na(amount)) / n(),
+        amount = Mode(amount, na.rm = TRUE),
+        min_median = median(min, na.rm = TRUE), 
+        max_median = median(max, na.rm = TRUE), 
+        mean_median = median(mean, na.rm = TRUE),
+        ineff_2700 = sum(ineff_2700 == 1, na.rm = TRUE) / n(),
+        max_out = sum(ineff_2800 == 1, na.rm = TRUE) / n(),
+        beyond_max = sum(beyond_max == 1, na.rm = T) / n(),
+        sanders = sum(sanders == 1, na.rm = TRUE) / n()
+      ) %>%
+      ungroup() %>%
+      select(-cd),
+    .id = "party"
+  ) %>%
+  mutate(
+    across(
+      c("empty_prop", "ineff_2700", "max_out", "beyond_max", "sanders"),
+      ~ scales::percent(.x, accuracy = 0.1)
+    ),
+    across(
+      contains("median"),
+      ~ formatC(.x, format = "f", digits = 1, big.mark = ",")
+    )
+  )
+summ
+
+xtab_df <- as_tibble(t(summ), rownames = "var") %>%
+  `colnames<-`(.[1, ]) %>%
+  .[-1, ] %>%
+  mutate(
+    party = case_when(
+      party == "empty_prop" ~ "No Defaults (%)",
+      party == "single" ~ "One Default (%)",
+      party == "ineff_2700" ~ "Did Not Adjust $2,700",
+      party == "max_out" ~ "Used $2,800 (Individual Maximum)",
+      party == "beyond_max" ~ "Solicited More Than $2,800",
+      party == "sanders" ~ "Sanders Heritage ($27)",
+      party == "min_median" ~ "Median of Minimum Value Solicited",
+      party == "max_median" ~ "Median of Maximum Value Solicited",
+      party == "mean_median" ~ "Median of Mean Value Solicited",
+      party == "amount" ~ "Mode Solicitation Set",
+      TRUE ~ party
+    )
+  )
+xtab_df
+
+print(
+  xtable(
+    xtab_df %>% 
+      select(` ` = party, everything()),
+    align = "llrr"
+  ),
+  hline.after = c(-1, 0, 5, nrow(xtab_df)),
+  file = here("tab", "party_desc_2020.tex"),
+  booktabs = TRUE, include.rownames = FALSE, floating = FALSE
+)
+
 
