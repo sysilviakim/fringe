@@ -26,7 +26,13 @@ cong_filtered <- congress %>%
             ## First check for latest solicitation sets or longest-duration sets
             duration == max(duration, na.rm = TRUE) | 
               max_date == max(max_date, na.rm = TRUE)
+          ) %>%
+          ## Platform used
+          mutate(
+            actblue = case_when(grepl("actblue", url) ~ 1, TRUE ~ 0),
+            winred = case_when(grepl("winred", url) ~ 1, TRUE ~ 0)
           )
+          
         if (.y == "house") {
           out <- out %>% arrange(state, state_cd, last_name, seq, min)
         } else {
@@ -36,11 +42,17 @@ cong_filtered <- congress %>%
       }
   )
 
-# cong_filtered$senate %>%
-#   group_by(state, last_name) %>%
-#   filter(n() > 1) %>%
-#   select(duration, everything()) %>%
-#   View()
+cong_filtered$senate %>%
+  group_by(state, last_name) %>%
+  filter(n() > 1) %>%
+  select(duration, everything()) %>%
+  View()
+
+cong_filtered$house %>%
+  group_by(state_cd, last_name) %>%
+  filter(n() > 1) %>%
+  select(duration, everything()) %>%
+  View()
 
 # Manual deduplicating =========================================================
 cong_filtered$senate <- cong_filtered$senate %>%
@@ -86,6 +98,21 @@ cong_filtered$house %>%
   arrange(desc(candidatevotes)) %>% 
   select(url, everything()) %>%
   View()
+
+## Sanity check for one link
+assert_that(
+  cong_filtered$senate %>% 
+    group_by(state, last_name) %>%
+    filter(n() > 1) %>%
+    nrow() == 0
+)
+
+assert_that(
+  cong_filtered$house %>% 
+    group_by(state_cd, last_name) %>%
+    filter(n() > 1) %>%
+    nrow() == 0
+)
 
 # Save =========================================================================
 save(cong_filtered, file = here("data", "tidy", "cong-filtered.Rda"))
