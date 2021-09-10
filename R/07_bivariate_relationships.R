@@ -126,3 +126,7 @@ ks.test(
   temp %>% filter(sanders == 0) %>% .$nominate_dim1,
   temp %>% filter(sanders == 1) %>% .$nominate_dim1 
 )
+
+# Note that safety and extremism are highly correlated =========================
+cor.test(df$dw, df$safe)
+plot(df$dw, df$safe)
