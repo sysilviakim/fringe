@@ -54,6 +54,31 @@ broom_custom(lm(min ~ dw + office + party + inc + pci2020 + safe, data = df))
 broom_custom(lm(mean ~ dw + office + party + inc + pci2020 + safe, data = df))
 broom_custom(lm(max ~ dw + office + party + inc + pci2020 + safe, data = df))
 
+broom_custom(lm(min ~ office + party * dw + inc + pci2020 + safe, data = df))
+broom_custom(lm(mean ~ office + party * dw + inc + pci2020 + safe, data = df))
+broom_custom(lm(max ~ office + party * dw + inc + pci2020 + safe, data = df))
+
+broom_custom(lm(min ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "REPUBLICAN")))
+broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "REPUBLICAN")))
+broom_custom(lm(max ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "REPUBLICAN")))
+
+broom_custom(lm(min ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "DEMOCRAT")))
+broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "DEMOCRAT")))
+broom_custom(lm(max ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "DEMOCRAT")))
+
+cor.test((df %>% filter(party == "DEMOCRAT"))$min, (df %>% filter(party == "DEMOCRAT"))$dw)
+cor.test((df %>% filter(party == "DEMOCRAT"))$mean, (df %>% filter(party == "DEMOCRAT"))$dw)
+cor.test((df %>% filter(party == "DEMOCRAT"))$max, (df %>% filter(party == "DEMOCRAT"))$dw)
+plot((df %>% filter(party == "DEMOCRAT" & max < 6000))$dw, (df %>% filter(party == "DEMOCRAT" & max < 6000))$max)
+cor.test((df %>% filter(party == "DEMOCRAT" & max < 6000))$dw, (df %>% filter(party == "DEMOCRAT" & max < 6000))$max)
+
+cor.test((df %>% filter(party == "REPUBLICAN"))$min, (df %>% filter(party == "REPUBLICAN"))$dw)
+cor.test((df %>% filter(party == "REPUBLICAN"))$mean, (df %>% filter(party == "REPUBLICAN"))$dw)
+cor.test((df %>% filter(party == "REPUBLICAN"))$max, (df %>% filter(party == "REPUBLICAN"))$dw)
+
+cor.test((df %>% filter(party == "REPUBLICAN"))$max, (df %>% filter(party == "REPUBLICAN"))$nominate_dim1)
+lm(mean ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")) %>% broom::tidy()
+
 ## Stargazer export: with and without dwnom1
 lm1 <- lm(min ~ office + party + inc + pci2020 + safe, data = df)
 lm2 <- lm(min ~ office + party + inc + pci2020 + safe + dw, data = df)
@@ -86,3 +111,18 @@ scatter_custom(df, "vs", xlab = "2020 General Vote Share")
 scatter_custom(df, "safe", xlab = "Electoral Safety Based On Cook PVI")
 
 broom_custom(lm(dw ~ office + party, data = df))
+
+# Sanders legacy Dems: higher extremism? =======================================
+temp <- df %>%
+  filter(party == "DEMOCRAT" & !is.na(sanders))
+
+temp %>%
+  group_by(sanders) %>%
+  summarise(dwnom1 = mean(nominate_dim1, na.rm = TRUE))
+
+## Caveat: only 17 obs vs. rest
+t.test(nominate_dim1 ~ sanders, data = temp, alternative = "greater")
+ks.test(
+  temp %>% filter(sanders == 0) %>% .$nominate_dim1,
+  temp %>% filter(sanders == 1) %>% .$nominate_dim1 
+)
