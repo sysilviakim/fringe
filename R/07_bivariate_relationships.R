@@ -58,13 +58,13 @@ broom_custom(lm(min ~ office + party * dw + inc + pci2020 + safe, data = df))
 broom_custom(lm(mean ~ office + party * dw + inc + pci2020 + safe, data = df))
 broom_custom(lm(max ~ office + party * dw + inc + pci2020 + safe, data = df))
 
-broom_custom(lm(min ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "REPUBLICAN")))
-broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "REPUBLICAN")))
-broom_custom(lm(max ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "REPUBLICAN")))
+broom_custom(lm(min ~ dw + office + inc + pci2020 + safe + winred, data = df %>% filter(party == "REPUBLICAN")))
+broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe + winred, data = df %>% filter(party == "REPUBLICAN")))
+broom_custom(lm(max ~ dw + office + inc + pci2020 + safe + winred, data = df %>% filter(party == "REPUBLICAN")))
 
-broom_custom(lm(min ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "DEMOCRAT")))
-broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "DEMOCRAT")))
-broom_custom(lm(max ~ dw + office + inc + pci2020 + safe, data = df %>% filter(party == "DEMOCRAT")))
+broom_custom(lm(min ~ dw + office + inc + pci2020 + safe + actblue, data = df %>% filter(party == "DEMOCRAT")))
+broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe + actblue, data = df %>% filter(party == "DEMOCRAT")))
+broom_custom(lm(max ~ dw + office + inc + pci2020 + safe + actblue, data = df %>% filter(party == "DEMOCRAT")))
 
 cor.test((df %>% filter(party == "DEMOCRAT"))$min, (df %>% filter(party == "DEMOCRAT"))$dw)
 cor.test((df %>% filter(party == "DEMOCRAT"))$mean, (df %>% filter(party == "DEMOCRAT"))$dw)
@@ -80,19 +80,19 @@ cor.test((df %>% filter(party == "REPUBLICAN"))$max, (df %>% filter(party == "RE
 lm(mean ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")) %>% broom::tidy()
 
 ## Stargazer export: with and without dwnom1
-lm1 <- lm(min ~ office + party + inc + pci2020 + safe, data = df)
-lm2 <- lm(min ~ office + party + inc + pci2020 + safe + dw, data = df)
-lm3 <- lm(mean ~ office + party + inc + pci2020 + safe, data = df)
-lm4 <- lm(mean ~ office + party + inc + pci2020 + safe + dw, data = df)
-lm5 <- lm(max ~ office + party + inc + pci2020 + safe, data = df)
-lm6 <- lm(max ~ office + party + inc + pci2020 + safe + dw, data = df)
+lm1 <- lm(min ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
+lm2 <- lm(min ~ office + party + inc + pci2020 + safe + actblue + winred + dw, data = df)
+lm3 <- lm(mean ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
+lm4 <- lm(mean ~ office + party + inc + pci2020 + safe + actblue + winred + dw, data = df)
+lm5 <- lm(max ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
+lm6 <- lm(max ~ office + party + inc + pci2020 + safe + actblue + winred + dw, data = df)
 
 stargazer(
   lm1, lm2, lm3, lm4, lm5, lm6,
   covariate.labels = c(
     "Senate", "Republican", "Incumbent", "Open Seat", 
     "State-level Per Capita Income in 2020 (1,000 USD)",
-    "Electoral Safety Based On Cook PVI",
+    "Electoral Safety Based On Cook PVI", "ActBlue", "WinRed",
     "Ideological Extremity Based On DW-NOMINATE"
   ),
   se = starprep(lm1, lm2, lm3, lm4, lm5, lm6, se_type = "stata"),

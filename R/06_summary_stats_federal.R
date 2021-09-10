@@ -230,6 +230,7 @@ summ <- cross2(c("senate", "house"), c("DEMOCRAT", "REPUBLICAN")) %>%
         min_median = median(min, na.rm = TRUE), 
         mean_median = median(mean, na.rm = TRUE),
         max_median = median(max, na.rm = TRUE), 
+        main_platform = sum(actblue == 1 | winred == 1, na.rm = TRUE) / n(),
         ineff_2700 = sum(ineff_2700 == 1, na.rm = TRUE) / n(),
         max_out = sum(ineff_2800 == 1, na.rm = TRUE) / n(),
         beyond_max = sum(beyond_max == 1, na.rm = T) / n(),
@@ -245,7 +246,8 @@ summ <- cross2(c("senate", "house"), c("DEMOCRAT", "REPUBLICAN")) %>%
   ) %>%
   mutate(
     across(
-      c("empty_prop", "ineff_2700", "max_out", "beyond_max", "sanders"),
+      c("empty_prop", "ineff_2700", "max_out", 
+        "beyond_max", "sanders", "main_platform"),
       ~ scales::percent(.x, accuracy = 0.1)
     ),
     across(
@@ -270,6 +272,7 @@ xtab_df <- as_tibble(t(summ), rownames = "var") %>%
       office == "max_median" ~ "Median of Maximum USD Solicited",
       office == "mean_median" ~ "Median of Mean USD Solicited",
       office == "amount" ~ "Mode of Solicitation Set",
+      office == "main_platform" ~ "Used Major Platform",
       TRUE ~ office
     )
   )
