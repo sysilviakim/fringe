@@ -134,26 +134,25 @@ p <- temp %>%
           TRUE ~ 1
         )
       ) %>%
-      arrange(adjusted_date) %>%
-      group_by(party) %>%
-      mutate(
-        temp = 1,
-        adjust_cumul = cumsum(adjust) / sum(temp)
+      group_by(party, adjusted_date) %>%
+      summarise(adjust = sum(adjust)) %>%
+      pivot_wider(
+        id_cols = adjusted_date, names_from = party, values_from = adjust
       ) %>%
-      ggplot(
-        aes(
-          x = adjusted_date, y = adjust_cumul,
-          group = party, colour = party, linetype = party
-        )
-      ) +
+      mutate(
+        Dem = case_when(is.na(Dem) ~ 0, TRUE ~ Dem),
+        Rep = case_when(is.na(Rep) ~ 0, TRUE ~ Rep)
+      ) %>%
+      pivot_longer(cols = c(Dem, Rep), names_to = "Party", values_to = "v") %>%
+      group_by(Party) %>%
+      arrange(adjusted_date) %>%
+      mutate(cm = cumsum(v) / sum(v)) %>%
+      ggplot(aes(x = adjusted_date, y = cm, colour = Party, linetype = Party)) +
       geom_line() +
-      scale_colour_manual(
-        values = c("Rep" = "#d73027", "Dem" = "#74add1")
-      ) +
-      labs(colour = "Party", group = "Party", linetype = "Party") +
+      scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+      scale_colour_manual(values = c("Dem" = "#74add1", "Rep" = "#d73027")) +
       xlab("Date Adjusted to $2,900") +
-      ylab("Cumulative %") +
-      scale_y_continuous(labels = scales::percent, limits = c(0, .9))
+      ylab("Cumulative %")
   )
 
 p %>%
@@ -161,9 +160,15 @@ p %>%
     ~ {
       pdf(
         here("fig", paste0("adjust_2900_", .y, ".pdf")),
-        width = 3.5, height = 3.5
+        width = 3.5, height = 2.5
       )
-      print(pdf_default(.x) + theme(legend.position = "bottom"))
+      print(
+        pdf_default(.x) +
+          theme(
+            legend.position = c(.8, .3),
+            legend.background = element_blank()
+          )
+      )
       dev.off()
     }
   )
@@ -196,14 +201,19 @@ p <- temp %>%
       ) %>%
       ggplot(
         aes(
-          x = adjusted_date, y = adjust_cumul,
-          group = platform, colour = platform, linetype = platform
+          x = adjusted_date, y = adjust_cumul, 
+          colour = platform, linetype = platform
         )
       ) +
       geom_line() +
+      scale_linetype_manual(
+        values = c(
+          "ActBlue" = "solid", "WinRed" = "solid", "Other" = "twodash"
+        )
+      ) +
       scale_colour_manual(
         values = c(
-          "WinRed" = "#d73027", "ActBlue" = "#74add1", "Other" = "gray"
+          "ActBlue" = "#74add1", "WinRed" = "#d73027", "Other" = "gray"
         )
       ) +
       labs(colour = "Platform", group = "Platform", linetype = "Platform") +
@@ -217,9 +227,15 @@ p %>%
     ~ {
       pdf(
         here("fig", paste0("adjust_2900_", .y, ".pdf")),
-        width = 3.5, height = 3.5
+        width = 3.5, height = 2.5
       )
-      print(pdf_default(.x) + theme(legend.position = "bottom"))
+      print(
+        pdf_default(.x) +
+          theme(
+            legend.position = c(.8, .3),
+            legend.background = element_blank()
+          )
+      )
       dev.off()
     }
   )
