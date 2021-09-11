@@ -479,5 +479,34 @@ scatter_custom <- function(df, xvar, yvar = "mean", xlab = NULL) {
   pdf_default(p)
 }
 
+top5 <- function(df, xlab = NULL, ggtitle = NULL) {
+  df <- portfolio_na_fig_label(df)
+  p <- prop(df, "amount", sort = TRUE, head = 5, print = FALSE) %>%
+    unlist() %>%
+    set_names(., nm = names(.)) %>%
+    imap(~ tibble(label = .y, freq = as.numeric(.x))) %>%
+    bind_rows() %>%
+    mutate(
+      label = gsub("-", "\n", label),
+      label = factor(
+        label,
+        levels = gsub(
+          "-", "\n",
+          names(prop(df, "amount", sort = TRUE, head = 5, print = FALSE))
+        )
+      )
+    ) %>%
+    ggplot(aes(x = label, y = freq)) +
+    geom_bar(stat = "identity") +
+    xlab(xlab) + 
+    ylab("Percentage (%)") +
+    scale_y_continuous(limits = c(0, 50))
+  if (!is.null(ggtitle)) {
+    p + ggtitle(ggtitle)
+  } else {
+    p
+  }
+}
+
 # Other options ================================================================
 options(scipen = 999)

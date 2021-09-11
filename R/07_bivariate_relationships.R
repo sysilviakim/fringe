@@ -66,9 +66,10 @@ broom_custom(lm(min ~ dw + office + inc + pci2020 + safe + actblue, data = df %>
 broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe + actblue, data = df %>% filter(party == "DEMOCRAT")))
 broom_custom(lm(max ~ dw + office + inc + pci2020 + safe + actblue, data = df %>% filter(party == "DEMOCRAT")))
 
-cor.test((df %>% filter(party == "DEMOCRAT"))$min, (df %>% filter(party == "DEMOCRAT"))$dw)
-cor.test((df %>% filter(party == "DEMOCRAT"))$mean, (df %>% filter(party == "DEMOCRAT"))$dw)
-cor.test((df %>% filter(party == "DEMOCRAT"))$max, (df %>% filter(party == "DEMOCRAT"))$dw)
+cor.test((df %>% filter(party == "DEMOCRAT"))$min, (df %>% filter(party == "DEMOCRAT"))$nominate_dim1)
+cor.test((df %>% filter(party == "DEMOCRAT"))$mean, (df %>% filter(party == "DEMOCRAT"))$nominate_dim1)
+cor.test((df %>% filter(party == "DEMOCRAT"))$max, (df %>% filter(party == "DEMOCRAT"))$nominate_dim1)
+
 plot((df %>% filter(party == "DEMOCRAT" & max < 6000))$dw, (df %>% filter(party == "DEMOCRAT" & max < 6000))$max)
 cor.test((df %>% filter(party == "DEMOCRAT" & max < 6000))$dw, (df %>% filter(party == "DEMOCRAT" & max < 6000))$max)
 
@@ -77,23 +78,31 @@ cor.test((df %>% filter(party == "REPUBLICAN"))$mean, (df %>% filter(party == "R
 cor.test((df %>% filter(party == "REPUBLICAN"))$max, (df %>% filter(party == "REPUBLICAN"))$dw)
 
 cor.test((df %>% filter(party == "REPUBLICAN"))$max, (df %>% filter(party == "REPUBLICAN"))$nominate_dim1)
-lm(mean ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")) %>% broom::tidy()
+
+broom_custom(lm(min ~ nominate_dim1, data = df %>% filter(party == "DEMOCRAT")))
+broom_custom(lm(mean ~ nominate_dim1, data = df %>% filter(party == "DEMOCRAT")))
+broom_custom(lm(max ~ nominate_dim1, data = df %>% filter(party == "DEMOCRAT")))
+
+broom_custom(lm(min ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")))
+broom_custom(lm(mean ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")))
+broom_custom(lm(max ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")))
 
 ## Stargazer export: with and without dwnom1
 lm1 <- lm(min ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
-lm2 <- lm(min ~ office + party + inc + pci2020 + safe + actblue + winred + dw, data = df)
+lm2 <- lm(min ~ office + party + inc + pci2020 + safe + actblue + winred + party * dw, data = df)
 lm3 <- lm(mean ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
-lm4 <- lm(mean ~ office + party + inc + pci2020 + safe + actblue + winred + dw, data = df)
+lm4 <- lm(mean ~ office + party + inc + pci2020 + safe + actblue + winred + party * dw, data = df)
 lm5 <- lm(max ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
-lm6 <- lm(max ~ office + party + inc + pci2020 + safe + actblue + winred + dw, data = df)
+lm6 <- lm(max ~ office + party + inc + pci2020 + safe + actblue + winred + party * dw, data = df)
 
 stargazer(
   lm1, lm2, lm3, lm4, lm5, lm6,
   covariate.labels = c(
-    "Senate", "Republican", "Incumbent", "Open Seat", 
-    "State-level Per Capita Income in 2020 (1,000 USD)",
-    "Electoral Safety Based On Cook PVI", "ActBlue", "WinRed",
-    "Ideological Extremity Based On DW-NOMINATE"
+    "Senate", "Republican Party", "Incumbent", "Open Seat",
+    "State-level Average Per Capita Income (1,000 USD, 2020)",
+    "Electoral Safety Based On Cook PVI", "Used ActBlue", "Used WinRed",
+    "Ideological Extremity Based On DW-NOMINATE",
+    "Ideological Extremity $\\times$ Republican Party"
   ),
   se = starprep(lm1, lm2, lm3, lm4, lm5, lm6, se_type = "stata"),
   omit = "Constant", header = FALSE, model.numbers = FALSE,
@@ -105,7 +114,8 @@ stargazer(
 scatter_custom(df, "nominate_dim1", xlab = "DW-NOMINATE (Dim. 1)")
 scatter_custom(df, "dw", xlab = "Ideological Extremity Based On DW-NOMINATE")
 scatter_custom(
-  df, "pci2020", xlab = "State-level Per Capita Income in 2020 (1,000 USD)"
+  df, "pci2020",
+  xlab = "State-level Per Capita Income in 2020 (1,000 USD)"
 )
 scatter_custom(df, "vs", xlab = "2020 General Vote Share")
 scatter_custom(df, "safe", xlab = "Electoral Safety Based On Cook PVI")
@@ -124,9 +134,34 @@ temp %>%
 t.test(nominate_dim1 ~ sanders, data = temp, alternative = "greater")
 ks.test(
   temp %>% filter(sanders == 0) %>% .$nominate_dim1,
-  temp %>% filter(sanders == 1) %>% .$nominate_dim1 
+  temp %>% filter(sanders == 1) %>% .$nominate_dim1
 )
 
 # Note that safety and extremism are highly correlated =========================
 cor.test(df$dw, df$safe)
 plot(df$dw, df$safe)
+
+# By party/platform Top 5 ======================================================
+p1 <- top5(
+  df %>% filter(party == "DEMOCRAT" & actblue == 1),
+  ggtitle = "Democrat, Used ActBlue"
+)
+p2 <- top5(
+  df %>% filter(party == "DEMOCRAT" & actblue == 0),
+  ggtitle = "Democrat, Did Not Use ActBlue"
+)
+p3 <- top5(
+  df %>% filter(party == "REPUBLICAN" & winred == 1),
+  ggtitle = "Republican, Used WinRed"
+)
+p4 <- top5(
+  df %>% filter(party == "REPUBLICAN" & winred == 0),
+  ggtitle = "Republican, Did Not Use WinRed"
+)
+
+library(patchwork)
+
+pdf(here("fig", "congress_by_party_platform_top5.pdf"), width = 7, height = 6)
+(pdf_default(p1) | pdf_default(p2)) /
+  (pdf_default(p3) | pdf_default(p4))
+dev.off()
