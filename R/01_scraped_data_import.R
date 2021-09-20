@@ -18,6 +18,17 @@ if (!file.exists(here("data/tidy/president_2020.fst"))) {
         as_tibble() %>%
         dedup() %>%
         mutate(across(everything(), ~ trimws(gsub("\\s+", " ", .x))))
+      
+      if (c == "house") {
+        df_raw <- df_raw %>%
+          mutate(
+            state = case_when(
+              is.na(state) & !is.na(state_cd) ~ str_sub(state_cd, 1, 2),
+              TRUE ~ state
+            )
+          )
+      }
+      
       write_fst(df_raw, here(paste0("data/tidy/", c, "_", y, ".fst")))
     }
   }
