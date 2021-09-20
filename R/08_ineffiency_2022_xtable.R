@@ -40,6 +40,10 @@ temp <- dl %>%
       ungroup()
   )
 
+## Sanity check: difference is those without any prompts
+dl %>% map_dbl(~ nrow(.x %>% group_by(fec_id_cand) %>% slice(1)))
+temp %>% map_dbl(nrow)
+
 # Compare by party =============================================================
 # Oh yikes!
 tab <- cross2(c("Dem", "Rep"), c("senate", "house")) %>%
@@ -123,36 +127,65 @@ temp %>%
     )
   )
 
+max_date <- temp %>% 
+  map_dbl(~ max(.x$adjusted_date)) %>% 
+  max() %>% 
+  as.Date(., origin = "1970-01-01")
+
 # Visualize it: Senate/House by party ==========================================
 p <- temp %>%
   map(
-    ~ .x %>%
-      filter(orig_2800 == TRUE) %>%
-      mutate(
-        adjust = case_when(
-          grepl("Did Not", adjust) ~ 0,
-          TRUE ~ 1
-        )
-      ) %>%
-      group_by(party, adjusted_date) %>%
-      summarise(adjust = sum(adjust)) %>%
-      pivot_wider(
-        id_cols = adjusted_date, names_from = party, values_from = adjust
-      ) %>%
-      mutate(
-        Dem = case_when(is.na(Dem) ~ 0, TRUE ~ Dem),
-        Rep = case_when(is.na(Rep) ~ 0, TRUE ~ Rep)
-      ) %>%
-      pivot_longer(cols = c(Dem, Rep), names_to = "Party", values_to = "v") %>%
-      group_by(Party) %>%
-      arrange(adjusted_date) %>%
-      mutate(cm = cumsum(v) / sum(v)) %>%
-      ggplot(aes(x = adjusted_date, y = cm, colour = Party, linetype = Party)) +
-      geom_line() +
-      scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
-      scale_colour_manual(values = c("Dem" = "#74add1", "Rep" = "#d73027")) +
-      xlab("Date Adjusted to $2,900") +
-      ylab("Cumulative %")
+    ~ {
+      p <- .x %>%
+        filter(orig_2800 == TRUE) %>%
+        mutate(
+          adjust = case_when(
+            grepl("Did Not", adjust) ~ 0,
+            TRUE ~ 1
+          )
+        ) %>%
+        group_by(party, adjusted_date) %>%
+        summarise(adjust = sum(adjust), n = n()) %>%
+        pivot_wider(
+          id_cols = adjusted_date, names_from = party, values_from = c(adjust, n)
+        ) %>%
+        mutate(across(where(is.integer), ~ as.numeric(.x))) %>%
+        mutate(
+          across(
+            where(is.numeric), 
+            ~ case_when(is.na(.x) ~ 0, TRUE ~ .x)
+          )
+        ) %>%
+        mutate(
+          adjust_Dem = adjust_Dem / sum(n_Dem),
+          adjust_Rep = adjust_Rep / sum(n_Rep)
+        ) %>%
+        pivot_longer(
+          cols = c(adjust_Dem, adjust_Rep), names_to = "Party", values_to = "v"
+        ) %>%
+        mutate(Party = gsub("adjust_", "", Party)) %>%
+        group_by(Party) %>%
+        arrange(adjusted_date) %>%
+        mutate(cm = cumsum(v))
+      
+      if (max_date > max(p$adjusted_date)) {
+        ## Unify the endpoint
+        temp <- p %>% 
+          filter(adjusted_date == max(adjusted_date)) %>%
+          mutate(adjusted_date = max_date)
+        
+        p <- bind_rows(p, temp)
+      }
+      
+      p <- p %>%
+        ggplot(aes(x = adjusted_date, y = cm, colour = Party, linetype = Party)) +
+        geom_line() +
+        scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+        scale_colour_manual(values = c("Dem" = "#74add1", "Rep" = "#d73027")) +
+        xlab("Date Adjusted to $2,900") +
+        ylab("Cumulative %") + 
+        scale_x_date(breaks = "1 month", date_labels = "%b")
+    }
   )
 
 p %>%
@@ -192,34 +225,78 @@ p <- temp %>%
   arrange(adjusted_date) %>%
   group_split(party) %>%
   `names<-`({.} %>% map(~ .x$party[1]) %>% unlist()) %>%
-  map(
-    ~ .x %>%
-      group_by(platform) %>%
-      mutate(
-        temp = 1,
-        adjust_cumul = cumsum(adjust) / sum(temp)
-      ) %>%
-      ggplot(
-        aes(
-          x = adjusted_date, y = adjust_cumul, 
-          colour = platform, linetype = platform
+  imap(
+    ~ {
+      p <- .x %>%
+        droplevels() %>%
+        group_by(platform, adjusted_date) %>%
+        summarise(adjust = sum(adjust), n = n()) %>%
+        ungroup() %>%
+        pivot_wider(
+          id_cols = adjusted_date, names_from = platform, 
+          values_from = c(adjust, n)
+        ) %>%
+        mutate(across(where(is.integer), ~ as.numeric(.x))) %>%
+        mutate(
+          across(
+            where(is.numeric), 
+            ~ case_when(is.na(.x) ~ 0, TRUE ~ .x)
+          )
         )
-      ) +
-      geom_line() +
-      scale_linetype_manual(
-        values = c(
-          "ActBlue" = "solid", "WinRed" = "solid", "Other" = "twodash"
-        )
-      ) +
-      scale_colour_manual(
-        values = c(
-          "ActBlue" = "#74add1", "WinRed" = "#d73027", "Other" = "gray"
-        )
-      ) +
-      labs(colour = "Platform", group = "Platform", linetype = "Platform") +
-      xlab("Date Adjusted to $2,900") +
-      ylab("Cumulative %") +
-      scale_y_continuous(labels = scales::percent, limits = c(0, 1))
+      
+      if (.y == "Dem") {
+        p <- p %>%
+          mutate(
+            adjust_ActBlue = adjust_ActBlue / sum(n_ActBlue),
+            adjust_Other = adjust_Other / sum(n_Other)
+          )
+      } else {
+        p <- p %>%
+          mutate(
+            adjust_WinRed = adjust_WinRed / sum(n_WinRed),
+            adjust_Other = adjust_Other / sum(n_Other)
+          )
+      }
+      
+      p <- p %>%
+        select(-contains("n_")) %>%
+        pivot_longer(
+          cols = matches("adjust_"),
+          names_to = "Platform", values_to = "v"
+        ) %>%
+        mutate(Platform = gsub("adjust_", "", Platform)) %>%
+        group_by(Platform) %>%
+        arrange(adjusted_date) %>%
+        mutate(cm = cumsum(v)) %>%
+        ggplot(
+          aes(x = adjusted_date, y = cm, colour = Platform, linetype = Platform)
+        ) +
+        geom_line()
+      
+      if (.y == "Dem") {
+        p <- p +
+          scale_linetype_manual(
+            values = c("ActBlue" = "solid", "Other" = "twodash")
+          ) +
+          scale_colour_manual(
+            values = c("ActBlue" = "#74add1", "Other" = "gray")
+          )
+      } else {
+        p <- p +
+          scale_linetype_manual(
+            values = c("WinRed" = "solid", "Other" = "twodash")
+          ) +
+          scale_colour_manual(
+            values = c("WinRed" = "#d73027", "Other" = "gray")
+          )
+      }
+      p <- p +
+        labs(colour = "Platform", group = "Platform", linetype = "Platform") +
+        xlab("Date Adjusted to $2,900") +
+        ylab("Cumulative %") +
+        scale_y_continuous(labels = scales::percent, limits = c(0, 1)) + 
+        scale_x_date(breaks = "1 month", date_labels = "%b")
+    }
   )
 
 p %>%
