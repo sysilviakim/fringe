@@ -22,7 +22,18 @@ df_ls <- categories %>%
           !grepl("8-races", url) &
             !grepl("official-trump-duncan-yard-signs", url)
         ) %>%
-        dedup()
+        dedup() %>%
+        filter(!grepl("perdueforsenate", url)) %>%
+        mutate(
+          portfolio = case_when(
+            ## https://act.myngp.com/Forms/-5078355359783252480
+            is.na(portfolio) & url == "https://secure.chuckschumer.com/" ~ 
+              "5800",
+            TRUE ~ portfolio
+          )
+        ) %>%
+        ## Sanity check that matches wrangling scripts needed later
+        filter(!is.na(portfolio))
     }
   )
 
