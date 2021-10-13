@@ -36,64 +36,19 @@ cor.test(df$min, df$dw) ## n.s.
 cor.test(df$mean, df$dw) ## n.s.
 cor.test(df$max, df$dw) ## n.s.
 
-broom_custom(lm(min ~ dw, data = df))
-broom_custom(lm(mean ~ dw, data = df))
-broom_custom(lm(max ~ dw, data = df))
-
 # Bivariate relations: safety based on PVI measure =============================
 cor.test(df$min, df$safe) ## 0.071
 cor.test(df$mean, df$safe) ## 0.126
 cor.test(df$max, df$safe) ## 0.117
 
-broom_custom(lm(min ~ safe, data = df))
-broom_custom(lm(mean ~ safe, data = df))
-broom_custom(lm(max ~ safe, data = df))
-
-# Adding covariates ============================================================
-broom_custom(lm(min ~ dw + office + party + inc + pci2020 + safe, data = df))
-broom_custom(lm(mean ~ dw + office + party + inc + pci2020 + safe, data = df))
-broom_custom(lm(max ~ dw + office + party + inc + pci2020 + safe, data = df))
-
-broom_custom(lm(min ~ office + party * dw + inc + pci2020 + safe, data = df))
-broom_custom(lm(mean ~ office + party * dw + inc + pci2020 + safe, data = df))
-broom_custom(lm(max ~ office + party * dw + inc + pci2020 + safe, data = df))
-
-broom_custom(lm(min ~ dw + office + inc + pci2020 + safe + winred, data = df %>% filter(party == "REPUBLICAN")))
-broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe + winred, data = df %>% filter(party == "REPUBLICAN")))
-broom_custom(lm(max ~ dw + office + inc + pci2020 + safe + winred, data = df %>% filter(party == "REPUBLICAN")))
-
-broom_custom(lm(min ~ dw + office + inc + pci2020 + safe + actblue, data = df %>% filter(party == "DEMOCRAT")))
-broom_custom(lm(mean ~ dw + office + inc + pci2020 + safe + actblue, data = df %>% filter(party == "DEMOCRAT")))
-broom_custom(lm(max ~ dw + office + inc + pci2020 + safe + actblue, data = df %>% filter(party == "DEMOCRAT")))
-
-cor.test((df %>% filter(party == "DEMOCRAT"))$min, (df %>% filter(party == "DEMOCRAT"))$nominate_dim1)
-cor.test((df %>% filter(party == "DEMOCRAT"))$mean, (df %>% filter(party == "DEMOCRAT"))$nominate_dim1)
-cor.test((df %>% filter(party == "DEMOCRAT"))$max, (df %>% filter(party == "DEMOCRAT"))$nominate_dim1)
-
-plot((df %>% filter(party == "DEMOCRAT" & max < 6000))$dw, (df %>% filter(party == "DEMOCRAT" & max < 6000))$max)
-cor.test((df %>% filter(party == "DEMOCRAT" & max < 6000))$dw, (df %>% filter(party == "DEMOCRAT" & max < 6000))$max)
-
-cor.test((df %>% filter(party == "REPUBLICAN"))$min, (df %>% filter(party == "REPUBLICAN"))$dw)
-cor.test((df %>% filter(party == "REPUBLICAN"))$mean, (df %>% filter(party == "REPUBLICAN"))$dw)
-cor.test((df %>% filter(party == "REPUBLICAN"))$max, (df %>% filter(party == "REPUBLICAN"))$dw)
-
-cor.test((df %>% filter(party == "REPUBLICAN"))$max, (df %>% filter(party == "REPUBLICAN"))$nominate_dim1)
-
-broom_custom(lm(min ~ nominate_dim1, data = df %>% filter(party == "DEMOCRAT")))
-broom_custom(lm(mean ~ nominate_dim1, data = df %>% filter(party == "DEMOCRAT")))
-broom_custom(lm(max ~ nominate_dim1, data = df %>% filter(party == "DEMOCRAT")))
-
-broom_custom(lm(min ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")))
-broom_custom(lm(mean ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")))
-broom_custom(lm(max ~ nominate_dim1, data = df %>% filter(party == "REPUBLICAN")))
-
 ## Stargazer export: with and without dwnom1
-lm1 <- lm(min ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
-lm2 <- lm(min ~ office + party + inc + pci2020 + safe + actblue + winred + party * dw, data = df)
-lm3 <- lm(mean ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
-lm4 <- lm(mean ~ office + party + inc + pci2020 + safe + actblue + winred + party * dw, data = df)
-lm5 <- lm(max ~ office + party + inc + pci2020 + safe + actblue + winred, data = df)
-lm6 <- lm(max ~ office + party + inc + pci2020 + safe + actblue + winred + party * dw, data = df)
+cov_bench <- " ~ office + party + inc + pci2020 + safe + actblue + winred"
+lm1 <- lm(as.formula(paste("min", cov_bench)), data = df)
+lm2 <- lm(as.formula(paste("min", cov_bench, " + party * dw")), data = df)
+lm3 <- lm(as.formula(paste("mean", cov_bench)), data = df)
+lm4 <- lm(as.formula(paste("mean", cov_bench, " + party * dw")), data = df)
+lm5 <- lm(as.formula(paste("max", cov_bench)), data = df)
+lm6 <- lm(as.formula(paste("max", cov_bench, " + party * dw")), data = df)
 
 stargazer(
   lm1, lm2, lm3, lm4, lm5, lm6,
