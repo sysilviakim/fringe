@@ -62,6 +62,7 @@ stargazer(
     "Ideological Extremity Based On DW-NOMINATE",
     "Ideological Extremity $\\times$ Republican Party"
   ),
+  dep.var.labels = c("min", "min", "mean", "mean", "max", "max"),
   se = starprep(lm1, lm2, lm3, lm4, lm5, lm6, se_type = "stata"),
   omit = "Constant", header = FALSE, model.numbers = FALSE,
   float = FALSE, omit.stat = c("f", "ser"), star.cutoffs = c(0.05, 0.01, 0.001),
