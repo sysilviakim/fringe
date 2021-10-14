@@ -536,6 +536,19 @@ house_supp <- list(
     seq_url = 1,
     seq = 1
   ),
+  # Discovered that is not a general election candidate
+  # tibble(
+  #   ## https://web.archive.org/web/20201109213004/https://secure.anedot.com/jim-davis-for-congress/donate
+  #   last_name = "davis",
+  #   state_cd = "NC-11",
+  #   url =
+  #     "https://secure.anedot.com/jim-davis-for-congress/donate",
+  #   min = "2020-04-20",
+  #   max = "2020-11-06",
+  #   amount = "20.20-50-100-250-500-2800",
+  #   seq_url = 1,
+  #   seq = 1
+  # ),
   tibble(
     ## https://web.archive.org/web/20201101091111/https://secure.actblue.com/donate/spanberger_website
     last_name = "spanberger",

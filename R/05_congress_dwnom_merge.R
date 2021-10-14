@@ -136,6 +136,7 @@ congress$senate %>%
   group_by(last_name, state) %>%
   filter(n() > 1) %>%
   arrange(last_name) %>%
+  select(cand_id, cand_name, everything()) %>%
   View()
 
 congress$senate <- congress$senate %>%
@@ -157,7 +158,34 @@ congress$house %>%
   group_by(last_name, state_cd) %>%
   filter(n() > 1) %>%
   arrange(last_name) %>%
+  select(cand_id, cand_name, everything()) %>%
   View()
+
+congress$house <- congress$house %>%
+  ## Ken Calvert has two registrations: H2CA37023 is the real one, not H0CA42209
+  filter(cand_id != "H0CA42209") %>%
+  ## Joe Cunningham, not Logan
+  filter(cand_id != "H0SC01378") %>%
+  ## Moe Davis and Jim Davis in the same race, AND only Moe Davis general cand.
+  filter(cand_id != "H0NC11183") %>%
+  ## Mike Garcia's previous record (H0CA25162) has been kicked out of FEC rec.
+  filter(cand_id != "H0CA25162") %>%
+  ## Duplicate Rey Gonzalez, same amounts
+  filter(cand_id != "H6TX34031") %>%
+  ## Duplicate Juan Hidalgo, H8CA51062 is the right one
+  filter(cand_id != "H6CA51066") %>%
+  ## Gina Jones, not Cecil Jones
+  filter(cand_id != "H0TX23227") %>%
+  ## Duplicate Mark Leyva, H0IN01333 is the right one
+  filter(cand_id != "H8IN01096") %>%
+  ## Duplicate Nate McMurray, H8NY27176 is the right one
+  filter(cand_id != "H0NY27157") %>%
+  ## Duplicate Raul Ruiz, uhh... H2CA36439 has larger numbers
+  filter(cand_id != "H0CA36177") %>%
+  ## Duplicate Mike Siegel, H8TX10110 is the right one
+  filter(cand_id != "H0TX10208") %>%
+  ## Duplicate Christy Smith, H0CA25154 is the right one
+  filter(cand_id != "H0CA25253")
 
 # Merge with DW-NOMINATE (Senate) ==============================================
 ## Joined by last_name and state
