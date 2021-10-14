@@ -729,6 +729,8 @@ house <- mit$house %>%
         "van ausdal",
       last_name == "ezammudeen" & candidate == "JOHSIE CRUZ EZAMMUDEEN" ~ 
         "cruz",
+      last_name == "rodgers" & candidate == "CATHY MCMORRIS RODGERS" ~ 
+        "mcmorris rodgers",
       TRUE ~ last_name
     ),
     state_cd = gsub("-00", "-0", state_cd)

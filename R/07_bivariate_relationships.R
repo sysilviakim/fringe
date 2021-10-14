@@ -36,6 +36,9 @@ cor.test(df$min, df$dw) ## n.s.
 cor.test(df$mean, df$dw) ## n.s.
 cor.test(df$max, df$dw) ## n.s.
 
+ggplot(df, aes(x = dw, y = mean)) + 
+  geom_point()
+
 # Bivariate relations: safety based on PVI measure =============================
 cor.test(df$min, df$safe) ## 0.071
 cor.test(df$mean, df$safe) ## 0.126

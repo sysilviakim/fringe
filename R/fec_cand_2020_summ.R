@@ -51,7 +51,16 @@ temp <- df %>%
 
 # For now, take only the basic characteristics =================================
 fec_cand_summ_2020 <- df %>%
-  # filter(year == 2020) %>%
+  filter(
+    (year >= 2014 & grepl("^S", cand_id)) | 
+      (year == 2020 & grepl("^H", cand_id)) | 
+      ## Darrell Issa
+      cand_id == "H0CA48024" |
+      ## Sara Jacobs (why not captured in 2020?)
+      cand_id == "H8CA49074" |
+      ## Byron Donalds
+      cand_id == "H2FL14186"
+  ) %>%
   group_by(cand_id) %>% 
   # Just take the last snapshot, which is (if it exists) 2020
   slice(n()) %>%

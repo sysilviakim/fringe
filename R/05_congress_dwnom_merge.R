@@ -66,7 +66,7 @@ congress$house %>%
 # Import DW-NOMINATE ===========================================================
 dwnom <- read_csv(here("data/raw/HSall_members.csv")) 
 dwnom_sliced <- dwnom %>%
-  filter(chamber != "President" & congress > 110) %>%
+  filter(chamber != "President" & congress > 115) %>%
   group_by(bioname, state_abbrev) %>%
   filter(congress == max(congress)) %>%
   separate(bioname, into = c("last_name", "first_name_dwnom"), sep = ", ") %>%
@@ -101,7 +101,9 @@ dwnom_sliced <- dwnom %>%
     state_cd = case_when(
       state_cd == "AK-01" ~ "AK-0",
       state_cd == "DE-01" ~ "DE-0",
+      state_cd == "MT-01" ~ "MT-0",
       state_cd == "ND-01" ~ "ND-0",
+      state_cd == "SD-01" ~ "SD-0",
       state_cd == "VT-01" ~ "VT-0",
       state_cd == "WY-01" ~ "WY-0",
       TRUE ~ state_cd
@@ -116,9 +118,51 @@ dwnom_sliced <- dwnom %>%
     )
   )
 
+# Before merging, check for duplicates =========================================
+dwnom_sliced %>% 
+  group_by(last_name, state, state_cd, chamber) %>% 
+  filter(n() > 1) %>%
+  arrange(last_name) %>%
+  View()
+
+## amash, dingell, levin, and mitchell
+dwnom_sliced <- dwnom_sliced %>%
+  filter(!(last_name == "amash" & party_dwnom1 == "REPUBLICAN")) %>%
+  filter(!(last_name == "mitchell" & party_dwnom1 == "REPUBLICAN"))
+
+congress$senate %>% 
+  group_by(last_name, cand_id, state) %>% 
+  slice(1) %>% 
+  group_by(last_name, state) %>%
+  filter(n() > 1) %>%
+  arrange(last_name) %>%
+  View()
+
+congress$senate <- congress$senate %>%
+  ## 2010 candidate
+  filter(cand_id != "S4GA11053") %>%
+  ## Duplicate Paula Jean, due to changing ID from S8WV00119 to S0WV00215
+  filter(cand_id != "S8WV00119") %>%
+  ## Setti Warren is a 2012 candidate
+  filter(cand_id != "S2MA00139") %>%
+  ## 2018 candidate
+  filter(cand_id != "S8UT00259") %>%
+  ## Duplicate Derrick Earl Grayson, due to changing ID from
+  ## S4GA11236 to S0GA00658
+  filter(cand_id != "S4GA11236")
+  
+congress$house %>% 
+  group_by(last_name, cand_id, state_cd) %>% 
+  slice(1) %>% 
+  group_by(last_name, state_cd) %>%
+  filter(n() > 1) %>%
+  arrange(last_name) %>%
+  View()
+
 # Merge with DW-NOMINATE (Senate) ==============================================
+## Joined by last_name and state
 congress$senate <- left_join(
-  congress$senate, dwnom_sliced
+  congress$senate, dwnom_sliced %>% filter(chamber == "Senate")
 )
 
 ## New candidates, lost challengers
@@ -131,8 +175,9 @@ unmatched_senate %>% View()
 nrow(unmatched_senate) / nrow(congress$senate) ## 15%
 
 # Merge with DW-NOMINATE (House) ===============================================
+## Joined by last_name and state
 congress$house <- left_join(
-  congress$house, dwnom_sliced
+  congress$house, dwnom_sliced %>% filter(chamber == "House")
 )
 
 ## New candidates, lost challengers
