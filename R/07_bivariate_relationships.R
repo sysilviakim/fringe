@@ -23,7 +23,8 @@ df <- cong_filtered %>%
       party == "REPUBLICAN" ~ -PVI
     )
   ) %>%
-  filter(party != "INDEPENDENT")
+  filter(party != "INDEPENDENT") %>%
+  mutate(Party = simple_cap(tolower(party)))
 
 ## p = 0.1
 ks.test(
@@ -36,8 +37,29 @@ cor.test(df$min, df$dw) ## n.s.
 cor.test(df$mean, df$dw) ## n.s.
 cor.test(df$max, df$dw) ## n.s.
 
-ggplot(df, aes(x = dw, y = mean)) + 
-  geom_point()
+# ggplot export ================================================================
+p <- ggplot(df, aes(x = dw, y = mean)) +
+  geom_point(aes(colour = Party)) +
+  scale_color_manual(values = c("#0571b0", "#ca0020")) + 
+  xlab("DW-NOMINATE") +
+  ylab("Mean") +
+  scale_y_continuous(labels = scales::comma) +
+  geom_smooth(method = "lm", formula = y ~ x, colour = "black") + 
+  facet_wrap(~ Party)
+
+pdf(here("fig", "scatter_dw_mean.pdf"), width = 4.5, height = 3.5)
+plot_nolegend(pdf_default(p))
+dev.off()
+
+p <- ggplot(df, aes(x = Party, y = mean)) +
+  geom_boxplot(aes(colour = Party), notch = TRUE) +
+  scale_color_manual(values = c("#0571b0", "#ca0020")) + 
+  xlab("Party") +
+  ylab("Mean")
+
+pdf(here("fig", "box_party_mean.pdf"), width = 4.5, height = 3.5)
+plot_nolegend(pdf_default(p))
+dev.off()
 
 # Bivariate relations: safety based on PVI measure =============================
 cor.test(df$min, df$safe) ## 0.071
