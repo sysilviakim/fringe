@@ -1,5 +1,5 @@
 categories <- "winred"
-source(here::here("R", "01_data_import.R"))
+source(here::here("R", "01_scraped_data_import.R"))
 
 # Wrote function: portfolio_summ ===============================================
 df_raw <- df_raw %>%
@@ -32,6 +32,7 @@ df_raw <- df_raw %>%
         "August Pfluger",
       name == "Ben Sasse for U.S. Senate, Inc." ~ "Ben Sasse",
       name == "Cawthorn for NC" ~ "Madison Cawthorn",
+      name == "Madison Cawthorne" ~ "Madison Cawthorn",
       name == "Elect Tuman" ~ "Doug Tuman",
       name == "Garske" ~ "John Garske",
       # GOP Strategist; seems a mistake
@@ -70,6 +71,7 @@ temp <- df_raw %>%
     )
   ) %>%
   arrange(race, name)
+write_fst(temp, here("data/tidy/winred_temp_race.fst"))
 
 assert_that(all(temp$min <= temp$max))
 temp %>%
@@ -86,31 +88,8 @@ temp %>%
   {assert_that(. == 0)}
 
 # Top 5 Most Frequent Distributions ============================================
-temp <- portfolio_na_fig_label(temp)
-p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
-  unlist() %>%
-  set_names(., nm = names(.)) %>%
-  imap(~ tibble(label = .y, freq = as.numeric(.x))) %>%
-  bind_rows() %>%
-  mutate(
-    label = gsub("-", "\n", label),
-    label = factor(
-      label,
-      levels = gsub(
-        "-", "\n",
-        names(prop(temp, "amount", sort = TRUE, head = 5, print = FALSE))
-      )
-    )
-  ) %>%
-  ggplot(aes(x = label, y = freq)) +
-  geom_bar(stat = "identity") +
-  # xlab("\nSolicitation Amounts, Top 5, WinRed Directory") +
-  xlab(NULL) + 
-  ylab("Percentage (%)") +
-  scale_y_continuous(limits = c(0, 50))
-
 pdf(here("fig/portfolio_freq_top_5_winred.pdf"), width = 3, height = 3)
-print(pdf_default(p))
+print(pdf_default(top5(temp, fill = "#CA0020")))
 dev.off()
 
 # Save Output (Check for No-Prompt Referrals) ==================================

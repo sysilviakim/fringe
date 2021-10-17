@@ -1,5 +1,5 @@
 categories <- "rightus"
-source(here::here("R", "01_data_import.R"))
+source(here::here("R", "01_scraped_data_import.R"))
 
 assert_that(all(!is.na(df_raw$url)))
 
@@ -105,6 +105,7 @@ temp <- temp %>%
 
 assert_that(all(temp$min <= temp$max))
 head(sort(table(temp$amount), decreasing = TRUE), 10)
+write_fst(temp, here("data/tidy/rightus_portfolio_summ.fst"))
 
 # Check for within-URL changes =================================================
 temp %>%
@@ -115,39 +116,10 @@ temp %>%
   View()
 
 # Top 5 Most Frequent Distributions ============================================
-rightus <- portfolio_na_fig_label(temp) %>% filter(grepl("anedot", url))
-p <- prop(
-  rightus %>%
-    group_by(name, url, amount) %>%
-    slice(1),
-  "amount",
-  sort = TRUE, head = 5, print = FALSE
-) %>%
-  unlist() %>%
-  set_names(., nm = names(.)) %>%
-  imap(~ tibble(label = .y, freq = as.numeric(.x))) %>%
-  bind_rows() %>%
-  mutate(
-    label = gsub("-", "\n", label),
-    label = factor(
-      label,
-      levels = gsub(
-        "-", "\n",
-        names(
-          prop(temp, "amount", sort = TRUE, head = 5, print = FALSE)
-        )
-      )
-    )
-  ) %>%
-  ggplot(aes(x = label, y = freq)) +
-  geom_bar(stat = "identity") +
-  # xlab("\nSolicitation Amounts, Top 5, Right.us Directory") +
-  xlab(NULL) +
-  ylab("Percentage (%)") +
-  scale_y_continuous(limits = c(0, 50))
-
 pdf(here("fig/portfolio_freq_top_5_rightus.pdf"), width = 3, height = 3)
-print(pdf_default(p))
+print(
+  pdf_default(top5(temp %>% filter(grepl("anedot", url)), fill = "#F4A582"))
+)
 dev.off()
 
 # No need to merge with entities ===============================================

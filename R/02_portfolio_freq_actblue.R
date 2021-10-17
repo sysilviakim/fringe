@@ -1,5 +1,5 @@
 categories <- "actblue"
-source(here::here("R", "01_data_import.R"))
+source(here::here("R", "01_scraped_data_import.R"))
 
 assert_that(all(!is.na(df_raw$url)))
 df_raw <- df_raw %>%
@@ -33,34 +33,8 @@ write_fst(temp, here("data/tidy/actblue_portfolio_temp_only_url.fst"))
 head(sort(table(temp$amount), decreasing = TRUE), 10)
 
 # Top 5 Most Frequent Distributions ============================================
-temp <- portfolio_na_fig_label(temp)
-p <- prop(temp, "amount", sort = TRUE, head = 5, print = FALSE) %>%
-  unlist() %>%
-  set_names(., nm = names(.)) %>%
-  imap(~ tibble(label = .y, freq = as.numeric(.x))) %>%
-  bind_rows() %>%
-  mutate(
-    label = gsub("-", "\n", label),
-    # So that length would match with WinRed/Right.us
-    label = paste0(label, "\n"),
-    label = factor(
-      label,
-      levels = gsub(
-        "-", "\n",
-        names(prop(temp, "amount", sort = TRUE, head = 5, print = FALSE))
-      ) %>%
-        paste0(., "\n")
-    )
-  ) %>%
-  ggplot(aes(x = label, y = freq)) +
-  geom_bar(stat = "identity") +
-  # xlab("\nSolicitation Amounts, Top 5, ActBlue Directory") +
-  xlab(NULL) +
-  ylab("Percentage (%)") +
-  scale_y_continuous(limits = c(0, 50))
-
 pdf(here("fig/portfolio_freq_top_5_actblue.pdf"), width = 3, height = 3)
-print(pdf_default(p))
+print(pdf_default(top5(temp, fill = "#0571B0")))
 dev.off()
 
 # Save Output (Check for No-Prompt Referrals) ==================================

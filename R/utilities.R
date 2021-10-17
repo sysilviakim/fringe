@@ -13,7 +13,7 @@ library(data.table)
 library(xtable)
 library(estimatr)
 library(stargazer)
-
+library(patchwork)
 library(Kmisc)
 
 # Functions ====================================================================
@@ -155,8 +155,8 @@ portfolio_summ <- function(df,
       group_split() %>%
       map_dfr(
         ~ .x %>%
-        arrange(min) %>%
-        row_seq(row = "seq")
+          arrange(min) %>%
+          row_seq(row = "seq")
       ) %>%
       ungroup() %>%
       arrange(across(all_of(c(setdiff(order_vars, "url"), "min"))))
@@ -459,19 +459,19 @@ scatter_custom <- function(df, xvar, yvar = "mean", xlab = NULL) {
   } else {
     values <- c("#67a9cf", "#ef8a62")
   }
-  
+
   p <- ggplot(
-    df %>% 
+    df %>%
       rename(Party = party) %>%
-      mutate(Party = simple_cap(tolower(Party))), 
+      mutate(Party = simple_cap(tolower(Party))),
     aes(
-      x = !!as.name(xvar), y = !!as.name(yvar), 
+      x = !!as.name(xvar), y = !!as.name(yvar),
       group = Party, fill = Party, colour = Party
     )
   ) +
-    geom_point() + 
-    scale_color_manual(values = values) + 
-    scale_y_continuous(labels = scales::comma) + 
+    geom_point() +
+    scale_color_manual(values = values) +
+    scale_y_continuous(labels = scales::comma) +
     ylab(simple_cap(yvar))
   if (!is.null(xlab)) {
     p <- p + xlab(xlab)
@@ -479,7 +479,7 @@ scatter_custom <- function(df, xvar, yvar = "mean", xlab = NULL) {
   pdf_default(p)
 }
 
-top5 <- function(df, xlab = NULL, ggtitle = NULL) {
+top5 <- function(df, xlab = NULL, ggtitle = NULL, fill = NULL) {
   df <- portfolio_na_fig_label(df)
   p <- prop(df, "amount", sort = TRUE, head = 5, print = FALSE) %>%
     unlist() %>%
@@ -496,9 +496,15 @@ top5 <- function(df, xlab = NULL, ggtitle = NULL) {
         )
       )
     ) %>%
-    ggplot(aes(x = label, y = freq)) +
-    geom_bar(stat = "identity") +
-    xlab(xlab) + 
+    ggplot(aes(x = label, y = freq))
+
+  if (is.null(fill)) {
+    p <- p + geom_bar(stat = "identity")
+  } else {
+    p <- p + geom_bar(stat = "identity", fill = fill)
+  }
+  p <- p +
+    xlab(xlab) +
     ylab("Percentage (%)") +
     scale_y_continuous(limits = c(0, 50))
   if (!is.null(ggtitle)) {

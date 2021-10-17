@@ -48,7 +48,7 @@ p <- ggplot(df, aes(x = dw, y = mean)) +
   facet_wrap(~ Party)
 
 pdf(here("fig", "scatter_dw_mean.pdf"), width = 4.5, height = 3.5)
-plot_nolegend(pdf_default(p))
+print(plot_nolegend(pdf_default(p)))
 dev.off()
 
 p <- ggplot(df, aes(x = Party, y = mean)) +
@@ -58,7 +58,7 @@ p <- ggplot(df, aes(x = Party, y = mean)) +
   ylab("Mean")
 
 pdf(here("fig", "box_party_mean.pdf"), width = 4.5, height = 3.5)
-plot_nolegend(pdf_default(p))
+print(plot_nolegend(pdf_default(p)))
 dev.off()
 
 # Bivariate relations: safety based on PVI measure =============================
@@ -92,6 +92,7 @@ stargazer(
 )
 
 # Scatterplots =================================================================
+df <- df %>% select(-Party)
 scatter_custom(df, "nominate_dim1", xlab = "DW-NOMINATE (Dim. 1)")
 scatter_custom(df, "dw", xlab = "Ideological Extremity Based On DW-NOMINATE")
 scatter_custom(
@@ -125,22 +126,20 @@ plot(df$dw, df$safe)
 # By party/platform Top 5 ======================================================
 p1 <- top5(
   df %>% filter(party == "DEMOCRAT" & actblue == 1),
-  ggtitle = "Democrat, Used ActBlue"
+  ggtitle = "Democrat, Used ActBlue", fill = "#0571B0"
 )
 p2 <- top5(
   df %>% filter(party == "DEMOCRAT" & actblue == 0),
-  ggtitle = "Democrat, Did Not Use ActBlue"
+  ggtitle = "Democrat, Did Not Use ActBlue", fill = "#92C5DE"
 )
 p3 <- top5(
   df %>% filter(party == "REPUBLICAN" & winred == 1),
-  ggtitle = "Republican, Used WinRed"
+  ggtitle = "Republican, Used WinRed", fill = "#CA0020"
 )
 p4 <- top5(
   df %>% filter(party == "REPUBLICAN" & winred == 0),
-  ggtitle = "Republican, Did Not Use WinRed"
+  ggtitle = "Republican, Did Not Use WinRed", fill = "#F4A582"
 )
-
-library(patchwork)
 
 pdf(here("fig", "congress_by_party_platform_top5.pdf"), width = 7, height = 6)
 (pdf_default(p1) | pdf_default(p2)) /
