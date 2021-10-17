@@ -41,7 +41,7 @@ cor.test(df$max, df$dw) ## n.s.
 p <- ggplot(df, aes(x = dw, y = mean)) +
   geom_point(aes(colour = Party)) +
   scale_color_manual(values = c("#0571b0", "#ca0020")) + 
-  xlab("DW-NOMINATE") +
+  xlab("Ideological Extremity") +
   ylab("Mean") +
   scale_y_continuous(labels = scales::comma) +
   geom_smooth(method = "lm", formula = y ~ x, colour = "black") + 
