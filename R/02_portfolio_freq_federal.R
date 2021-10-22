@@ -90,7 +90,7 @@ senate_supp <- list(
     last_name = "James",
     state = "GA",
     url =
-      "https://secure.anedot.com/deborah-jackson-for-us-senate/donate",
+      "https://secure.actblue.com/donate/jamesia-james-for-us-senate-1",
     min = "2020-06-12",
     max = "2020-11-09",
     amount = "25-100-250-1000"
@@ -110,7 +110,7 @@ senate_supp <- list(
     ## https://web.archive.org/web/20200816201409/https://secure.winred.com/kandiss-taylor-for-u-s-senate/donate
     last_name = "Taylor",
     state = "GA",
-    url = "https://www.graysonforga.com/donate",
+    url = "https://secure.winred.com/kandiss-taylor-for-u-s-senate/donate",
     min = "2020-06-01",
     max = "2020-11-09",
     amount = "25-50-100-250-500-1000-2800"
