@@ -7408,7 +7408,7 @@ cand_house_2020 <- list(
     office_website = NA,
     campaign_name = "Swisher for Idaho",
     campaign_website = "https://swisherforidaho.com/",
-    actblue_link = "mostpeople",
+    actblue_link = NA,
     anedot_link = NA,
     other_link = "https://secure.ngpvan.com/v1/Forms/WuiklsKYhk223Z9Pkldcyg2",
     FEC_ID_cmte = "",
