@@ -74,9 +74,11 @@ lm3 <- lm(as.formula(paste("mean", cov_bench)), data = df)
 lm4 <- lm(as.formula(paste("mean", cov_bench, " + party * dw")), data = df)
 lm5 <- lm(as.formula(paste("max", cov_bench)), data = df)
 lm6 <- lm(as.formula(paste("max", cov_bench, " + party * dw")), data = df)
+lm7 <- lm(as.formula(paste("choices", cov_bench)), data = df)
+lm8 <- lm(as.formula(paste("choices", cov_bench, " + party * dw")), data = df)
 
 stargazer(
-  lm1, lm2, lm3, lm4, lm5, lm6,
+  lm1, lm2, lm3, lm4, lm5, lm6, lm7, lm8,
   covariate.labels = c(
     "Senate", "Republican Party", "Incumbent", "Open Seat",
     "State-level Average Per Capita Income (1,000 USD, 2020)",
@@ -84,11 +86,31 @@ stargazer(
     "Ideological Extremity Based On DW-NOMINATE",
     "Ideological Extremity $\\times$ Republican Party"
   ),
-  dep.var.labels = c("min", "min", "mean", "mean", "max", "max"),
+  dep.var.labels = c(
+    "min", "min", "mean", "mean", "max", "max"
+  ),
   se = starprep(lm1, lm2, lm3, lm4, lm5, lm6, se_type = "stata"),
   omit = "Constant", header = FALSE, model.numbers = FALSE,
   float = FALSE, omit.stat = c("f", "ser"), star.cutoffs = c(0.05, 0.01, 0.001),
   out = here("tab", "pred_summ.tex")
+)
+
+stargazer(
+  lm1, lm2, lm3, lm4, lm5, lm6, lm7, lm8,
+  covariate.labels = c(
+    "Senate", "Republican Party", "Incumbent", "Open Seat",
+    "State-level Average Per Capita Income (1,000 USD, 2020)",
+    "Electoral Safety Based On Cook PVI", "Used ActBlue", "Used WinRed",
+    "Ideological Extremity Based On DW-NOMINATE",
+    "Ideological Extremity $\\times$ Republican Party"
+  ),
+  dep.var.labels = c(
+    "min", "min", "mean", "mean", "max", "max", "choices", "choices"
+  ),
+  se = starprep(lm1, lm2, lm3, lm4, lm5, lm6, lm7, lm8, se_type = "stata"),
+  omit = "Constant", header = FALSE, model.numbers = FALSE,
+  float = FALSE, omit.stat = c("f", "ser"), star.cutoffs = c(0.05, 0.01, 0.001),
+  out = here("tab", "pred_summ_4vars.tex")
 )
 
 # Scatterplots =================================================================
