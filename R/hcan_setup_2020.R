@@ -3687,9 +3687,8 @@ cand_house_2020 <- list(
     campaign_name = "Briscoe for Congress",
     campaign_website = "https://johnbriscoe.us/",
     actblue_link = NA,
-    anedot_link = NA,
-    # "I get a pause link but without any vpns."
-    other_link = "https://johnbriscoe.us/donations",
+    anedot_link = "johnbriscoe/donate",
+	other_link = NA,
     FEC_ID_cmte = "",
     FEC_ID_cand = ""
   ),
