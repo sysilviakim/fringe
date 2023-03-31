@@ -1,27 +1,33 @@
 renv::init()
-install.packages("devtools")
-install.packages("remotes")
-install.packages("colorspace")
+
+utils::install.packages("devtools")
+utils::install.packages("remotes")
+utils::install.packages("colorspace")
 library(remotes)
 install_github(
-  "sysilviakim/Kmisc",
-  INSTALL_opts = c("--no-multiarch"), dependencies = TRUE
+  "sysilviakim/Kmisc", INSTALL_opts = c("--no-multiarch"), dependencies = TRUE
+)
+install_github(
+  "wch/extrafont", INSTALL_opts = c("--no-multiarch"), dependencies = TRUE
+)
+install_github(
+  "wch/fontcm", INSTALL_opts = c("--no-multiarch"), dependencies = TRUE
 )
 Kmisc::proj_skeleton()
 
 # Install all libraries
 # CRAN tidyverse
-install.packages("plyr")
-install.packages("tidyverse")
-install.packages("lubridate")
-install.packages("here")
+utils::install.packages("plyr")
+utils::install.packages("tidyverse")
+utils::install.packages("lubridate")
+utils::install.packages("here")
 
 # CRAN non-tidyverse
-install.packages("assertthat")
-install.packages("fst")
-install.packages("styler")
-install.packages("jsonlite")
-install.packages("janitor")
-install.packages("data.table")
+utils::install.packages("assertthat")
+utils::install.packages("fst")
+utils::install.packages("styler")
+utils::install.packages("jsonlite")
+utils::install.packages("janitor")
+utils::install.packages("data.table")
 
 renv::snapshot()
