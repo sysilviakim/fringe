@@ -64,7 +64,7 @@ congress$house %>%
   View()
 
 # Import DW-NOMINATE ===========================================================
-dwnom <- read_csv(here("data/raw/HSall_members.csv")) 
+dwnom <- read_csv(here("data/raw/HS116_members.csv")) 
 dwnom_sliced <- dwnom %>%
   filter(chamber != "President" & congress > 115) %>%
   group_by(bioname, state_abbrev) %>%
@@ -125,10 +125,11 @@ dwnom_sliced %>%
   arrange(last_name) %>%
   View()
 
-## amash, dingell, levin, and mitchell
+## Should be deleted
 dwnom_sliced <- dwnom_sliced %>%
   filter(!(last_name == "amash" & party_dwnom1 == "REPUBLICAN")) %>%
-  filter(!(last_name == "mitchell" & party_dwnom1 == "REPUBLICAN"))
+  filter(!(last_name == "mitchell" & party_dwnom1 == "REPUBLICAN")) %>%
+  filter(!(last_name == "van drew" & party_dwnom1 == "DEMOCRAT"))
 
 congress$senate %>% 
   group_by(last_name, cand_id, state) %>% 
@@ -185,7 +186,9 @@ congress$house <- congress$house %>%
   ## Duplicate Mike Siegel, H8TX10110 is the right one
   filter(cand_id != "H0TX10208") %>%
   ## Duplicate Christy Smith, H0CA25154 is the right one
-  filter(cand_id != "H0CA25253")
+  filter(cand_id != "H0CA25253") %>%
+  ## Don Young, had both Anedot and WinRed, keep WinRed
+  filter(!(last_name == "young" & state_cd == "AK-0" & grepl("anedot", url)))
 
 # Merge with DW-NOMINATE (Senate) ==============================================
 ## Joined by last_name and state
@@ -212,6 +215,8 @@ congress$house <- left_join(
 assert_that(
   congress$house %>%
     filter(is.na(nominate_dim1) & inc == "INCUMBENT") %>%
+    ## Darrell Issa: tricky but best to delete I think
+    filter(last_name != "issa") %>%
     nrow() == 0
 )
 
