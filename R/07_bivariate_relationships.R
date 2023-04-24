@@ -24,13 +24,23 @@ df <- cong_filtered %>%
     )
   ) %>%
   filter(party != "INDEPENDENT") %>%
-  mutate(Party = simple_cap(tolower(party)))
+  mutate(Party = simple_cap(tolower(party))) %>%
+  mutate(platform = actblue + winred)
 
-## p = 0.1
+assert_that(all(df$platform < 2))
+table(df$office, useNA = "ifany") ## 823 house, 141 senate
+
+## p = 0.1366
 ks.test(
   df %>% filter(party == "DEMOCRAT" & !is.na(dw)) %>% .$dw,
   df %>% filter(party == "REPUBLICAN" & !is.na(dw)) %>% .$dw
 )
+
+df %>%
+  select(dw, nominate_dim1, inc, office, cand_name, url) %>%
+  filter(!is.na(nominate_dim1)) %>%
+  arrange(nominate_dim1) %>%
+  View()
 
 # Bivariate relations: DW-NOMINATE =============================================
 cor.test(df$min, df$dw) ## n.s.
@@ -40,12 +50,12 @@ cor.test(df$max, df$dw) ## n.s.
 # ggplot export ================================================================
 p <- ggplot(df, aes(x = dw, y = mean)) +
   geom_point(aes(colour = Party)) +
-  scale_color_manual(values = c("#0571b0", "#ca0020")) + 
+  scale_color_manual(values = c("#0571b0", "#ca0020")) +
   xlab("Ideological Extremity") +
   ylab("Mean") +
   scale_y_continuous(labels = scales::comma) +
-  geom_smooth(method = "lm", formula = y ~ x, colour = "black") + 
-  facet_wrap(~ Party)
+  geom_smooth(method = "lm", formula = y ~ x, colour = "black") +
+  facet_wrap(~Party)
 
 pdf(here("fig", "scatter_dw_mean.pdf"), width = 4.5, height = 3.5)
 print(plot_nolegend(pdf_default(p)))
@@ -53,7 +63,7 @@ dev.off()
 
 p <- ggplot(df, aes(x = Party, y = mean)) +
   geom_boxplot(aes(colour = Party), notch = TRUE) +
-  scale_color_manual(values = c("#0571b0", "#ca0020")) + 
+  scale_color_manual(values = c("#0571b0", "#ca0020")) +
   xlab("Party") +
   ylab("Mean")
 
@@ -62,55 +72,49 @@ print(plot_nolegend(pdf_default(p)))
 dev.off()
 
 # Bivariate relations: safety based on PVI measure =============================
-cor.test(df$min, df$safe) ## 0.071
-cor.test(df$mean, df$safe) ## 0.126
-cor.test(df$max, df$safe) ## 0.117
+cor.test(df$min, df$safe) ## 0.03056
+cor.test(df$mean, df$safe) ## 0.0001156
+cor.test(df$max, df$safe) ## 0.0003556
 
 ## Stargazer export: with and without dwnom1
-cov_bench <- " ~ office + party + inc + pci2020 + safe + actblue + winred"
-lm1 <- lm(as.formula(paste("min", cov_bench)), data = df)
-lm2 <- lm(as.formula(paste("min", cov_bench, " + party * dw")), data = df)
-lm3 <- lm(as.formula(paste("mean", cov_bench)), data = df)
-lm4 <- lm(as.formula(paste("mean", cov_bench, " + party * dw")), data = df)
-lm5 <- lm(as.formula(paste("max", cov_bench)), data = df)
-lm6 <- lm(as.formula(paste("max", cov_bench, " + party * dw")), data = df)
-lm7 <- lm(as.formula(paste("choices", cov_bench)), data = df)
-lm8 <- lm(as.formula(paste("choices", cov_bench, " + party * dw")), data = df)
+cov_bench <- "office + party + platform + inc + pci2020 + safe"
+lm11 <- lm(as.formula(paste("min ~ ", cov_bench)), data = df)
+lm12 <- lm(as.formula(paste("min ~ ", "dw + ", cov_bench)), data = df)
+lm13 <- lm(as.formula(paste("min ~ ", "party * dw + ", cov_bench)), data = df)
+lm21 <- lm(as.formula(paste("mean ~ ", cov_bench)), data = df)
+lm22 <- lm(as.formula(paste("mean ~ ", "dw + ", cov_bench)), data = df)
+lm23 <- lm(as.formula(paste("mean ~ ", "party * dw + ", cov_bench)), data = df)
+lm31 <- lm(as.formula(paste("max ~ ", cov_bench)), data = df)
+lm32 <- lm(as.formula(paste("max ~ ", "dw + ", cov_bench)), data = df)
+lm33 <- lm(as.formula(paste("max ~ ", "party * dw + ", cov_bench)), data = df)
+lm41 <- lm(as.formula(paste("choices ~ ", cov_bench)), data = df)
+lm42 <- lm(as.formula(paste("choices ~ ", "dw + ", cov_bench)), data = df)
+lm43 <-
+  lm(as.formula(paste("choices ~ ", "party * dw + ", cov_bench)), data = df)
 
-stargazer(
-  lm1, lm2, lm3, lm4, lm5, lm6, lm7, lm8,
-  covariate.labels = c(
-    "Senate", "Republican Party", "Incumbent", "Open Seat",
-    "State-level Average Per Capita Income (1,000 USD, 2020)",
-    "Electoral Safety Based On Cook PVI", "Used ActBlue", "Used WinRed",
-    "Ideological Extremity Based On DW-NOMINATE",
-    "Ideological Extremity $\\times$ Republican Party"
-  ),
-  dep.var.labels = c(
-    "min", "min", "mean", "mean", "max", "max"
-  ),
-  se = starprep(lm1, lm2, lm3, lm4, lm5, lm6, se_type = "stata"),
-  omit = "Constant", header = FALSE, model.numbers = FALSE,
-  float = FALSE, omit.stat = c("f", "ser"), star.cutoffs = c(0.05, 0.01, 0.001),
-  out = here("tab", "pred_summ.tex")
+cov_labels <- c(
+  "Ideological Extremity",
+  "Senate", "Republican", "Used ActBlue/WinRed",
+  "Incumbent", "Open Seat",
+  "State Avg. Per Capita Income (1,000 USD, 2020)",
+  "Electoral Safety",
+  "Republican $\\times$ Ideological Extremity"
 )
 
 stargazer(
-  lm1, lm2, lm3, lm4, lm5, lm6, lm7, lm8,
-  covariate.labels = c(
-    "Senate", "Republican Party", "Incumbent", "Open Seat",
-    "State-level Average Per Capita Income (1,000 USD, 2020)",
-    "Electoral Safety Based On Cook PVI", "Used ActBlue", "Used WinRed",
-    "Ideological Extremity Based On DW-NOMINATE",
-    "Ideological Extremity $\\times$ Republican Party"
-  ),
-  dep.var.labels = c(
-    "min", "min", "mean", "mean", "max", "max", "choices", "choices"
-  ),
-  se = starprep(lm1, lm2, lm3, lm4, lm5, lm6, lm7, lm8, se_type = "stata"),
-  omit = "Constant", header = FALSE, model.numbers = FALSE,
-  float = FALSE, omit.stat = c("f", "ser"), star.cutoffs = c(0.05, 0.01, 0.001),
-  out = here("tab", "pred_summ_4vars.tex")
+  lm12, lm13, lm22, lm23, lm32, lm33,
+  covariate.labels = cov_labels,
+  dep.var.labels = c("Min.", "Min.", "Mean", "Mean", "Max.", "Max."),
+  se = starprep(lm12, lm13, lm22, lm23, lm32, lm33, se_type = "stata"),
+  omit = "Constant",
+  header = FALSE,
+  model.numbers = FALSE,
+  float = FALSE,
+  omit.stat = c("f", "ser"),
+  star.cutoffs = c(0.05, 0.01, 0.001),
+  out = here("tab", "pred_summ_3vars_only_dw.tex"),
+  dep.var.caption =
+    "Dependent Variable: Summary Statistics of Suggested Amounts"
 )
 
 # Scatterplots =================================================================
@@ -167,3 +171,27 @@ pdf(here("fig", "congress_by_party_platform_top5.pdf"), width = 7, height = 6)
 (pdf_default(p1) | pdf_default(p2)) /
   (pdf_default(p3) | pdf_default(p4))
 dev.off()
+
+# Who's missing the suggestions? ===============================================
+df <- df %>% mutate(missing_suggestions = case_when(is.na(min) ~ 1, TRUE ~ 0))
+
+df %>%
+  group_by(missing_suggestions, party) %>%
+  summarise(
+    nominate = mean(nominate_dim1, na.rm = TRUE),
+    n = n()
+  )
+
+temp <- df %>%
+  filter(party == "REPUBLICAN") %>%
+  filter(!is.na(dw))
+t.test(nominate_dim1 ~ missing_suggestions, data = temp)
+
+# By incumbency status =========================================================
+df %>%
+  group_by(party, inc) %>%
+  summarise(
+    min = mean(min, na.rm = TRUE),
+    mean = mean(mean, na.rm = TRUE), 
+    max = mean(max, na.rm = TRUE)
+  )
