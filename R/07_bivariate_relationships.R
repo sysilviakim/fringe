@@ -4,17 +4,11 @@ load(here("data", "tidy", "cong-filtered.Rda"))
 # Define deviations from party mean ============================================
 df <- cong_filtered %>%
   bind_rows(.id = "office") %>%
-  group_by(party) %>%
+  filter(party != "INDEPENDENT") %>%
   mutate(
-    ## Because abs(df$nominate_dim1) is higher for REPs,
-    ## Using just abs(df$nominate_dim1) does not make sense
-    mean_dwnom1 = mean(nominate_dim1, na.rm = TRUE),
-    ## Deviations from the party's average
-    ## If Rep average is 0.4 and candidate dwnom1 is 0.7, 0.3
-    ## If Dem average is -0.4 and candidate dwnom1 is -0.7, also 0.3
     dw = case_when(
-      party == "REPUBLICAN" ~ nominate_dim1 - mean_dwnom1,
-      party == "DEMOCRAT" ~ -(nominate_dim1 - mean_dwnom1)
+      party == "REPUBLICAN" ~ nominate_dim1,
+      party == "DEMOCRAT" ~ -nominate_dim1
     ),
     pci2020 = pci2020 / 1000,
     vs = candidatevotes / totalvotes,
@@ -23,7 +17,6 @@ df <- cong_filtered %>%
       party == "REPUBLICAN" ~ -PVI
     )
   ) %>%
-  filter(party != "INDEPENDENT") %>%
   mutate(Party = simple_cap(tolower(party))) %>%
   mutate(platform = actblue + winred)
 
@@ -52,7 +45,7 @@ p <- ggplot(df, aes(x = dw, y = mean)) +
   geom_point(aes(colour = Party)) +
   scale_color_manual(values = c("#0571b0", "#ca0020")) +
   xlab("Ideological Extremity") +
-  ylab("Mean") +
+  ylab("Average of Suggested Amounts") +
   scale_y_continuous(labels = scales::comma) +
   geom_smooth(method = "lm", formula = y ~ x, colour = "black") +
   facet_wrap(~Party)
@@ -65,7 +58,7 @@ p <- ggplot(df, aes(x = Party, y = mean)) +
   geom_boxplot(aes(colour = Party), notch = TRUE) +
   scale_color_manual(values = c("#0571b0", "#ca0020")) +
   xlab("Party") +
-  ylab("Mean")
+  ylab("Average of Suggested Amounts")
 
 pdf(here("fig", "box_party_mean.pdf"), width = 4.5, height = 3.5)
 print(plot_nolegend(pdf_default(p)))
