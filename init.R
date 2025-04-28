@@ -29,5 +29,8 @@ utils::install.packages("styler")
 utils::install.packages("jsonlite")
 utils::install.packages("janitor")
 utils::install.packages("data.table")
+utils::install.packages("estimatr")
+utils::install.packages("patchwork")
+utils::install.packages("stargazer")
 
 renv::snapshot()

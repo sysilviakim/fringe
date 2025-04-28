@@ -38,7 +38,3 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
-
-# Raw/tidy data (too big)
-data/raw/*
-data/tidy/*

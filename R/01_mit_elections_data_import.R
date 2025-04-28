@@ -6,7 +6,7 @@ source(here::here("R", "utilities.R"))
 
 ## Create state_cd variable for House, filter no-write-in candidates
 house <- 
-  read_delim(here("data", "raw", "1976-2020-house.tab"), delim = "\t") %>%
+  read_delim(here("data", "raw", "1976-2022-house.tab"), delim = "\t") %>%
   filter(
     year == 2020 & writein == FALSE & !grepl("WRITE-IN", party) & 
       !(candidate %in% 
