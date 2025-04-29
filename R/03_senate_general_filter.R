@@ -154,7 +154,8 @@ senate <- left_join(
       !(cand_name %in% c(
         "HARRIS, JAMES E.", "YOUNG, ALEEM LEFT MR", "JACKSON, JAMES",
         "SCOTT, LAWRENCE", "BROWN, WARREN P", "JACKSON, ANNETTE DAVIS",
-        "HARRIS, EUGENE PATTERSON"
+        "HARRIS, EUGENE PATTERSON", "GRAYSON, DERRICK E REV"
+        ## GRAYSON, DERRICK E REV: only 2016 record, merged to S0GA00658
       ))
     )
 )
