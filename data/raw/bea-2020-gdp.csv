@@ -1,0 +1,68 @@
+SAGDP1 State annual gross domestic product (GDP) summary
+SAGDP1 State annual gross domestic product (GDP) summary
+State or DC
+GeoFips,GeoName,2020
+00000,United States,20267585.0
+01000,Alabama,222288.8
+02000,Alaska,50332.8
+04000,Arizona,365027.7
+05000,Arkansas,128340.9
+06000,California,2933320.2
+08000,Colorado,380188.8
+09000,Connecticut,260765.2
+10000,Delaware,72506.8
+11000,District of Columbia,137640.8
+12000,Florida,1069758.8
+13000,Georgia,604745.9
+15000,Hawaii,79840.1
+16000,Idaho,82717.4
+17000,Illinois,810200.9
+18000,Indiana,359787.3
+19000,Iowa,186328.2
+20000,Kansas,168056.8
+21000,Kentucky,206049.6
+22000,Louisiana,228951.3
+23000,Maine,67410.9
+24000,Maryland,388782.8
+25000,Massachusetts,559765.0
+26000,Michigan,501893.8
+27000,Minnesota,357475.6
+28000,Mississippi,110322.8
+29000,Missouri,315332.6
+30000,Montana,49981.4
+31000,Nebraska,126734.9
+32000,Nevada,166077.0
+33000,New Hampshire,83152.6
+34000,New Jersey,597221.4
+35000,New Mexico,97622.4
+36000,New York,1656784.8
+37000,North Carolina,564504.4
+38000,North Dakota,55850.6
+39000,Ohio,655243.3
+40000,Oklahoma,191560.9
+41000,Oregon,237424.2
+42000,Pennsylvania,736381.3
+44000,Rhode Island,58231.7
+45000,South Carolina,233650.1
+46000,South Dakota,52770.7
+47000,Tennessee,367863.6
+48000,Texas,1773657.1
+49000,Utah,194750.2
+50000,Vermont,32252.7
+51000,Virginia,534532.3
+53000,Washington,589156.8
+54000,West Virginia,74553.8
+55000,Wisconsin,322470.6
+56000,Wyoming,36198.2
+91000,New England,1061531.8
+92000,Mideast,3589546.7
+93000,Great Lakes,2649553.3
+94000,Plains,1262663.1
+95000,Southeast,4345697.4
+96000,Southwest,2428217.3
+97000,Rocky Mountain,743870.7
+98000,Far West,4055843.5
+
+Legend/Footnotes
+"1. Real GDP is in millions of chained 2017 dollars. Calculations are performed on unrounded data. Chained (2017) dollar series are calculated as the product of the chain-type quantity index and the 2017 current-dollar value of the corresponding series, divided by 100. Because the formula for the chain-type quantity indexes uses weights of more than one period, the corresponding chained-dollar estimates are usually not additive. The difference between the United States and sum-of-states reflects federal military and civilian activity located overseas, as well as the differences in source data used to estimate GDP by industry and the expenditures measure of real GDP."
+"  Last updated: March 28, 2025-- new statistics for 2024."

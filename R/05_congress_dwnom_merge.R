@@ -64,9 +64,9 @@ congress$house %>%
   View()
 
 # Import DW-NOMINATE ===========================================================
-dwnom <- read_csv(here("data/raw/HS116_members.csv")) 
+dwnom <- read_csv(here("data/raw/HSall_members.csv")) 
 dwnom_sliced <- dwnom %>%
-  filter(chamber != "President" & congress > 115) %>%
+  filter(chamber != "President" & congress == 116) %>%
   group_by(bioname, state_abbrev) %>%
   filter(congress == max(congress)) %>%
   separate(bioname, into = c("last_name", "first_name_dwnom"), sep = ", ") %>%
@@ -245,25 +245,14 @@ congress %>%
 
 # Add in state-GDPs from the Bureau of Economic Analysis =======================
 ## https://apps.bea.gov/iTable/iTable.cfm?reqid=70&step=1&acrdn=2
-bea <- read_csv(here("data", "raw", "bea-2020-gdp.csv"), skip = 4) %>%
+bea <- read_csv(here("data", "raw", "bea-2020-gdp.csv"), skip = 3) %>%
   clean_names() %>%
+  filter(geo_fips != "00000") %>%
   mutate(
     across(where(is.character), ~ tolower(trimws(gsub("\\*", "", .x)))),
     geo_fips = as.numeric(geo_fips) / 1000
   ) %>%
-  filter(
-    geo_name != "united states" & 
-      description == "per capita personal income (dollars) 2/"
-  ) %>%
-  select(-description, -line_code) %>%
-  rename(
-    q1_income = x2020_q1, q2_income = x2020_q2,
-    q3_income = x2020_q3, q4_income = x2020_q4
-  ) %>%
-  left_join(., state_df %>% select(geo_fips = stfips, state = stabb)) %>%
-  select(-geo_fips, -geo_name) %>%
-  ## Per capita income across all 2020 quarters
-  mutate(pci2020 = (q1_income + q2_income + q3_income + q4_income) / 4) %>%
+  rename(pci2020 = x2020, state = geo_name) %>%
   select(state, everything()) %>%
   filter(!is.na(state))
 
