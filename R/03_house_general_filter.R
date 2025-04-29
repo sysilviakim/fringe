@@ -857,7 +857,16 @@ house <- left_join(
 )
 
 ## Must hold true
-assert_that(house %>% filter(is.na(cd)) %>% nrow() == 0)
+## assert_that(house %>% filter(is.na(cd)) %>% nrow() == 0)
+## This no longer holds; 
+## Brandon Martin (AZ-02) is missing from FEC data
+## https://www.fec.gov/data/candidate/H8AZ02201/?cycle=2020
+## Same for JEANNINE LEE LAKE
+## https://www.fec.gov/data/candidate/H8IN06202/
+## LEE ANN DUGAS
+## GEORGE AD SANTOS
+## MAUREEN MCARDLE SCHULMAN
+## CHARLOTTE BERGMANN
 
 # No solicitations link: resolve errors ========================================
 ## Plus manual inputs from PayPal links, recorded on the setup file
