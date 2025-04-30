@@ -252,9 +252,16 @@ bea <- read_csv(here("data", "raw", "bea-2020-gdp.csv"), skip = 3) %>%
     across(where(is.character), ~ tolower(trimws(gsub("\\*", "", .x)))),
     geo_fips = as.numeric(geo_fips) / 1000
   ) %>%
-  rename(pci2020 = x2020, state = geo_name) %>%
+  rename(pci2020 = x2020) %>%
+  left_join(
+    ., data.frame(state = state.abb, geo_name = tolower(state.name))
+  ) %>%
+  mutate(
+    state = case_when(geo_name == "district of columbia" ~ "DC", TRUE ~ state)
+  ) %>%
   select(state, everything()) %>%
   filter(!is.na(state))
+assert_that(all(!is.na(bea$state)))
 
 congress <- congress %>%
   imap(~ left_join(.x, bea))
