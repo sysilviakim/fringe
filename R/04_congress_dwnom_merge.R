@@ -267,8 +267,7 @@ congress <- congress %>%
   imap(~ left_join(.x, bea))
 
 # Also add Cook PVI ============================================================
-## Since it's already built from solicitRwinred... 
-load(here("data", "tidy", "cook_pvi.Rda"))
+load(here("data", "raw", "cook_pvi.Rda"))
 
 congress$senate <- left_join(
   congress$senate, 

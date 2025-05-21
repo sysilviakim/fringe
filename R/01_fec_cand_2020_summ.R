@@ -1,7 +1,7 @@
 source(here::here("R", "utilities.R"))
 
 # All 2020 committees ==========================================================
-if (!file.exists(here("data/raw/fec_cand_summ.Rda"))) {
+if (!file.exists(here("data/tidy/fec_cand_summ.Rda"))) {
   ## Format not consistent prior to 2008
   fec_cand_summ <- seq(2008, 2020, by = 2) %>%
     set_names(., .) %>%
@@ -20,9 +20,9 @@ if (!file.exists(here("data/raw/fec_cand_summ.Rda"))) {
           clean_names()
       }
     )
-  save(fec_cand_summ, file = here("data/raw/fec_cand_summ.Rda"))
+  save(fec_cand_summ, file = here("data/tidy/fec_cand_summ.Rda"))
 } else {
-  load(here("data/raw/fec_cand_summ.Rda"))
+  load(here("data/tidy/fec_cand_summ.Rda"))
 }
 
 # Bind rows and kick out nonzero variance variables ============================
