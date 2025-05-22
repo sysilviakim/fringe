@@ -343,14 +343,3 @@ print(
   file = here("tab", "congress_by_chamber_party_desc_2020.tex"),
   booktabs = TRUE, include.rownames = FALSE, floating = FALSE
 )
-
-# Summary by platform ==========================================================
-dl <- loadRData(here("data/tidy/portfolio_summ_platforms.Rda")) %>%
-  map(
-    ~ .x %>%
-      ungroup() %>%
-      filter(!is.na(url) & url != "") %>%
-      select(-contains("name_full")) %>%
-      # This prevents data collection errors (one-time misses) from taking over
-      filter(!(is.na(amount) & min_date == max_date))
-  )

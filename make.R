@@ -1,0 +1,8 @@
+source(here::here("R", "01_fec_cand_2020_summ.R"))
+source(here::here("R", "02_mit_elections_data_import.R"))
+source(here::here("R", "03_portfolio_freq_federal.R"))
+source(here::here("R", "04A_house_general_filter.R"))
+source(here::here("R", "04B_senate_general_filter.R"))
+source(here::here("R", "05_congress_dwnom_merge.R"))
+source(here::here("R", "06_summary_stats_federal.R"))
+source(here::here("R", "07_bivariate_relationships.R"))
