@@ -90,7 +90,7 @@ stargazer_wrapper <-
              "State Avg. Per Capita Income (1,000 USD, 2020)",
              "Electoral Safety",
              "Republican $\\times$ Ideological Extremity"
-           )) {
+           ), ...) {
     stargazer(
       lm_list,
       covariate.labels = cov_labels,
@@ -104,11 +104,16 @@ stargazer_wrapper <-
       star.cutoffs = c(0.05, 0.01, 0.001),
       out = out,
       dep.var.caption =
-        "Dependent Variable: Summary Statistics of Suggested Amounts"
+        "Dependent Variable: Summary Statistics of Suggested Amounts",
+      ...
     )
   }
 
-stargazer_wrapper(lm_bunch(df), here("tab", "pred_summ_3vars_only_dw.tex"))
+stargazer_wrapper(
+  lm_bunch(df),
+  here("tab", "pred_summ_3vars_only_dw.tex"),
+  omit.table.layout = "n"
+)
 stargazer_wrapper(
   lm_bunch(
     df %>% filter(office == "senate"),
@@ -119,7 +124,8 @@ stargazer_wrapper(
     "Ideological Extremity", "Republican", "Used ActBlue/WinRed",
     "State Avg. Per Capita Income (1,000 USD, 2020)",
     "Electoral Safety", "Republican $\\times$ Ideological Extremity"
-  )
+  ),
+  omit.table.layout = "n"
 )
 stargazer_wrapper(
   lm_bunch(
