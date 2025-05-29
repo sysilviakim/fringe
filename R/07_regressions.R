@@ -71,8 +71,7 @@ cor.test(df$max, df$safe) ## 0.0003556
 
 ## Stargazer export: with and without dwnom1
 lm_bunch <- function(df,
-                     cov_bench =
-                       "office + party + platform + inc + pci2020 + safe") {
+                     cov_bench = "office + party + platform + pci2020 + safe") {
   lm1 <- lm(as.formula(paste("min ~ ", "dw + ", cov_bench)), data = df)
   lm2 <- lm(as.formula(paste("min ~ ", "party * dw + ", cov_bench)), data = df)
   lm3 <- lm(as.formula(paste("mean ~ ", "dw + ", cov_bench)), data = df)
@@ -88,7 +87,6 @@ stargazer_wrapper <-
            cov_labels = c(
              "Ideological Extremity",
              "Senate", "Republican", "Used ActBlue/WinRed",
-             "Incumbent", "Open Seat",
              "State Avg. Per Capita Income (1,000 USD, 2020)",
              "Electoral Safety",
              "Republican $\\times$ Ideological Extremity"
@@ -114,24 +112,24 @@ stargazer_wrapper(lm_bunch(df), here("tab", "pred_summ_3vars_only_dw.tex"))
 stargazer_wrapper(
   lm_bunch(
     df %>% filter(office == "senate"),
-    cov_bench = "party + platform + inc + pci2020 + safe"
+    cov_bench = "party + platform + pci2020 + safe"
   ),
   here("tab", "pred_summ_3vars_only_dw_senate.tex"),
   cov_labels = c(
     "Ideological Extremity", "Republican", "Used ActBlue/WinRed",
-    "Incumbent", "Open Seat", "State Avg. Per Capita Income (1,000 USD, 2020)",
+    "State Avg. Per Capita Income (1,000 USD, 2020)",
     "Electoral Safety", "Republican $\\times$ Ideological Extremity"
   )
 )
 stargazer_wrapper(
   lm_bunch(
     df %>% filter(office == "house"),
-    cov_bench = "party + platform + inc + pci2020 + safe"
+    cov_bench = "party + platform + pci2020 + safe"
   ),
   here("tab", "pred_summ_3vars_only_dw_house.tex"),
   cov_labels = c(
     "Ideological Extremity", "Republican", "Used ActBlue/WinRed",
-    "Incumbent", "Open Seat", "State Avg. Per Capita Income (1,000 USD, 2020)",
+    "State Avg. Per Capita Income (1,000 USD, 2020)",
     "Electoral Safety", "Republican $\\times$ Ideological Extremity"
   )
 )

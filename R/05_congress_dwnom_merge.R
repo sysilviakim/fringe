@@ -287,7 +287,7 @@ assert_that(!any(is.na(congress$house$PVI)))
 congress$senate <- congress$senate %>%
   mutate(
     inc = case_when(
-      inc == "OPEN" & year < 2020 ~ "INCUMBENT",
+      inc != "INCUMBENT" & year < 2020 ~ "INCUMBENT",
       TRUE ~ inc
     )
   )
