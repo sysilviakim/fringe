@@ -281,5 +281,16 @@ congress$house <- left_join(
 )
 assert_that(!any(is.na(congress$house$PVI)))
 
+# Important revision ===========================================================
+## Even if marked as OPEN, if a Senate candidate and elected year is 
+## before 2020, mark as incumbent
+congress$senate <- congress$senate %>%
+  mutate(
+    inc = case_when(
+      inc == "OPEN" & year < 2020 ~ "INCUMBENT",
+      TRUE ~ inc
+    )
+  )
+
 # Save =========================================================================
 save(congress, file = here("data", "tidy", "congress-merged.Rda"))
