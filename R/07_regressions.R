@@ -70,44 +70,70 @@ cor.test(df$mean, df$safe) ## 0.0001156
 cor.test(df$max, df$safe) ## 0.0003556
 
 ## Stargazer export: with and without dwnom1
-cov_bench <- "office + party + platform + inc + pci2020 + safe"
-lm11 <- lm(as.formula(paste("min ~ ", cov_bench)), data = df)
-lm12 <- lm(as.formula(paste("min ~ ", "dw + ", cov_bench)), data = df)
-lm13 <- lm(as.formula(paste("min ~ ", "party * dw + ", cov_bench)), data = df)
-lm21 <- lm(as.formula(paste("mean ~ ", cov_bench)), data = df)
-lm22 <- lm(as.formula(paste("mean ~ ", "dw + ", cov_bench)), data = df)
-lm23 <- lm(as.formula(paste("mean ~ ", "party * dw + ", cov_bench)), data = df)
-lm31 <- lm(as.formula(paste("max ~ ", cov_bench)), data = df)
-lm32 <- lm(as.formula(paste("max ~ ", "dw + ", cov_bench)), data = df)
-lm33 <- lm(as.formula(paste("max ~ ", "party * dw + ", cov_bench)), data = df)
-lm41 <- lm(as.formula(paste("choices ~ ", cov_bench)), data = df)
-lm42 <- lm(as.formula(paste("choices ~ ", "dw + ", cov_bench)), data = df)
-lm43 <-
-  lm(as.formula(paste("choices ~ ", "party * dw + ", cov_bench)), data = df)
+lm_bunch <- function(df,
+                     cov_bench =
+                       "office + party + platform + inc + pci2020 + safe") {
+  lm1 <- lm(as.formula(paste("min ~ ", "dw + ", cov_bench)), data = df)
+  lm2 <- lm(as.formula(paste("min ~ ", "party * dw + ", cov_bench)), data = df)
+  lm3 <- lm(as.formula(paste("mean ~ ", "dw + ", cov_bench)), data = df)
+  lm4 <- lm(as.formula(paste("mean ~ ", "party * dw + ", cov_bench)), data = df)
+  lm5 <- lm(as.formula(paste("max ~ ", "dw + ", cov_bench)), data = df)
+  lm6 <- lm(as.formula(paste("max ~ ", "party * dw + ", cov_bench)), data = df)
+  return(list(lm1, lm2, lm3, lm4, lm5, lm6))
+}
 
-cov_labels <- c(
-  "Ideological Extremity",
-  "Senate", "Republican", "Used ActBlue/WinRed",
-  "Incumbent", "Open Seat",
-  "State Avg. Per Capita Income (1,000 USD, 2020)",
-  "Electoral Safety",
-  "Republican $\\times$ Ideological Extremity"
+stargazer_wrapper <-
+  function(lm_list,
+           out,
+           cov_labels = c(
+             "Ideological Extremity",
+             "Senate", "Republican", "Used ActBlue/WinRed",
+             "Incumbent", "Open Seat",
+             "State Avg. Per Capita Income (1,000 USD, 2020)",
+             "Electoral Safety",
+             "Republican $\\times$ Ideological Extremity"
+           )) {
+    stargazer(
+      lm_list,
+      covariate.labels = cov_labels,
+      dep.var.labels = c("Min.", "Min.", "Mean", "Mean", "Max.", "Max."),
+      se = starprep(lm_list, se_type = "stata"),
+      omit = "Constant",
+      header = FALSE,
+      model.numbers = FALSE,
+      float = FALSE,
+      omit.stat = c("f", "ser"),
+      star.cutoffs = c(0.05, 0.01, 0.001),
+      out = out,
+      dep.var.caption =
+        "Dependent Variable: Summary Statistics of Suggested Amounts"
+    )
+  }
+
+stargazer_wrapper(lm_bunch(df), here("tab", "pred_summ_3vars_only_dw.tex"))
+stargazer_wrapper(
+  lm_bunch(
+    df %>% filter(office == "senate"),
+    cov_bench = "party + platform + inc + pci2020 + safe"
+  ),
+  here("tab", "pred_summ_3vars_only_dw_senate.tex"),
+  cov_labels = c(
+    "Ideological Extremity", "Republican", "Used ActBlue/WinRed",
+    "Incumbent", "Open Seat", "State Avg. Per Capita Income (1,000 USD, 2020)",
+    "Electoral Safety", "Republican $\\times$ Ideological Extremity"
+  )
 )
-
-stargazer(
-  lm12, lm13, lm22, lm23, lm32, lm33,
-  covariate.labels = cov_labels,
-  dep.var.labels = c("Min.", "Min.", "Mean", "Mean", "Max.", "Max."),
-  se = starprep(lm12, lm13, lm22, lm23, lm32, lm33, se_type = "stata"),
-  omit = "Constant",
-  header = FALSE,
-  model.numbers = FALSE,
-  float = FALSE,
-  omit.stat = c("f", "ser"),
-  star.cutoffs = c(0.05, 0.01, 0.001),
-  out = here("tab", "pred_summ_3vars_only_dw.tex"),
-  dep.var.caption =
-    "Dependent Variable: Summary Statistics of Suggested Amounts"
+stargazer_wrapper(
+  lm_bunch(
+    df %>% filter(office == "house"),
+    cov_bench = "party + platform + inc + pci2020 + safe"
+  ),
+  here("tab", "pred_summ_3vars_only_dw_house.tex"),
+  cov_labels = c(
+    "Ideological Extremity", "Republican", "Used ActBlue/WinRed",
+    "Incumbent", "Open Seat", "State Avg. Per Capita Income (1,000 USD, 2020)",
+    "Electoral Safety", "Republican $\\times$ Ideological Extremity"
+  )
 )
 
 # Scatterplots =================================================================
@@ -185,6 +211,6 @@ df %>%
   group_by(party, inc) %>%
   summarise(
     min = mean(min, na.rm = TRUE),
-    mean = mean(mean, na.rm = TRUE), 
+    mean = mean(mean, na.rm = TRUE),
     max = mean(max, na.rm = TRUE)
   )
