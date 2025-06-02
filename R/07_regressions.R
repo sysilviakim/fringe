@@ -18,7 +18,14 @@ df <- cong_filtered %>%
     )
   ) %>%
   mutate(Party = simple_cap(tolower(party))) %>%
-  mutate(platform = actblue + winred)
+  mutate(platform = actblue + winred) %>%
+  ## Outlier fix
+  mutate(
+    inc = case_when(
+      candidate == "JOYCE MARIE GRIGGS" & is.na(inc) ~ "CHALLENGER",
+      TRUE ~ inc
+    )
+  )
 
 assert_that(all(df$platform < 2))
 table(df$office, useNA = "ifany") ## 823 house, 141 senate
@@ -71,13 +78,13 @@ cor.test(df$max, df$safe) ## 0.0003556
 
 ## Stargazer export: with and without dwnom1
 lm_bunch <- function(df,
-                     cov_bench = "office + party + platform + pci2020 + safe") {
+                     cov_bench = "office + inc + party + platform + pci2020 + safe") {
   lm1 <- lm(as.formula(paste("min ~ ", "dw + ", cov_bench)), data = df)
-  lm2 <- lm(as.formula(paste("min ~ ", "party * dw + ", cov_bench)), data = df)
+  lm2 <- lm(as.formula(paste("min ~ ", "dw * party + ", cov_bench)), data = df)
   lm3 <- lm(as.formula(paste("mean ~ ", "dw + ", cov_bench)), data = df)
-  lm4 <- lm(as.formula(paste("mean ~ ", "party * dw + ", cov_bench)), data = df)
+  lm4 <- lm(as.formula(paste("mean ~ ", "dw * party + ", cov_bench)), data = df)
   lm5 <- lm(as.formula(paste("max ~ ", "dw + ", cov_bench)), data = df)
-  lm6 <- lm(as.formula(paste("max ~ ", "party * dw + ", cov_bench)), data = df)
+  lm6 <- lm(as.formula(paste("max ~ ", "dw * party + ", cov_bench)), data = df)
   return(list(lm1, lm2, lm3, lm4, lm5, lm6))
 }
 
@@ -85,8 +92,8 @@ stargazer_wrapper <-
   function(lm_list,
            out,
            cov_labels = c(
-             "Ideological Extremity",
-             "Senate", "Republican", "Used ActBlue/WinRed",
+             "Ideological Extremity", "Senate", "Incumbent", "Open Seat",
+             "Republican", "Used ActBlue/WinRed",
              "State Avg. Per Capita Income (1,000 USD, 2020)",
              "Electoral Safety",
              "Republican $\\times$ Ideological Extremity"
@@ -117,26 +124,30 @@ stargazer_wrapper(
 stargazer_wrapper(
   lm_bunch(
     df %>% filter(office == "senate"),
-    cov_bench = "party + platform + pci2020 + safe"
+    cov_bench = "inc + party + platform + pci2020 + safe"
   ),
   here("tab", "pred_summ_3vars_only_dw_senate.tex"),
+  omit.table.layout = "n",
   cov_labels = c(
-    "Ideological Extremity", "Republican", "Used ActBlue/WinRed",
+    "Ideological Extremity", "Incumbent", "Open Seat",
+    "Republican", "Used ActBlue/WinRed",
     "State Avg. Per Capita Income (1,000 USD, 2020)",
-    "Electoral Safety", "Republican $\\times$ Ideological Extremity"
-  ),
-  omit.table.layout = "n"
+    "Electoral Safety",
+    "Republican $\\times$ Ideological Extremity"
+  )
 )
 stargazer_wrapper(
   lm_bunch(
     df %>% filter(office == "house"),
-    cov_bench = "party + platform + pci2020 + safe"
+    cov_bench = "inc + party + platform + pci2020 + safe"
   ),
   here("tab", "pred_summ_3vars_only_dw_house.tex"),
   cov_labels = c(
-    "Ideological Extremity", "Republican", "Used ActBlue/WinRed",
+    "Ideological Extremity", "Incumbent", "Open Seat",
+    "Republican", "Used ActBlue/WinRed",
     "State Avg. Per Capita Income (1,000 USD, 2020)",
-    "Electoral Safety", "Republican $\\times$ Ideological Extremity"
+    "Electoral Safety",
+    "Republican $\\times$ Ideological Extremity"
   )
 )
 
