@@ -66,9 +66,18 @@ congress$house %>%
 # Import DW-NOMINATE ===========================================================
 dwnom <- read_csv(here("data/raw/HSall_members.csv")) 
 dwnom_sliced <- dwnom %>%
-  filter(chamber != "President" & congress == 116) %>%
+  filter(chamber != "President" & congress >= 116) %>%
   group_by(bioname, state_abbrev) %>%
-  filter(congress == max(congress)) %>%
+  ## filter(congress == max(congress)) %>%
+  ## If congress == 116 exists, pick that row and discard the rest
+  ## if it doesn't, pick the next row closest to 116
+  slice(
+    ifelse(
+      any(congress == 116), 
+      which.min(congress == 116), 
+      which.min(congress)
+    )
+  ) %>%
   separate(bioname, into = c("last_name", "first_name_dwnom"), sep = ", ") %>%
   mutate(
     last_name = tolower(last_name),
@@ -129,7 +138,8 @@ dwnom_sliced %>%
 dwnom_sliced <- dwnom_sliced %>%
   filter(!(last_name == "amash" & party_dwnom1 == "REPUBLICAN")) %>%
   filter(!(last_name == "mitchell" & party_dwnom1 == "REPUBLICAN")) %>%
-  filter(!(last_name == "van drew" & party_dwnom1 == "DEMOCRAT"))
+  filter(!(last_name == "van drew" & party_dwnom1 == "DEMOCRAT")) %>%
+  filter(!(last_name == "manchin" & party_dwnom1 == "INDEPENDENT"))
 
 congress$senate %>% 
   group_by(last_name, cand_id, state) %>% 
@@ -203,20 +213,27 @@ unmatched_senate <- congress$senate %>%
   slice(1)
 
 unmatched_senate %>% View()
-nrow(unmatched_senate) / nrow(congress$senate) ## 15%
+nrow(unmatched_senate) / nrow(congress$senate) # 9%
 
 # Merge with DW-NOMINATE (House) ===============================================
 ## Joined by last_name and state
 congress$house <- left_join(
-  congress$house, dwnom_sliced %>% filter(chamber == "House")
+  congress$house, 
+  dwnom_sliced %>%
+    filter(chamber == "House") %>%
+    mutate(
+      state_cd = case_when(
+        last_name == "cisneros" ~ "CA-39",
+        TRUE ~ state_cd
+      )
+    )
 )
 
-## New candidates, lost challengers
+## Salvaged Issa data
+## Gil Cisneros: 39th district --> 31st district
 assert_that(
   congress$house %>%
-    filter(is.na(nominate_dim1) & inc == "INCUMBENT") %>%
-    ## Darrell Issa: tricky but best to delete I think
-    filter(last_name != "issa") %>%
+    filter(is.na(nominate_dim1) & inc == "INCUMBENT") %>% 
     nrow() == 0
 )
 
@@ -226,7 +243,7 @@ unmatched_house <- congress$house %>%
   slice(1)
 
 unmatched_house %>% View()
-nrow(unmatched_house) / nrow(congress$house) ## 29%
+nrow(unmatched_house) / nrow(congress$house) ## 24%
 
 # Sanity check =================================================================
 congress %>% 
