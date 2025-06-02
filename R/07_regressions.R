@@ -42,6 +42,9 @@ df %>%
   arrange(nominate_dim1) %>%
   View()
 
+df %>% filter(!is.na(dw) & !is.na(min)) %>% .$office %>% table()
+df %>% filter(!is.na(dw) & is.na(min)) %>% .$candidate
+
 # Bivariate relations: DW-NOMINATE =============================================
 cor.test(df$min, df$dw) ## n.s.
 cor.test(df$mean, df$dw) ## n.s.
@@ -118,8 +121,7 @@ stargazer_wrapper <-
 
 stargazer_wrapper(
   lm_bunch(df),
-  here("tab", "pred_summ_3vars_only_dw.tex"),
-  omit.table.layout = "n"
+  here("tab", "pred_summ_3vars_only_dw.tex")
 )
 stargazer_wrapper(
   lm_bunch(
@@ -127,7 +129,7 @@ stargazer_wrapper(
     cov_bench = "inc + party + platform + pci2020 + safe"
   ),
   here("tab", "pred_summ_3vars_only_dw_senate.tex"),
-  omit.table.layout = "n",
+  ## omit.table.layout = "n",
   cov_labels = c(
     "Ideological Extremity", "Incumbent", "Open Seat",
     "Republican", "Used ActBlue/WinRed",
@@ -144,6 +146,18 @@ stargazer_wrapper(
   here("tab", "pred_summ_3vars_only_dw_house.tex"),
   cov_labels = c(
     "Ideological Extremity", "Incumbent", "Open Seat",
+    "Republican", "Used ActBlue/WinRed",
+    "State Avg. Per Capita Income (1,000 USD, 2020)",
+    "Electoral Safety",
+    "Republican $\\times$ Ideological Extremity"
+  )
+)
+
+stargazer_wrapper(
+  lm_bunch(df %>% filter(inc != "INCUMBENT")),
+  here("tab", "pred_summ_3vars_only_dw_nonincumbents.tex"),
+  cov_labels = c(
+    "Ideological Extremity", "Senate", "Open Seat",
     "Republican", "Used ActBlue/WinRed",
     "State Avg. Per Capita Income (1,000 USD, 2020)",
     "Electoral Safety",
