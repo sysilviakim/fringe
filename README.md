@@ -1,1 +1,1 @@
-# solicitRmenu
+Replication archive for Kim, Seo-young Silvia. 2025. ["Fundraising on the Fringe: Do Ideologically Extreme Candidates Solicit Small Donations?"](osf.io/preprints/osf/e6ry5) Forthcoming at Research & Politics.
