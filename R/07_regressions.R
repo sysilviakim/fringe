@@ -81,14 +81,19 @@ cor.test(df$max, df$safe) ## 0.0003556
 
 ## Stargazer export: with and without dwnom1
 lm_bunch <- function(df,
-                     cov_bench = "office + inc + party + platform + pci2020 + safe") {
+                     cov_bench = "office + inc + party + platform + pci2020 + safe",
+                     subset = NULL) {
   lm1 <- lm(as.formula(paste("min ~ ", "dw + ", cov_bench)), data = df)
-  lm2 <- lm(as.formula(paste("min ~ ", "dw * party + ", cov_bench)), data = df)
   lm3 <- lm(as.formula(paste("mean ~ ", "dw + ", cov_bench)), data = df)
-  lm4 <- lm(as.formula(paste("mean ~ ", "dw * party + ", cov_bench)), data = df)
   lm5 <- lm(as.formula(paste("max ~ ", "dw + ", cov_bench)), data = df)
-  lm6 <- lm(as.formula(paste("max ~ ", "dw * party + ", cov_bench)), data = df)
-  return(list(lm1, lm2, lm3, lm4, lm5, lm6))
+  if (subset != "party") {
+    lm2 <- lm(as.formula(paste("min ~ ", "dw * party + ", cov_bench)), data = df)
+    lm4 <- lm(as.formula(paste("mean ~ ", "dw * party + ", cov_bench)), data = df)
+    lm6 <- lm(as.formula(paste("max ~ ", "dw * party + ", cov_bench)), data = df)
+    return(list(lm1, lm2, lm3, lm4, lm5, lm6))
+  } else {
+    return(list(lm1, lm3, lm5))
+  }
 }
 
 stargazer_wrapper <-
@@ -119,10 +124,13 @@ stargazer_wrapper <-
     )
   }
 
+## All candidates --------------------------------------------------------------
 stargazer_wrapper(
   lm_bunch(df),
   here("tab", "pred_summ_3vars_only_dw.tex")
 )
+
+## Senate ----------------------------------------------------------------------
 stargazer_wrapper(
   lm_bunch(
     df %>% filter(office == "senate"),
@@ -138,6 +146,8 @@ stargazer_wrapper(
     "Republican $\\times$ Ideological Extremity"
   )
 )
+
+## House -----------------------------------------------------------------------
 stargazer_wrapper(
   lm_bunch(
     df %>% filter(office == "house"),
@@ -153,6 +163,7 @@ stargazer_wrapper(
   )
 )
 
+## Nonincumbents ---------------------------------------------------------------
 stargazer_wrapper(
   lm_bunch(df %>% filter(inc != "INCUMBENT")),
   here("tab", "pred_summ_3vars_only_dw_nonincumbents.tex"),
@@ -164,6 +175,27 @@ stargazer_wrapper(
     "Republican $\\times$ Ideological Extremity"
   )
 )
+
+## Safe districts --------------------------------------------------------------
+stargazer_wrapper(
+  lm_bunch(df %>% filter(abs(safe) <= 3)),
+  here("tab", "pred_summ_3vars_only_dw_safe.tex")
+)
+
+## Democrats and Republicans ---------------------------------------------------
+lm_bunch(
+  df %>% filter(party == "DEMOCRAT"),
+  cov_bench = "office + inc + platform + pci2020 + safe",
+  subset = "party"
+) %>%
+  stargazer()
+
+lm_bunch(
+  df %>% filter(party == "REPUBLICAN"),
+  cov_bench = "office + inc + platform + pci2020 + safe",
+  subset = "party"
+) %>%
+  stargazer()
 
 # Scatterplots =================================================================
 df <- df %>% select(-Party)
